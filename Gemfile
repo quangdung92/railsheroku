@@ -1,6 +1,6 @@
 source 'https://rails-assets.org'
 source 'https://rubygems.org'
-
+ruby "2.2.2"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
@@ -14,6 +14,7 @@ gem 'bootstrap-sass', '3.3.1'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
+gem 'rails_12factor', group: :production
 # assets manage
 gem 'rails-assets-angular', '1.3.0'
 gem 'rails-assets-angular-route', '1.3.0'
