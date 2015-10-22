@@ -206,7 +206,7 @@ class MeetingsController < ApplicationController
       @admin_setting = AdminSetting.take
       if @admin_setting[:enable_cybozu] == true
         # Send by Email
-        send_email
+        # send_email
       else
         # Send by Cybozu
         return if Cybozu.count.zero?
