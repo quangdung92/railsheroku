@@ -1,0 +1,75 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "variable";
+@import "header";
+
+html,body {
+  height: 100%;
+  background-color: gray;
+}
+
+.content {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+
+  section.main-content {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    flex: 1;
+  }
+}
+
+div.search-header {
+  margin: 15px 15px 0 15px;
+  background-color: $list-background-color;
+  border: 1px solid $border-color;
+  -webkit-border-radius: 5px;
+  padding: 5px;
+  min-height: 46px;
+
+  .search-area {
+    width: 100%;
+
+    .search-title {
+      padding: 5px 15px;
+      border-right: 1px solid #aaa;
+    }
+  }
+
+  .search-area p {
+   
+    > label {
+      margin-left: 15px;
+      margin-right: 5px;
+    }
+
+    > button {
+      width: 74px;
+    }
+  }
+  
+}
+
+div.main {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex: 1;
+  flex: 1;
+  min-height: 85vh;
+}
+
+.display-inline-block {
+  display: inline-block;
+}
+
+.display-block {
+  display: block;
+}

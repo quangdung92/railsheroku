@@ -1,0 +1,15 @@
+# This Class is Home Controller
+# @author Kudo Syuji
+# @version 1.0
+class HomeController < ApplicationController
+
+  # index action
+  def index
+
+    @kinds = Kind.create_select_options
+
+    @num = ActionItem.get_count_of_action_items(current_user.id)
+
+  end
+
+end

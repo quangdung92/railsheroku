@@ -1,0 +1,81 @@
+//$icon-font-path: "/assets/fonts/bootstrap/" !default;
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+#error_explanation {
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+}
+
+.required label:first-child:after {
+  font-size: 16px;
+  content: "*";
+  color: red;
+}
+
+.overlayContainer { display: none;}
+.overlayBackground { top:0px; left:0px; padding-left:100px;position:absolute;z-index:1000;height:100%;width:100%;background-color:#808080;opacity:0.3;}
+.overlayContent { position:absolute; border: 1px solid #000; background-color:#fff;font-weight: bold;height: 100px;width: 300px;z-index:1000;text-align:center;}
+
+
+span.action_item {
+  color:red;
+  white-space: pre;
+}
+
+.clear {
+  clear: both;
+}
+
+#alert-dialog{
+  .modal-dialog{
+    width: 350px;
+    text-align: center;
+    font-weight: bold;
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid transparent;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+    .alert.error {
+      background-color: #f2dede;
+      border-color: #ebccd1;
+      color: #a94442;
+    }
+    .alert.warning {
+      background-color: #fcf8e3;
+      border-color: #faebcc;
+      color: #8a6d3b;
+    }.alert.success {
+       background-color: #dff0d8;
+       border-color: #d6e9c6;
+       color: #3c763d;
+     }
+   }
+}
+div.file-upload.input-group{
+  margin-bottom: 5px;
+  .btn-file{
+    input[type="file"]{
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      background: red;
+      cursor: inherit;
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    models:
+      cybozu: cybozu
+    attributes:
+      cybozu:
+        url: cybozu URL 
+        login_id: ID login
+        password_digest: password
+        created_at: created at
+        updated_at: updated at

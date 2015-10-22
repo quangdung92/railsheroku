@@ -1,0 +1,11 @@
+vi:
+  activerecord:
+    models:
+      cybozu: cybozu
+    attributes:
+      cybozu:
+        url: cybozu URL 
+        login_id: ID đăng nhập
+        password_digest: Mật khẩu
+        created_at: Ngày đăng ký mới
+        updated_at: Ngày cập nhật mới nhất

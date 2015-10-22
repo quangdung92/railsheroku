@@ -1,0 +1,12 @@
+vi:
+  activerecord:
+    models:
+      action_item: A/I
+    attributes:
+      action_item:
+        id: ID
+        content: Nội dung A/I
+        user_id: Người phụ trách
+        scheduled_date: Ngày dự kiến thực hiện
+        created_at: Ngày đăng ký mới
+        updated_at: Ngày cập nhật mới nhất 

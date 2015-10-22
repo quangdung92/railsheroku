@@ -1,0 +1,153 @@
+(function() {
+
+  "use strict";
+
+  function baseController() {
+  }
+
+  baseController.prototype.getList = function (trigger) {
+
+    var self = this;
+
+    self.service.get("/api/" + self.url, self.setParams(trigger)).success(function (res) {
+      self.start_flag = true;
+      self.totalItems = res.unresolved.count;
+      self.datas = res.unresolved.datas;
+    });
+
+  };
+
+  /**
+   * open the datepicker
+   *
+   * @params [EVENT] $event event object
+   * @params [int] trigger 0:from 1:to 2:ai_from 3:ai_to
+   */
+  baseController.prototype.dateOpen = function ($event, trigger) {
+
+    var DATE_TRIGGER = {
+      FROM: 0,
+      TO: 1,
+      AI_FROM: 2,
+      AI_TO: 3
+    };
+
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    if ( trigger == DATE_TRIGGER.FROM ) {
+      this.fromOpened = true;
+    } else if ( trigger == DATE_TRIGGER.TO ) {
+      this.toOpened = true;
+    } else if ( trigger == DATE_TRIGGER.AI_FROM ) {
+      this.aiFromOpened = true;
+    } else if ( trigger == DATE_TRIGGER.AI_TO ) {
+      this.aiToOpened = true;
+    }
+
+  };
+
+  // set the prototype
+  MeController.prototype = Object.create(baseController.prototype);
+
+  function MeController($scope, $filter, $window, unresolvedAiService) {
+
+    var self = this;
+    var MAX_SIZE = 10;
+    var ITEMS_PER_PAGE = 20;
+    var TRIGGER = {
+      PAGINATION: 0,
+      SEARCH: 1
+    };
+    self.startFlag = false;
+    
+    self.service = unresolvedAiService;
+    self.url = "unresolved_ai_lists/me_and_count";
+    self.maxSize = MAX_SIZE;
+    self.itemsPerPage = ITEMS_PER_PAGE;
+    self.currentPage = 1;
+
+    self.params = {
+      content: '',
+      aiFromDate: '',
+      aiToDate: '',
+      likeName: '',
+      fromDate: '',
+      toDate: '',
+      kind: '',
+      page : 0,
+      itemCount : 0
+    };
+
+    $scope
+      .$watch('me.content + me.aiFromDate + me.aiToDate + me.likeName + me.toDate + me.fromDate + me.kind',
+        function () {
+          self.getList(TRIGGER.SEARCH);
+        }
+      );
+
+    $scope.$watch('me.currentPage', function () {
+      if (self.start_flag) {
+        self.getList(TRIGGER.PAGINATION);
+      }
+    });
+
+    self.setParams = function (trigger) {
+      if (trigger == TRIGGER.PAGINATION) {
+        self.params.page = self.currentPage;
+      } else if (trigger ==  TRIGGER.SEARCH) {
+        self.params.page = 1;
+      }
+      self.params.content = self.content || '';
+      self.params.aiFromDate = $filter('date')(self.aiFromDate, 'yyyy-MM-dd') || '';
+      self.params.aiToDate = $filter('date')(self.aiToDate, 'yyyy-MM-dd') || '';
+      self.params.itemCount = self.itemsPerPage;
+      self.params.likeName = self.likeName || '';
+      self.params.fromDate = $filter('date')(self.fromDate, 'yyyy-MM-dd') || '';
+      self.params.toDate = $filter('date')(self.toDate, 'yyyy-MM-dd') || '';
+      self.params.kind = self.kind || '';
+
+      return self.params;
+    };
+
+    self.show = function (id) {
+      $window.open('/proceedings/' + id, '_blank');
+    };
+
+    self.clear = function () {
+      self.content = '';
+      self.aiFromDate = '';
+      self.aiToDate = '';
+      self.likeName = '';
+      self.fromDate = '';
+      self.toDate = '';
+      self.kind = '';
+    };
+
+  }
+
+  function baseService () {}
+
+  baseService.prototype.get = function (url, options) {
+    return this.$http.get(url, {params: options});  
+  };
+
+  unresolvedAiService.prototype = Object.create(baseService.prototype);
+
+  /**
+   * @ngInject
+   */
+  function unresolvedAiService($http) {
+
+    this.$http = $http;
+
+  }
+
+  MeController.$inject = ['$scope', '$filter', '$window', 'unresolvedAiService'];
+  unresolvedAiService.$inject = ['$http'];
+
+  angular.module('unresolvedAiLists', ['ui.bootstrap'])
+    .service('unresolvedAiService', unresolvedAiService)
+    .controller('MeController', MeController);
+
+})();

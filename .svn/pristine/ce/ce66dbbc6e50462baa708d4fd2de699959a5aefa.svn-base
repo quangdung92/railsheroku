@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    models:
+      agenda: アジェンダ 
+    attributes:
+      agenda:
+        id: ID
+        proceeding_id: 議事録ID
+        content: 設備/指摘 
+        created_at: 新規登録日
+        updated_at: 最終変更日

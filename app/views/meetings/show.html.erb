@@ -1,0 +1,145 @@
+  <section class="main-content" ng-app="meetingModule">
+    <div class="main">
+      <div class="info-div">
+        <div class="inputs">
+          <div id="top-div" class="clearfix">
+            <div class="content-div">
+              <div class="content-header">
+                <span tooltip="<%= t('views.meetings.show.balloon_help.meeting_information') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"> 
+                  <i class="glyphicon glyphicon-info-sign"></i> <%= t('views.meetings.form.label.info') %>
+                </span>
+              </div>
+              <div class="content-body clearfix">
+                <div class="field-group meeting-info">
+                  <div class="field">
+                    <label class="display-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.name') %></label>
+                    <%= @meeting.name %>
+                  </div>
+                  <div class="field">
+                    <label class="display-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.kind_id') %></label>
+                    <%= @meeting.kind.name %>
+                  </div>
+                  <div class="field">
+                    <label class="display-block"><i class="glyphicon glyphicon-calendar"></i> <%= t_m('meeting.dates') %></label>
+                    <%= l(@meeting.dates, format: :date) %>
+                  </div>
+                  <div class="field">
+                    <label class="display-block"><i class="glyphicon glyphicon-time"></i> <%= t_m('meeting.start_time') %></label>
+                    <%= l(@meeting.start_time, format: :time) %>
+                  </div>
+                  <div class="field">
+                    <label class="display-block"><i class="glyphicon glyphicon-home"></i> <%= t_m('meeting.venue') %></label>
+                    <%= @meeting.venue %>
+                  </div>
+                 <div class="field">
+                    <label class="display-block"><i class="glyphicon glyphicon-time"></i> <%= t_m('meeting.scheduled_time') %></label>
+                    <%= format_scheduled_time(@meeting.scheduled_time) unless @meeting.scheduled_time_id.nil? %>
+                  </div>
+                  <div class="field">
+                    <label class="display-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.related_meeting_id') %></label>
+                    <%= @meeting.related_meeting.name unless @meeting.related_meeting.nil? %>
+                  </div>
+                  <div class="field">
+                    <label class="display-block"><i class="glyphicon glyphicon-user"></i> <%= t_m('meeting.approver_id') %></label>
+                    <%= @approver_name.name if @approver_name %>
+                  </div>
+                </div>
+
+                <div class="field-group user-info">
+                  <div class="field">
+                    <label><i class="glyphicon glyphicon-user"></i> <%= t('views.meetings.form.label.participant') %></label>
+                    <select id="meeting_participants" class="form-control multi-select" multiple>
+                      <%= options_for_select(@meeting.participants.map { |p| [p.user.name, p.user.id] }) %>
+                    </select>
+                    <%= t('views.meetings.form.label.unregistered_guest') %> : <%= @meeting.unregistered_guest %>
+                  </div>
+                  <div class="field">
+                    <label><i class="glyphicon glyphicon-user"></i> <%= t('views.meetings.form.label.observer') %></label>
+                    <select id="meeting_observers" class="form-control multi-select" multiple>
+                      <%= options_for_select(@meeting.observers.map { |o| [o.user.name, o.user.id] }) %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="agenda-div" class="field-group content-div">
+              <div class="content-header">
+                <span tooltip="<%= t('views.meetings.show.balloon_help.agenda') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                  <i class="glyphicon glyphicon-th-list"></i> <%= t_m('Agenda') %>
+                </span>
+              </div>
+              <div class="content-body">
+                <% unless @meeting.agendas.blank? %>
+                <table id="agenda-table" class="table table-bordered table-condensed">
+                  <thead>
+                    <tr>
+                      <th>
+                        <%= t('views.meetings.form.label.seq') %>
+                      </th>
+                      <th>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @meeting.agendas.each_with_index do |agenda, i| %>
+                    <tr>
+                      <td>
+                        <%= (i + 1) %>
+                      </td>
+                      <td>
+                        <div class="text-left"><%= sanitize agenda.content, tag: %w(b div p span br) %></div>
+                      </td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+                <% end %>
+              </div>
+            </div>
+
+            <div id="material-div" class="field-group content-div">
+              <div class="content-header">
+                <span tooltip="<%= t('views.meetings.show.balloon_help.file') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                  <i class="glyphicon glyphicon-file"></i> <%= t_m('Material') %>
+                </span>
+              </div>
+              <div class="content-body">
+                <div>
+                  <% @meeting.materials.each do |material| %>
+                    <div class="upload-div">
+                    <%= link_to material.file_name, download_material_path(material), target: '_blank' %>
+                    <p>
+                      <%= material.annotation %>
+                    </p>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="bottom-div" class="field-group content-div">
+            <div class="content-header">
+              <span tooltip="<%= t('views.meetings.show.balloon_help.message_to_participant') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                <i class="glyphicon glyphicon-comment"></i> <%= t_m('meeting.message') %>
+              </span>
+            </div>
+            <div class="content-body">
+              <textarea id="meeting-message" class="form-control readonly-override" rows="9" cols="220" readonly><%= @meeting.message %></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <% unless @meeting.is_canceled || @meeting.is_completed %>
+            <% unless @meeting.is_holding %>
+              <%= link_to t("views.meetings.show.button.cancel"), cancel_meeting_path, class: "btn btn-default", data: { confirm: t("views.meetings.show.dialog.cancel_confirm") }, method: :put, "tooltip" => t('views.meetings.show.balloon_help.meeting_cancel'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+            <% end %>
+              <%= link_to t("views.meetings.show.button.edit"), edit_meeting_path, class: "btn btn-default", "tooltip" => t('views.meetings.show.balloon_help.meeting_edit'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+              <%= link_to t("views.meetings.show.button.holding"), edit_proceeding_path(@meeting.proceeding), class: "btn btn-default", data: { confirm: t("views.meetings.show.dialog.holding_confirm") }, "tooltip" => t('views.meetings.show.balloon_help.meeting_start'), "tooltip-placement" => "top" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </section>

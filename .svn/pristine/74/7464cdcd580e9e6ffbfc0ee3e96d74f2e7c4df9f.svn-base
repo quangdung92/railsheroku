@@ -1,0 +1,1 @@
+json.array! create_list_of_ended_meeting

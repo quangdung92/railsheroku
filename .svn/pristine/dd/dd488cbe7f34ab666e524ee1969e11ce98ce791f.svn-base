@@ -1,0 +1,87 @@
+en:
+  views:
+    meetings:
+      form:
+        tooltip:
+          kind: Enter related info.
+          related-meeting: Find related meetings.
+          agenda-add: Add agenda
+          file-add: Add file
+        dialog:
+          confirm: The info you entered will be lost if you cancel. Are you sure?
+          kind: If you import data from related meeting, the data you entered will be lost. Are you sure?
+        label:
+          info: Meeting info
+          observer: Observer
+          participant: Participant
+          agenda: Agenda
+          seq: Sequence
+          file-name: File
+          annotation: Annotation
+          select_approver: -- Select approver --
+        button:
+          add: Add
+          delete: Delete
+          refer: Reference
+          cancel: Cancel
+          regist: Register
+          search: Search
+        file:
+          message:
+            warning: The file is not PDF.
+            error: Exist file with same name.
+            delete: Delete file. Are you sure?
+        placeholder:
+          annotation: Input annotation.
+        validate:
+          participant: Select participant.
+        balloon_help:
+          meeting_information: "Enter the meeting information"
+          meeting_name: "Enter meeting name"
+          meeting_kind: "Enter meeting kind"
+          meeting_scheduled_date: "Enter meeting scheduled date"
+          meeting_start_scheduled_time: "Enter meeting start scheduled time"
+          meeting_room: "Enter the venue of the meeting. If you enter a letter containing a venue that has been previously input, the venue will be automatically proposed"
+          meeting_scheduled_time: "Choose the expected time of the meeting"
+          add_user: "add the selected user from the right of the list"
+          delete_user: "delete the selected user from the list on the left"
+          search_user_name: "Enter a name to narrow the list"
+          agenda: "Enter the agenda"
+          delete_agenda: "delete the agenda"
+          file: "Upload file"
+          file_select: "Select file"
+          file_annotation: "Enter the annotation of files"
+          file_delete: "Delete file"
+          message_to_participant: "Enter a message to the participants"
+          search_meeting: "search for the meeting, it will show in a separate window"
+          cancel: "Cancel and return to the Home screen"
+          registration: "Registration"
+      index:
+        title: Meeting list
+        button:
+          clear: Clear
+        canceled: canceled
+        completed: completed
+        balloon_help:
+          meeting: "Go to meeting detail screen"
+      new:
+        title: Register meeting
+      edit:
+        title: Edit meeting
+      show:
+        title: Show meeting
+        dialog:
+          cancel_confirm: Cancel meeting. Are you sure?
+          holding_confirm: Begin meeting. Are you sure?
+        button:
+          cancel: Cancel meeting
+          edit: Edit meeting
+          holding: Begin meeting
+        balloon_help:
+          meeting_information: "Show meeting information"
+          agenda: "Display content of agenda"
+          file: "Display content of file"
+          message_to_participant: "Display message to participants"
+          meeting_cancel: "Cancel meeting"
+          meeting_edit: "Edit meeting"
+          meeting_start: "Hold meeting"

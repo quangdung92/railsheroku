@@ -1,0 +1,11 @@
+vi:
+  activerecord:
+    models:
+      agenda: Chương trình cuộc họp 
+    attributes:
+      agenda:
+        id: ID
+        proceeding_id: ID biên bản cuộc họp 
+        content: Thiết bị/Chỉ thị 
+        created_at: Ngày đăng ký mới 
+        updated_at: Ngày cập nhật mới nhất

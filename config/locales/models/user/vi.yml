@@ -1,0 +1,17 @@
+vi:
+  activerecord:
+    models:
+      user: Người dùng
+    attributes:
+      user:
+        login_id: ID đăng nhập 
+        name: Họ tên
+        kana: Furigana
+        mailaddress: Địa chỉ email
+        password_digest: Mật khẩu
+        cybozu_id: ID Cybozu
+        grant: Quyền 
+        is_deleted: Vô hiệu hóa 
+        is_firstlogged: Đăng nhập lần đầu
+        created_at: Ngày đăng ký mới
+        updated_at: Ngày cập nhật mới nhất

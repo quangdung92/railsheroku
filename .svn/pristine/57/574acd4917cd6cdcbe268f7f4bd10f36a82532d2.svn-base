@@ -1,0 +1,63 @@
+#unresolved-ai-list-meeting {
+  background-color: #fafafa;
+  margin: 15px;
+  padding: 10px;
+  -webkit-flex: 1;
+  flex: 1;
+  border: 1px solid #999;
+  border-radius: 5px;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+div.pagination {
+  height: 30px;
+  text-align: right;
+}
+
+.table-wrap {
+  -webkit-flex: 1;
+  flex: 1;
+  overflow: auto;
+}
+
+.action_item_content {
+  word-break: break-all;
+}
+
+.meeting_name {
+  width: 375px;
+  min-width: 375px;
+  max-width: 375px;
+}
+
+.meeting_kind_id {
+  width: 175px;
+  min-width: 175px;
+  max-width: 175px;
+}
+
+.meeting_dates,
+.action_item_date {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.input-group {
+  > input[type="text"] {
+    width: 120px !important;
+  }
+}
+div.search-header{
+  min-height: 90px;
+  p.form-group{
+    margin-bottom: 8px;
+  }
+  p.filter_date{
+    margin-left: 47px;
+  }
+}

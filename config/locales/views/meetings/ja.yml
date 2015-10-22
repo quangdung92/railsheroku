@@ -1,0 +1,91 @@
+ja:
+  views:
+    meetings:
+      form:
+        tooltip:
+          kind: 関連情報を取得する。
+          related-meeting: 関連会議を検索する。
+          agenda-add: アジェンダ追加
+          file-add: 資料追加
+        dialog:
+          confirm: キャンセルすると入力したデータは破棄されますが、宜しいですか？
+          kind: 会議種別に紐づく参加者、オブザーバー、アジェンダのデータを取得します。\nデータを取得すると、現在入力している参加者、オブザーバー、\nアジェンダが破棄されますが宜しいですか？
+        label:
+          info: 会議情報
+          observer: オブザーバー
+          participant: 参加者
+          agenda: アジェンダ
+          seq: 項番
+          file-name: ファイル名
+          annotation: 注釈
+          select_approver: -- 承認者を選択 --
+          unregistered_guest: "未登録ユーザー"
+        button:
+          add: 追加
+          delete: 削除
+          refer: 会議参照
+          cancel: キャンセル
+          update: 更新する
+          regist: 登録
+          search: 検索
+          add_unregistered: "未登録追加"
+        file:
+          message:
+            warning: PDF以外のファイルです。
+            error: すでに同じ名前のファイルがあります。
+            delete: アップロードファイルを削除します。宜しいですか？
+        placeholder:
+          annotation: 注釈を必ず入力して下さい。
+        validate:
+          participant: 参加者を選択してください。
+        balloon_help:
+          meeting_information: "会議情報を入力します。"
+          meeting_name: "会議名を入力します。"
+          meeting_kind: "会議種別を選択します。"
+          meeting_scheduled_date: "会議の開催日を入力します。"
+          meeting_start_scheduled_time: "会議の開始予定時刻を入力します。"
+          meeting_room: "会議の開催場所を入力します。前回入力された開催場所を含む文字を入力すると、開催場所が自動提案されます。"
+          meeting_scheduled_time: "会議の予定時間を選択します。"
+          add_user: "右の一覧から選択したユーザーを追加します。"
+          delete_user: "左の一覧から選択したユーザーを削除します。"
+          search_user_name: "名前を入力することで、一覧を絞り込みます。"
+          agenda: "アジェンダを入力します。"
+          delete_agenda: "アジェンダを削除します。"
+          file: "資料をアップロードします。"
+          file_select: "ファイルを選択します。"
+          file_annotation: "ファイルの注釈を入力します。"
+          file_delete: "ファイルを削除します。"
+          message_to_participant: "参加者へのメッセージを入力します。"
+          search_meeting: "会議を検索する画面を、別ウィンドウで表示します。"
+          cancel: "入力内容をキャンセルして、ホーム画面に戻ります。"
+          registration: "入力内容を登録します。"
+          add_unregistered_user: "未登録追加"
+      index:
+        title: 会議一覧
+        button:
+          clear: クリア
+        canceled: ○
+        completed: ○
+        balloon_help:
+          meeting: "クリックすることで、会議詳細画面に移動します。" 
+      new:
+        title: 会議登録
+      edit:
+        title: 会議編集
+      show:
+        title: 会議詳細
+        dialog:
+          cancel_confirm: 会議を中止します。宜しいですか？ 
+          holding_confirm: 会議を開催します。宜しいですか？
+        button:
+          cancel: 会議中止
+          edit: 会議編集
+          holding: 会議開催
+        balloon_help:
+          meeting_information: "会議情報を表示します。"
+          agenda: "アジェンダの内容を表示します。"
+          file: "資料の内容を表示します。"
+          message_to_participant: "参加者へのメッセージを表示します。"
+          meeting_cancel: "会議を中止します。"
+          meeting_edit: "会議を編集します。"
+          meeting_start: "会議を開催します。"

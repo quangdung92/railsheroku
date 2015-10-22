@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    models:
+      meeting: 会議
+    attributes:
+      meeting:
+        id: ID
+        name: 会議名
+        related_meeting_id: 関連会議
+        kind_id: 会議種別
+        approver_id: 承認者 
+        dates: 開催日
+        start_time: 開始予定時刻
+        scheduled_time: 予定時間
+        venue: 開催場所
+        message: 参加者へのメッセージ
+        is_holding: 開催中
+        is_canceled: キャンセル
+        is_completed: 会議終了
+        created_at: 新規登録日
+        updated_at: 最終変更日

@@ -1,0 +1,10 @@
+vi:
+  views:
+    firstlogins:
+      index:
+        balloon_help:
+          new_password: "Nhập mật khẩu mới."
+          confirm_password: "Nhập lại mật khẩu để xác nhận."
+          cancel: "Hủy"
+          registration: "Đăng ký mật khẩu."
+

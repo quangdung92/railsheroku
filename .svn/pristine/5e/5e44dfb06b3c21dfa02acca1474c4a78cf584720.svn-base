@@ -1,0 +1,116 @@
+<!-- agenda -->
+<div class="content-header">
+  <label tooltip="<%= t('views.proceedings.edit.balloon_help.meeting_content') %>" tooltip-placement="right" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-info-sign"></i><%= t('views.proceedings.edit.label.proceeding-content') %></label>
+  <button type="button" class="btn btn-default btn-xs button-add-action-item" ng-click="addActionItem()" tooltip="<%= t('views.proceedings.edit.balloon_help.add_ai') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-plus-sign"></i><%= t('views.proceedings.edit.button.add-action-item') %></button>
+  <button type="button" id="add_agenda" class="btn btn-xs btn-default button-add-agenda" ng-click="addAgenda()" data-check-target=".agenda_content" data-content-is-blank=<%= t('views.proceedings.edit.error-message.content-is-blank') %> check-agenda tooltip="<%= t('views.proceedings.edit.balloon_help.add_agenda') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-plus-sign"></i><%= t('views.proceedings.edit.button.add-agenda') %></button>
+</div>
+<div class="content-body">
+  <div ng-if="proceedingCtrl.agendas.length != 0" class="agenda-div">
+    <div class="agenda-header">
+      <label><i class="glyphicon glyphicon-th-list"></i><%= t('views.proceedings.edit.label.agenda') %></label>
+    </div>
+    <div id="agenda_main" class="agenda-main">
+      <table id="agenda_table" class="table table-bordered table-condensed agenda-table" ng-if="proceedingCtrl.agendas.length != 0">
+        <thead>
+          <tr>
+            <th class="seq">
+              <%= t('views.proceedings.edit.label.seq') %>
+            </th>
+            <th class="content">
+              <%= t('views.proceedings.edit.label.agenda-content') %>
+            </th>
+            <th class="operation">
+              <%= t('views.proceedings.edit.label.operation') %>
+            </th>
+        <tbody>
+          <tr ng-repeat="agenda in proceedingCtrl.agendas">
+            <td ng-bind="$index + 1">
+            </td>
+            <td>
+              <div id="agenda-content-{{$index}}" class="agenda_content" contentEditable="true" ng-blur="setAgendaIndex($index)" ng-bind-html="agenda.content" agenda-event="{{$index}}"></div>
+            </td>
+            <td class="button-field">
+              <button type="button" class="btn btn-default btn-sm button-set-title-of-agenda" ng-click="setListOfAgenda($index)" tooltip="<%= t('views.proceedings.edit.balloon_help.set_list') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-list"></i><%= t('views.proceedings.edit.button.set-list-of-agenda') %></button>
+              <button type="button" id="set_title_of_agenda" class="btn btn-default btn-sm button-set-title-of-agenda" ng-click="setTitleOfAgenda($index)" tooltip="<%= t('views.proceedings.edit.balloon_help.set_title') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-text-width"></i><%= t('views.proceedings.edit.button.set-title-of-agenda') %></button>
+              <button type="button" ng-click="deleteAgenda($index)" class="btn btn-default btn-sm" tooltip="<%= t('views.proceedings.edit.balloon_help.delete_agenda') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-minus-sign"></i> <%= t('views.proceedings.edit.button.delete') %></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- action-item -->
+  <div ng-if="proceedingCtrl.action_items.length != 0" class="action-item-div">
+    <div class="action-item-header">
+      <label><i class="glyphicon glyphicon-hand-down"></i><%= t('views.proceedings.edit.label.action-item') %></label>
+    </div>
+    <div id="action_item_main" class="action-item-main">
+      <table id="action_item_table" class="table table-bordered table-condensed action-item-table" ng-if="proceedingCtrl.action_items.length != 0">
+        <thead>
+          <tr>
+            <th class="seq">
+              <%= t('views.proceedings.edit.label.seq') %>
+            </th>
+            <th class="agenda-index">
+              <%= t('views.proceedings.edit.label.agenda-index') %>
+            </th>
+            <th class="action-item">
+              <%= t('views.proceedings.edit.label.action-item') %>
+            </th>
+            <th class="person-in-charge">
+              <%= t('views.proceedings.edit.label.person-in-charge') %>
+            </th>
+            <th class="scheduled-date">
+              <%= t('views.proceedings.edit.label.scheduled-date') %>
+            </th>
+            <th class="operation">
+              <%= t('views.proceedings.edit.label.operation') %>
+            </th>
+        <tbody>
+          <tr ng-repeat="action_item in proceedingCtrl.action_items">
+            <td ng-bind="$index + 1">
+            </td>
+            <td ng-bind="action_item.agenda_index + 1">
+            </td>
+            <td>
+              <div class="action-item-content" ng-bind="action_item.content"></div>
+            </td>
+            <td ng-bind="action_item.user_name"></td>
+            <td ng-bind="action_item.scheduled_date"></td>
+            <td class="button-field">
+              <button type="button" ng-click="editActionItem($index)" class="btn btn-default btn-sm" tooltip="<%= t('views.proceedings.edit.balloon_help.change_ai') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-pencil"></i> <%= t('views.proceedings.edit.button.edit') %></button>
+              <button type="button" ng-click="deleteActionItem($index)" class="btn btn-default btn-sm" tooltip="<%= t('views.proceedings.edit.balloon_help.delete_ai') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-minus-sign"></i> <%= t('views.proceedings.edit.button.delete') %></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- create or update action item --> 
+<script type="text/ng-template" id="createOrUpdateActionItemDialog.html">
+  <div class="modal-header">
+    <h3 ng-bind="modalTitle"></h3>
+  </div>
+  <div class="modal-form">
+    <p>
+      <label><%= t("views.proceedings.edit.label.action-item") %></label>
+      <pre ng-bind="actionItemContent"></pre>
+    </p>
+    <p>
+      <label><%= t("views.proceedings.edit.label.person-in-charge") %></label>
+      <select ng-model="personInCharge" ng-options="p.user_name for p in person_in_charges"class="form-control" name="personInCharge">
+      </select>
+    </p>
+    <p>
+      <label><%= t("views.proceedings.edit.label.scheduled-date") %></label>
+      <input ng-model="scheduledDate" class="form-control" ng-click="dateOpen($event,'opened1')" datepicker-append-to-body="false" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="opened1" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" placeholder="<%= t('common.datepicker.placeholder') %>" datepicker-pattern="<%= t('validate.date') %>">
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-warning" ng-click="cancel()"><%= t("views.proceedings.edit.button.cancel") %></button>
+    <button class="btn btn-info" ng-click="regist()"><%= t("views.proceedings.edit.button.regist") %></button>
+  </div>
+</script>

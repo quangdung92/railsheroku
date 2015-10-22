@@ -1,0 +1,15 @@
+  <header>
+    <div class="text-left">
+      <a href="/home">
+        <%= image_tag 'logo_main.png' %>
+      </a>
+    </div>
+    <div class="user-space">
+      <a href="/accounts">
+        <i class="glyphicon glyphicon-user"></i><%= current_user.name %>
+      </a>
+      <a href="/login/logout" class="btn btn-default btn-sm">
+        <%= t("default.button.logout") %>
+      </a>
+    </div>
+  </header>

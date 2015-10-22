@@ -1,0 +1,9 @@
+vi:
+  views:
+    firstlogins:
+      index:
+        balloon_help:
+          new_password: ""
+          confirm_password: ""
+          cancel: ""
+          registration: ""

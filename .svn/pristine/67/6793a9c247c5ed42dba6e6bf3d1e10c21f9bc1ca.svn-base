@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    models:
+      participant: participant
+    attributes:
+      participant:
+        user_id: user
+        meeting_id: meeting
+        created_at: created at
+        updated_at: updated at

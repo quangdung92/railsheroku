@@ -1,0 +1,179 @@
+vi:
+  views:
+    proceedings:
+      common:
+        label:
+          seq: Mã
+          action-item: A/I
+          person-in-charge: Người phụ trách
+          scheduled-date: Ngày thực hiện dự kiến
+          completion-date: Ngày kết thúc
+          operation: Thực hiện
+        balloon_help:
+          meeting_information: "Hiển thị thông tin cuộc họp. Ấn vào thông tin cuộc họp hoặc ký hiệu bên phải màn hình, bạn có thể ẩn hoặc hiển thị thông tin cuộc họp."
+          file: "Tài liệu cuộc họp sẽ được hiển thị. Bạn có thể thêm hoặc xóa tài liệu."
+          add_file: "Thêm tệp tin."
+          delete_file: "Xóa tệp tin."
+          export_pdf: "Xuất nội dung cuộc họp ra file PDF."
+          print: "In nội dung cuộc họp."
+          back: "Quay lại màn hình trước."
+      error-message:
+        meeting-is-completed: "Cuộc họp %{meeting_name} đã kết thúc."
+        meeting-is-not-completed: "Cuộc họp %{meeting_name} chưa kết thúc."
+        meeting-is-canceled: "Cuộc họp %{meeting_name} đã bị hủy."
+      comment:
+        label:
+          comment: Ghi chú
+          explain: "※Xuống dòng bằng phím Shift+Enter Viết ghi chú bằng phím Enter."
+        button:
+          write: Viết ghi chú 
+          confirm: Xác nhận 
+        placeholder:
+          comment: Viết ghi chú
+        js:
+          alert:
+            please_input_comment: "Hãy viết ghi chú"
+          label:
+            comment_user: "Ghi chú của %{user_name}"
+            confirmed_comment: "%{all_user_count} đã xác nhận %{comment_user_count}."
+      file:
+        uploding: Đang tải lên：
+        js:
+          alert:
+            file_upload_error: "Đã xảy ra lỗi khi tải tập tin."
+            file_upload_success: "Tải file lên thành công"
+            please_select_upload_file: "Hãy chọn tập tin tải lên."
+            please_input_annotation: "Hãy viết chú thích."
+            same file name: "Tên file đã tồn tại." 
+          confirm:
+            delete_file: "Xóa tập tin %{filename}.\n Bạn có chắc không?"
+      confirm:
+        title: "Xác nhận kết thúc cuộc họp %{meeting_name}"
+        button:
+          print: In 
+          back: Trở về
+          ended: Kết thúc cuộc họp
+          export: Xuất
+        dialog:
+          confirm: Kết thúc cuộc họp. Bạn có chắc không?
+          confirm_revert: Confirm revert meeting. Are you sure?
+        label:
+          seq: Mã
+          meeting-info: Thông tin cuộc họp
+          proceeding-content: Nội dung biên bản cuộc họp
+        balloon_help:
+          meeting_content: "Hiển thị nội dung cuộc họp (chương trình cuộc họp, A/I)."
+          file: "Hiển thị tài liệu của cuộc họp."
+          meeting_end_confirm: "Kết thúc cuộc họp. Lưu ý khi kết thúc cuộc họp bạn sẽ không thể chỉnh sửa nội dung chương trình cuộc họp!"
+      edit:
+        title: "Cuộc họp %{kind_name}%{meeting_name}  Thực hiện biên bản cuộc họp" 
+        button:
+          add-agenda: Thêm chương trình cuộc họp
+          add-action-item: Thêm A/I
+          set-title-of-agenda: Tiêu đề
+          unset-title-of-agenda: Xóa tiêu đề chương trình cuộc họp
+          set-list-of-agenda: set list of agenda
+          unset-list-of-agenda: unset list of agenda
+          add-file: Thêm
+          edit: Thay đổi
+          delete: Xóa
+          regist: Đăng ký
+          confirm-end: Xác nhận kết thúc
+          cancel: Hủy 
+          search: Tìm kiếm cuộc họp
+          meeting-look: Xem cuộc họp
+          prev: Trở về
+          home: Đi tới trang chủ
+          upload: Tải lên
+          update: Cập nhật
+        dialog:
+          agenda-not-delete: A/I của chương trình cuộc họp này đã được đăng ký nên bạn không thể xóa.
+        label:
+          meeting-name: Tên cuộc họp
+          meeting-related-meeting-name: Tên cuộc họp liên quan
+          meeting-start-date: Ngày tổ chức
+          meeting-start-time: Ngày/giờ bắt đầu dự kiến
+          meeting-scheduled-time: Thời gian dự kiến
+          meeting-venue: Địa điểm tổ chức
+          meeting-message: Lời nhắn đến người tham gia
+          participant: Người tham gia
+          observer: Người giám sát
+          proceeding-content: Nội dung biên bản cuộc họp
+          agenda: Chương trình cuộc họp
+          agenda-index: Mã chương trình cuộc họp
+          action-item: A/I
+          seq: Mã 
+          file-name: Tên tập tin
+          annotation: Chú thích
+          meeting-info: Thông tin cuộc họp
+          id: ID
+          agenda-content: Nội dung thảo luận/Chỉ thị/Nội dung quyết định
+          operation: Thao tác
+          person-in-charge: Người phụ trách
+          scheduled-date: Ngày dự kiến thực hiện
+          file: Tài liệu
+          update_observer : Cập nhật người giám sát
+        file:
+          message:
+            warning: Các tập tin ngoài tập tin PDF.
+            error: Đã tồn tại tập tin trùng tên.
+        placeholder:
+          annotation: Bạn hãy nhập chú thích.
+        tooltip:
+          agenda-add: Thêm chương trình cuộc họp
+          file-add: Thêm tài liệu
+        error-message:
+          content-is-blank: Đang tồn tại chương trình cuộc họp không có nội dung. Hãy xóa hoặc nhập nội dung cho chương trình.
+        js:
+          alert:
+            ai_deleted: "A/I đã được xóa."
+            ai_multiple_deleted: "Nhiều A/I đã được xóa.\n Số AI đã xóa =%{deleted_ai_count}"
+            please_select: "Hãy lựa chọn."
+            please_select_ai_text: "Hãy chọn A/I từ chương trình cuộc họp."
+            selection_to_contain_the_ai: "AI thuộc phạm vi lựa chọn."
+            agenda_not_delete: "Do chương trình cuộc họp này đã có A/I nên bạn không thể xóa nó.\n Hãy xóa toàn bộ A/I liên quan đến chương trình cuộc họp này."
+            to_ai_not_drag_and_drop: "Không thể kéo và thả AI."
+          confirm:
+            ai_delete: "Xóa A/I ở hàng thứ %{no}.\n Bạn có chắc không?"
+            agenda_delete: "Xóa chương trình cuộc họp ở hàng thứ %{no}\n. Bạn có chắc không?"
+          title:
+            ai_registered: "Đăng ký A/I"
+            ai_change: "Thay đổi A/I"
+        balloon_help:
+          meeting_content: "Hiển thị nội dung cuộc họp(chương trình cuộc họp、A/I). Bạn có thể chỉnh sửa chương trình cuộc họp và A/I."
+          add_ai: "Từ chương trình cuộc họp chọn nội dung muốn chuyển sang A/I sau đó ấn nút này, bạn có thể thêm A/I cho cuộc họp. "
+          add_agenda: "Thêm chương trình cuộc họp"
+          set_title: "Từ chương trình cuộc họp chọn nội dung muốn chuyển sang A/I sau đó ấn nút này, nội dung A/I bạn đã chọn sẽ được hiển thị in đậm."
+          set_list: "Set list of agenda"
+          delete_agenda: "Xóa chương trình cuộc họp. Nếu chương trình cuộc họp đó đã có A/I bạn sẽ không thể xóa. Hãy xóa A/I trước."
+          change_ai: "Thay đổi A/I"
+          delete_ai: "Xóa A/I"
+          search_meeting: "Màn hình tìm kiếm cuộc họp sẽ được hiển thị tại cửa sổ khác."
+          back: "Quay lại màn hình trước. (Nội dung bạn đã nhập sẽ được lưu tự động. )"
+          meeting_confirm: "Di chuyển đến màn hình xác nhận kết thúc cuộc họp. (Nội dung bạn đã nhập sẽ được tự động save)"
+      show:
+        title: "Thực hiện A/I của biên bản cuộc họp %{meeting_name}"
+        label:
+          meeting-info: Thông tin cuộc họp
+          proceeding-content: Nội dung biên bản cuộc họp
+          update_success: Cập nhật thành công!
+        button:
+          edit-complete: Kết thúc chỉnh sửa
+          revert-complete: Revert
+          complete: Kết thúc
+          modify: Đính chính 
+        js:
+          alert:
+            please_input_completion_date: "Hãy nhập ngày hoàn thành"
+          confirm:
+            ai_completion_date_clear: "Xóa ngày hoàn thành A/I và trở về trạng thái chưa hoàn thành. \n Bạn có chắc không?"
+        balloon_help:
+          comment: "Hiển thị ghi chú. Bạn có thể viết ghi chú và xác nhận đã đọc ghi chú."
+          write_comment: "Sau khi viết ghi chú, bạn có thể ấn nút này hoặc ấn phím Enter để đăng ghi chú."
+          confirm_comment: "Xác nhận đã đọc ghi chú."
+          meeting_content: "Hiển thị nội dung chương trình cuộc họp (chương trình cuộc họp, A/I). Có thể nhập ngày hoàn thành A/I."
+          ai_complete_date: "Nhập ngày hoàn thành A/I."
+          ai_complete: "Chuyển A/I sang trạng thái kết thúc."
+          ai_modify: "Nếu xóa ngày hoàn thành A/I, A/I sẽ chuyển sang trạng thái."
+          edit_complete: "Kết thúc chỉnh sửa."
+          revert_complete: "Revert meeting complete"

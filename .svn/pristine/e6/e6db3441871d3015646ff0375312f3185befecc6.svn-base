@@ -1,0 +1,10 @@
+en:
+  views:
+    unresolved_ai_lists:
+      common:
+        balloon_help:
+          ai_content: "Enter A/I to search."
+          ai_stat_corresponding_date: "Enter A/I start date to search."
+          ai_end_corresponding_date: "Enter A/I end date to search."
+      me:
+      meeting:

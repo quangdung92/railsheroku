@@ -1,0 +1,56 @@
+<div class="content-header">
+  <label tooltip="<%= t('views.proceedings.common.balloon_help.file') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-file"></i> <%= t('views.proceedings.edit.label.file') %></label>
+  <button ng-disabled="uploding" type="button" data-toggle="modal" data-target="#fileUpload" class="btn btn-default btn-xs button-add-file" tooltip="<%= t('views.proceedings.common.balloon_help.add_file') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+    <i class="glyphicon glyphicon-plus-sign"></i> <%= t('views.proceedings.edit.button.add-file') %></button>
+</div>
+<div id="material-div" class="material-main" >
+  <div id="upload_files_area" class="upload-files-area">
+    <div class="upload-file" ng-repeat="file in fileCtrl.files">
+      <div class="left">
+        <a href="{{file.url}}" target="_blank">
+          <span ng-bind="file.file_name"></span>
+        </a>
+        <p ng-bind="file.annotation"></p>
+      </div>
+      <div class="right">
+        <button type="button" ng-click="deleteFile($index)" class="btn btn-default btn-xs"  tooltip="<%= t('views.proceedings.common.balloon_help.delete_file') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-trash"></i> <%= t('views.proceedings.edit.button.delete') %></button>
+      </div>
+    </div> 
+  </div>
+</div>
+
+<div class="modal fade" id="fileUpload">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header alert">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%= t('views.proceedings.edit.label.file') %></h4>
+      </div>
+      <div class="modal-body">
+        <div class="material-header" >
+          <div class="input-group file-upload">
+                <span class="input-group-btn">
+                    <span class="btn btn-default btn-file">
+                        <%= t('common.label.browse') %> <input type="file" ng-disabled="uploding" file-check nv-file-select uploader="uploader" data-error-message="<%= t('views.proceedings.edit.file.message.error') %>" data-warning-message="<%= t('views.proceedings.edit.file.message.warning') %>" id="uploadfile" class="form-control" name="uploadfile" required>
+                    </span>
+                </span>
+            <input type="text" class="form-control" readonly="" id="filename">
+          </div>
+          <input ng-disabled="uploding" ng-model="fileAnnotation" type="text" id="file-annotation" class="form-control" name="file_annotation" placeholder="<%= t('views.proceedings.edit.placeholder.annotation') %>" maxlength="20" required/>
+          <br>
+
+          <p ng-if="uploding"><%= t('views.proceedings.file.uploding') %><span ng-bind="uploader.queue[uploader.queue.length - 1].progress + '%'"></span></p>
+          <div class="progress" ng-if="uploding">
+            <div class="progress-bar" ng-if="uploding" ng-style="{'width': uploader.queue[uploader.queue.length - 1].progress + '%'}" style="background-color: green;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button ng-disabled="uploding" type="button" ng-click="addFile($files)" class="btn btn-default button-add-file">
+          <i class="glyphicon glyphicon-upload"></i> <%= t('views.proceedings.edit.button.upload') %></button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('firstlogin.btn.cancel') %></button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,5 @@
+ja:
+  views:
+    materials:
+      message:
+        files_that_exist: "既に存在するファイルです。" 

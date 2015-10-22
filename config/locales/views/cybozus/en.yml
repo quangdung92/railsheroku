@@ -1,0 +1,36 @@
+en:
+  views:
+    cybozus:
+      title: &title Connect information cybozu
+      new:
+        title: *title
+      show:
+        title: *title
+        button:
+          get_users: Connect account
+        message:
+          get_users: Connect account from cybozu. Are you sure?
+      edit:
+        title: *title
+      form:
+        button:
+          test_connect: Check connection
+        confirm:
+          test_connect: Check connection. Are you sure?
+        validate:
+          error: Invalid input. Please check.
+      note:
+        require: "Fields with 「*」 are mandatory."
+        url: Input cybozu account URL into cybozu URL.
+        login_id: Enter cybozu login ID.
+        password: Enter cybozu login password.
+        user_get: If you want to connect to cybozu account, click connect button below on the right side of screen.
+        user_password: Password for user connecting from cybozu is 1234.
+        user_warning: Cannot connect - User ID from cybozu already exists in the system.
+      get_users:
+        success: Finish connecting account.\n Please confirm at user management screen.
+      test_connect:
+        success: Successfully checking connection.\n System has saved connect data. Are you sure?
+      send_email:
+        title: Enable/Disable send notifications by email
+        enable: Enable/Disable send by Email (Default is Cybozu)

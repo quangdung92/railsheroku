@@ -1,0 +1,9 @@
+ja:
+  views:
+    firstlogins:
+      index:
+        balloon_help:
+          new_password: "新しいパスワードを入力します。"
+          confirm_password: "確認用パスワードを入力します。"
+          cancel: "キャンセルします。"
+          registration: "パスワードを登録します。"

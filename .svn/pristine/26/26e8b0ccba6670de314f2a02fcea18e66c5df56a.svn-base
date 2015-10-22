@@ -1,0 +1,21 @@
+vi:
+  activerecord:
+    models:
+      meeting: Cuộc họp
+    attributes:
+      meeting:
+        id: ID
+        name: Tên cuộc họp
+        related_meeting_id: Cuộc họp liên quan
+        kind_id: Loại cuộc họp
+        approver_id: Người quản lý
+        dates: Ngày tổ chức
+        start_time: Ngày/giờ bắt đầu dự kiến 
+        scheduled_time: Thời gian dự kiến
+        venue: Địa điểm tổ chức
+        message: Lời nhắn tới người tham gia
+        is_holding: Đang tổ chức
+        is_canceled: Hủy
+        is_completed: Kết thúc cuộc họp
+        created_at: Ngày đăng ký mới
+        updated_at: Ngày cập nhật mới

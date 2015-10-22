@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    models:
+      cybozu: サイボウズ
+    attributes:
+      cybozu:
+        url: サイボウズURL
+        login_id: ログインID
+        password_digest: パスワード
+        created_at: 新規登録日
+        updated_at: 最終変更日

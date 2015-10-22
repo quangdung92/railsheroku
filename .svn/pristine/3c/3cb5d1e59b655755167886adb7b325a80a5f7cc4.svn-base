@@ -1,0 +1,294 @@
+# This Module is WhatsNewListsHelper of Api
+#
+# @author Koutarou Haramoto
+# @version 1.0
+module Api::WhatsNewListsHelper
+
+  # create a list of whats new
+  # @return [Array] what's new list. [{ url:..., content:... }]
+  def create_whats_new_list(start_pos = 0, end_pos = 0)
+
+    list = {}
+    datas = []
+    content = ""
+    link = ""
+    history_kind = ""
+    datetime = ""
+    meeting_date = ""
+    action_item_date = ""
+    today = Date.today
+    after_1_day = Date.today + 1
+    after_3_day = Date.today + 3
+    array_content = []
+
+    unless @whats_new_meeting.blank?
+      @whats_new_meeting.each do |a_whats_new_meeting|
+
+        content = ""
+        link = ""
+        history_kind = "meeting"
+        datetime = a_whats_new_meeting.date
+        meeting_name = a_whats_new_meeting.meeting.name
+        meeting_date = a_whats_new_meeting.meeting.dates
+        kind_name = a_whats_new_meeting.meeting.kind.name
+
+        case a_whats_new_meeting.operation
+        when "regist" then
+
+          content = t("home.new.list.create_meeting", 
+            :user_name => a_whats_new_meeting.user.name, 
+            :meeting_name => meeting_name 
+          )
+          link = %(/meetings/#{a_whats_new_meeting.meeting.id})
+          array_content.push({
+            :content => content,
+            :link => link,
+            :datetime => datetime,
+            :history_kind => history_kind,
+            :meeting_name => meeting_name,
+            :meeting_date => meeting_date,
+            :kind_name => kind_name,
+            :balloon_help => t('views.homes.index.balloon_help.meeting_whats_new')
+          })
+
+          if meeting_date == today && 
+            !a_whats_new_meeting.meeting.is_canceled && 
+            !a_whats_new_meeting.meeting.is_completed
+
+            content = t("home.new.list.meeting_today", 
+              :meeting_name => meeting_name 
+            )
+            link = %(meetings/#{a_whats_new_meeting.meeting.id})
+            array_content.push({
+              :content => content,
+              :link => link,
+              :datetime => datetime,
+              :history_kind => history_kind,
+              :meeting_name => meeting_name,
+              :meeting_date => meeting_date,
+              :kind_name => kind_name,
+              :balloon_help => t('views.homes.index.balloon_help.meeting_whats_new')
+            })
+
+          end
+
+        when "edit" then
+
+          content = t("home.new.list.edit_meeting", 
+            :user_name => a_whats_new_meeting.user.name, 
+            :meeting_name => meeting_name 
+          )
+          link = %(/meetings/#{a_whats_new_meeting.meeting.id})
+          array_content.push({
+            :content => content,
+            :link => link,
+            :datetime => datetime,
+            :history_kind => history_kind,
+            :meeting_name => meeting_name,
+            :meeting_date => meeting_date,
+            :kind_name => kind_name,
+            :balloon_help => t('views.homes.index.balloon_help.meeting_whats_new')
+          })
+
+          if meeting_date == today && 
+            !a_whats_new_meeting.meeting.is_canceled && 
+            !a_whats_new_meeting.meeting.is_completed
+
+            content = t("home.new.list.meeting_today", 
+              :meeting_name => meeting_name 
+            )
+            link = %(/meetings/#{a_whats_new_meeting.meeting.id})
+            array_content.push({
+              :content => content,
+              :link => link,
+              :datetime => datetime,
+              :history_kind => history_kind,
+              :meeting_name => meeting_name,
+              :meeting_date => meeting_date,
+              :kind_name => kind_name,
+              :balloon_help => t('views.homes.index.balloon_help.meeting_whats_new')
+            })
+
+         end
+
+        when "canceled" then
+
+          content = t("home.new.list.canceled_meeting", 
+            :meeting_name => meeting_name 
+          )
+          link = %(/meetings/#{a_whats_new_meeting.meeting.id})
+          array_content.push({
+            :content => content,
+            :link => link,
+            :datetime => datetime,
+            :history_kind => history_kind,
+            :meeting_name => meeting_name,
+            :meeting_date => meeting_date,
+            :kind_name => kind_name,
+            :balloon_help => t('views.homes.index.balloon_help.meeting_whats_new')
+          })
+
+        when "ended" then
+
+          content = t("home.new.list.ended_meeting", 
+            :meeting_name => meeting_name 
+          )
+          link = %(/proceedings/#{a_whats_new_meeting.meeting.proceeding.id})
+          array_content.push({
+            :content => content,
+            :link => link,
+            :datetime => datetime,
+            :history_kind => history_kind,
+            :meeting_name => meeting_name,
+            :meeting_date => meeting_date,
+            :kind_name => kind_name,
+            :balloon_help => t('views.homes.index.balloon_help.ended_meeting_whats_new')
+          })
+
+        end
+
+      end
+    end
+
+    unless @whats_new_comment.blank?
+      @whats_new_comment.each do |a_whats_new_comment|
+
+        history_kind = "comment"
+        meeting_name = a_whats_new_comment.comment.proceeding.meeting.name
+        meeting_date = a_whats_new_comment.comment.proceeding.meeting.dates
+        kind_name = a_whats_new_comment.comment.proceeding.meeting.kind.name
+
+        content = t("home.new.list.comment", 
+          :user_name => a_whats_new_comment.user.name, 
+          :meeting_name => meeting_name 
+        )
+        link = %(/proceedings/#{a_whats_new_comment.comment.proceeding.id}#?comment=#{a_whats_new_comment.comment.id})
+        datetime = a_whats_new_comment.date
+        array_content.push({
+          :content => content,
+          :link => link,
+          :datetime => datetime,
+          :history_kind => history_kind,
+          :meeting_name => meeting_name,
+          :meeting_date => meeting_date,
+          :kind_name => kind_name,
+          :balloon_help => t('views.homes.index.balloon_help.comment_whats_new')
+        })
+
+      end
+    end
+
+    unless @whats_new_action_item.blank?
+      @whats_new_action_item.each do |a_whats_new_action_item|
+
+        history_kind = "action_item"
+
+        action_item_date = a_whats_new_action_item.action_item.scheduled_date
+        content = ""
+        link = ""
+        datetime = a_whats_new_action_item.date
+        meeting_name = a_whats_new_action_item.action_item.agenda.proceeding.meeting.name
+        meeting_date = a_whats_new_action_item.action_item.agenda.proceeding.meeting.dates
+        kind_name = a_whats_new_action_item.action_item.agenda.proceeding.meeting.kind.name
+
+        case a_whats_new_action_item.operation
+        when "regist", "edit" then
+
+          if action_item_date >= after_1_day &&
+            action_item_date <=  after_3_day &&
+            a_whats_new_action_item.action_item.completion_date.blank?
+            
+            content = t("home.new.list.beforer_action_item_scheduled_date",
+              :meeting_name => meeting_name, 
+              :ai_name => a_whats_new_action_item.action_item.content
+            )
+            link = %(/proceedings/#{a_whats_new_action_item.action_item.agenda.proceeding.id})
+            array_content.push({
+              :content => content,
+              :link => link,
+              :datetime => datetime,
+              :history_kind => history_kind,
+              :meeting_name => meeting_name,
+              :meeting_date => meeting_date,
+              :kind_name => kind_name,
+              :balloon_help => t('views.homes.index.balloon_help.ai_whats_new')
+            })
+
+          elsif action_item_date == today &&
+            a_whats_new_action_item.action_item.completion_date.blank?
+            
+            content = t("home.new.list.action_item_scheduled_date",
+              :meeting_name => meeting_name, 
+              :ai_name => a_whats_new_action_item.action_item.content
+            )
+            link = %(/proceedings/#{a_whats_new_action_item.action_item.agenda.proceeding.id})
+            array_content.push({
+              :content => content,
+              :link => link,
+              :datetime => datetime,
+              :history_kind => history_kind,
+              :meeting_name => meeting_name,
+              :meeting_date => meeting_date,
+              :kind_name => kind_name,
+              :balloon_help => t('views.homes.index.balloon_help.ai_whats_new')
+            })
+
+          end
+
+        when "ended" then
+
+          content = t("home.new.list.action_item_ended",
+            :user_name => a_whats_new_action_item.user.name,
+            :ai_name => a_whats_new_action_item.action_item.content
+          )
+          link = %(/proceedings/#{a_whats_new_action_item.action_item.agenda.proceeding.id})
+          array_content.push({
+            :content => content,
+            :link => link,
+            :datetime => datetime,
+            :history_kind => history_kind,
+            :meeting_name => meeting_name,
+            :meeting_date => meeting_date,
+            :kind_name => kind_name,
+            :balloon_help => t('views.homes.index.balloon_help.ai_whats_new')
+          })
+
+        end 
+      end
+    end
+
+    unless array_content.blank?
+
+      array_content = array_content.sort {|a, b| b[:datetime] <=> a[:datetime]}
+      
+      break_pos = array_content.count
+ 
+      for index in start_pos..end_pos do
+        if (index < break_pos)
+          datas.push({
+            :no => index + 1,
+            :url => array_content[index][:link],
+            :content => array_content[index][:content],
+            :datetime => array_content[index][:datetime],
+            :history_kind => array_content[index][:history_kind],
+            :meeting_name => array_content[index][:meeting_name],
+            :meeting_date => array_content[index][:meeting_date],
+            :kind_name => array_content[index][:kind_name],
+            :balloon_help => array_content[index][:balloon_help]
+          })
+        else
+          break
+        end
+      end
+      list[:datas] = datas 
+      list[:count] = array_content.count
+    else
+      list[:datas] = [] 
+      list[:count] = 0
+    end
+
+    list
+
+  end
+
+end

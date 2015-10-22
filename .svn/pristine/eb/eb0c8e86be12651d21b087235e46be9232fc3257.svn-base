@@ -1,0 +1,10 @@
+<div id="cybozu-new" class="cybozu-div" ng-app="adminModule" ng-controller="CybozuController as cybozuCtrl">
+  <div class="main-header">
+    <h3><%= t('views.cybozus.new.title') %></h3>
+    <div class="operation">
+    </div>
+  </div>
+
+  <%= render 'form' %>
+
+</div>

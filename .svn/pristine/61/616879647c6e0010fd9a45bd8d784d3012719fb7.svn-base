@@ -1,0 +1,22 @@
+$(document).ready(function () {
+    $('#enableSendEmail').change(function(){
+        var check_status = "";
+        if ($(this).is(':checked')) {
+            check_status = "true";
+        } else {
+            check_status = "false";
+        }
+
+        $.ajax({
+            method: "POST",
+            url: "/admin/email/change_status",
+            data: { status: check_status}
+        }).done(function( msg ) {
+            if(msg.status == 'success'){
+                location.reload();
+            }
+        });
+    });
+
+});
+

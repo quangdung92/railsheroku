@@ -1,0 +1,16 @@
+en:
+  views:
+    whats_new_lists:
+      select:
+        history_kind:
+          all: All
+          meeting: meeting
+          action_item: A/I
+          comment: comment
+      label:
+        seq: Sequence
+        content: content
+        history_kind: history kind
+        datetime: date time
+      balloon_help:
+        history_kind: "Select the type history, and displays the contents of the list"

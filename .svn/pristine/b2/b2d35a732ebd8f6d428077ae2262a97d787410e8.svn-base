@@ -1,0 +1,12 @@
+<div id="kind-new" class="kind-div" ng-app="adminModule" ng-controller="KindNewController">
+
+  <div class="main-header">
+    <h3><%= t('admin.page.kind.new') %></h3>
+    <div class="operation">
+      <%= link_to t('admin.button.list'), kinds_path, class: "btn btn-default" %>
+    </div>
+  </div>
+
+  <%= render 'form' %>
+
+</div>

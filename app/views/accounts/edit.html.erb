@@ -1,0 +1,53 @@
+  <section class="main-content" ng-app="accountModule">
+    <%= form_for(@user, { :url => {:controller => :accounts, :action => :update}, :html => {:class => "form-account", :id => "form-accoount"} } ) do |f| %>
+      <div class="account-div">
+        <div class="content-header">
+          <span tooltip="<%= t('views.accounts.edit.balloon_help.account_setting') %>" tooltip-placement="right" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <i class="glyphicon glyphicon-user"></i> <%= t('views.accounts.form.label.account_setting') %>
+          </span>
+        </div>
+        <div class="content-body">
+          <% if @user.errors.any? %>  
+            <div id="error_explanation" class="alert alert-danger">
+              <ul>
+                <% @user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="field required">
+            <label><%= t_m('user.login_id') %></label>
+            <%= f.text_field :login_id, class: 'form-control', required: true, maxLength: 100 %>
+          </div>
+          <div class="field required">
+            <label><%= t_m('user.name') %></label>
+            <%= f.text_field :name, class: 'form-control', required: true, maxLength: 100 %>
+          </div>
+          <div class="field">
+            <label><%= t_m('user.kana') %></label>
+            <%= f.text_field :kana, class: 'form-control', pattern: "[\u3040-\u309Fー\s　]*$", maxLength: 200 %>
+          </div>
+          <div class="field">
+            <label><%= t_m('user.mailaddress') %></label>
+            <%= f.email_field :mailaddress, class: 'form-control', maxLength: 256 %>
+          </div>
+          <div class="field">
+          <label><%= t_m('user.password_digest') %></label>
+          <%= f.password_field :password, 'ng-model' => 'password', class: 'form-control', maxLength: 16, pattern: "^([a-zA-Z0-9]{4,16})$" %>
+          <%= f.password_field :password_confirmation, 'compare-to' => 'password', 'ng-model' => 'password_confirmation', class: 'form-control', data: {error_message: t('firstlogin.message.not_match')}, maxLength: 16, pattern: "^([a-zA-Z0-9]{4,16})$", placeholder: t('firstlogin.placeholder.confirm_password') %>
+          </div>
+          <div class="notes">
+            <p><%= t("views.users.note.require") %></p>
+            <p><%= t("views.users.note.kana") %></p>
+            <p><%= t("views.users.note.mailaddress") %></p>
+            <p><%= t("views.users.note.password") %></p>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <%= link_to t("views.accounts.edit.button.cancel"), accounts_path , class: "btn btn-default", "tooltip" => t('views.accounts.edit.balloon_help.cancel'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+        <%= f.submit t("views.accounts.edit.button.update"), {class: "btn btn-default", "tooltip" => t('views.accounts.edit.balloon_help.update'), "tooltip-placement" => "top"} %>
+      </div>
+    <% end %>
+  </section>

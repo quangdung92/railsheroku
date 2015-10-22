@@ -1,0 +1,37 @@
+vi:
+  views:
+    users:
+      title: &title Thông tin liên kết cybozu
+      index:
+        title: Danh sách người dùng
+      new:
+        title: Tạo người dùng
+      show:
+        title: Hiển thị người dùng
+        button:
+          get_users: Liên kết tài khoản 
+        message:
+          get_users: Liên kết tài khoản người dùng từ cybozu. Bạn có chắc không？
+      edit:
+        title: Chỉnh sửa người dùng
+      form:
+        button:
+          test_connect: Kiểm tra kết nối
+        confirm:
+          test_connect: Thực hiện kiểm tra kết nối. Bạn có chắc không?
+        validate:
+          error: Trường nhập liệu không hợp lệ. Bạn hãy xác nhận lại.
+          message:
+            cybozu: ID cybozu hợp lệ là ký tự hankaku. 
+      shared:
+        grant:
+          admin: Người quản lý
+          normal: Thông thường
+        deleted: ○
+        firstlogged: ○
+      note:
+        require: "Các trường đánh dấu 「*」 là bắt buộc nhập."
+        kana: Nếu nhập furigana bạn hãy nhập bằng ký tự hiragana.
+        mailaddress: Nhập đỉa chỉ email chính xác chứa ký tự @
+        password: Nhập mật khẩu 4 ~ 16 ký tự hankaku.
+        cybozu_id: Hãy liên kết tài khoản cybozu để sử dụng ID cybozu. Không nhập nếu bạn không nhớ ID cybozu chính xác. 

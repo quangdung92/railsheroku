@@ -1,0 +1,46 @@
+# This Class is AgendasController of Api
+#
+# @author Koutarou Haramoto
+# @version 1.0
+class Api::AgendasController < ApplicationController
+
+  # get agendas of proceeding
+  def get_agendas_of_proceeding
+    @agendas = Agenda.get_agendas_of_proceeding(params[:id])
+    @agendas.each_with_index do |agenda, index|
+      @agendas[index].content = ApplicationController.helpers.sanitize(
+        agenda.content,
+        :tags => ['h1', 'b', 'div', 'p', 'span', 'br'],
+        :attributes => ['id', 'class', 'name']
+      ) 
+    end
+    @agendas
+  end
+
+  # delete agenda
+  def delete_agenda
+    @delete_agenda_ret = Agenda.delete(params[:params][:id])
+  end
+ 
+  # create or update agenda
+  def create_or_update_agenda
+    if Agenda.exists?(params[:params][:id])
+      #update
+      @create_or_update_agenda = Agenda.find(params[:params][:id])
+      if @create_or_update_agenda.update(:content =>  params[:params][:agenda_content])
+      else
+      end
+    else
+      #create
+      @create_or_update_agenda = Agenda.new(:content => params[:params][:agenda_content], :proceeding_id => params[:params][:proceeding_id])
+      if @create_or_update_agenda.save
+        logger.debug(@create_or_update_agenda.id)
+      else
+      end
+    end
+
+    @create_or_update_agenda
+
+  end
+
+end

@@ -1,0 +1,10 @@
+vi:
+  activerecord:
+    models:
+      participant: Người tham gia
+    attributes:
+      participant:
+        user_id: Người dùng
+        meeting_id: Cuộc họp
+        created_at: Ngày đăng ký mới
+        updated_at: Ngày cập nhật mới

@@ -1,0 +1,40 @@
+<div id="cybozu-show" class="cybozu-div" ng-controller="CybozuController as cybozuCtrl">
+    <div class="main-header">
+      <h3><%= t('views.cybozus.show.title') %></h3>
+      <div class="operation">
+        <%= link_to t('admin.button.edit'), edit_cybozu_path(@cybozu), class: "btn btn-default" %>
+      </div>
+    </div>
+
+    <div class="cybozu-details">
+      <div>
+        <p>
+          <strong><%= t_m('cybozu.url') %></strong>
+          <%= @cybozu.url %>
+        </p>
+
+        <p>
+          <strong><%= t_m('cybozu.login_id') %></strong>
+          <%= @cybozu.login_id %>
+        </p>
+        
+        <p>
+          <strong><%= t_m('cybozu.created_at') %></strong>
+          <%= @cybozu.created_at.strftime('%Y/%m/%d %T') %>
+        </p>
+
+        <p>
+          <strong><%= t_m('cybozu.updated_at') %></strong>
+          <%= @cybozu.updated_at.strftime('%Y/%m/%d %T') %>
+        </p>
+      </div>
+      <div class="notes">
+        <p><%= t("views.cybozus.note.user_get") %></p>
+        <p><%= t("views.cybozus.note.user_password") %></p>
+        <p><%= t("views.cybozus.note.user_warning") %></p>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-default" type="button" ng-click="cybozuCtrl.getUsersOfCybozu('<%= t('views.cybozus.show.message.get_users') %>')"><%= t('views.cybozus.show.button.get_users') %></button>
+    </div>
+</div>

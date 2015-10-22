@@ -1,0 +1,9 @@
+ja:
+  views:
+    logins:
+      index:
+        balloon_help:
+          select_language: "表示する言語を選択します。"
+          user_id: "ユーザIDを入力します。"
+          password: "パスワードを入力します。"
+          login: "ログインします。"

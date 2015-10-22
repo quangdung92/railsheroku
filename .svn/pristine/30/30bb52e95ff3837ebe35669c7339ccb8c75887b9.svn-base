@@ -1,0 +1,92 @@
+vi:
+  views:
+    meetings:
+      form:
+        tooltip:
+          kind: Nhận thông tin liên quan.
+          related-meeting: Tìm kiếm cuộc họp liên quan.
+          agenda-add: Thêm chương trình cuộc họp
+          file-add: Thêm tài liệu
+        dialog:
+          confirm: Nếu hủy các dữ liệu bạn đã nhập sẽ bị xóa. Bạn có chắc không?
+          kind: Tiếp nhận thông tin của người tham gia người giám sát và chương trình cuộc họp liên quan.\nNếu tiếp nhận thông tin này, các thông tin bạn đã nhập\n sẽ bị xóa. Bạn có chắc không?
+        label:
+          info: Thông tin cuộc họp
+          observer: Người giám sát
+          participant: Người tham gia
+          agenda: Chương trình cuộc họp
+          seq: Số TT
+          file-name: Tên tập tin
+          annotation: Chú thích
+          select_approver: -- Chọn --
+          unregistered_guest: "Khách không đăng kí"
+        button:
+          add: Thêm
+          delete: Xóa
+          refer: Tham chiếu cuộc họp
+          cancel: Hủy
+          update: Cập nhật
+          regist: Đăng ký
+          search: Tìm kiếm
+          add_unregistered: "Thêm không đăng kí"
+        file:
+          message:
+            warning: Các tập tin ngoài tập tin PDF.
+            error: Tập tin trùng tên đã tồn tại. 
+            delete: Xóa tập tin tải lên. Bạn có chắc không?
+        placeholder:
+          annotation: Hãy nhập chú thích.
+        validate:
+          participant: Hãy chọn người tham gia.
+        balloon_help:
+          meeting_information: "Nhập thông tin cuộc họp"
+          meeting_name: "Nhập tên cuộc họp"
+          meeting_kind: "Chọn loại cuộc họp"
+          meeting_scheduled_date: "Chọn ngày họp"
+          meeting_start_scheduled_time: "Chọn thời gian bắt đầu cuộc họp"
+          meeting_room: "Chọn nơi họp. Nếu bạn gõ tên địa điểm đã từng được nhập, nó sẽ được hiển thị."
+          meeting_scheduled_time: "Chọn giờ họp"
+          add_user: "Thêm người dùng được chọn từ danh sách bên phải"
+          delete_user: "Xoá người dùng được chọn trong danh sách bên trái"
+          search_user_name: "Nhập tên để thu hẹp danh sách"
+          agenda: "Nhập thông tin cuộc họp"
+          delete_agenda: "Xoá thông tin cuộc họp"
+          file: "Tải file"
+          file_select: "Chọn file"
+          file_annotation: "Thêm thông tin về file"
+          file_delete: "Xoá file"
+          message_to_participant: "Thông tin đến người tham gia cuộc họp"
+          search_meeting: "Tìm cuộc họp (mở ra ở trang khác)"
+          cancel: "Huỷ và quay lại màn hình chính"
+          registration: "Đăng kí"
+          add_unregistered_user: "Thêm không đăng kí"
+      index:
+        title: Danh sách cuộc họp 
+        button:
+          clear: Xóa
+        canceled: ○
+        completed: ○
+        balloon_help:
+          meeting: "Vào màn hình chi tiết cuộc họp"
+      new:
+        title: Đăng ký cuộc họp
+      edit:
+        title: Chỉnh sửa cuộc họp
+      show:
+        title: Chi tiết cuộc họp 
+        dialog:
+          cancel_confirm: Hủy cuộc họp. Bạn có chắc không? 
+          holding_confirm: Bắt đầu cuộc họp. Bạn có chắc không?
+        button:
+          cancel: Hủy
+          edit: Chỉnh sửa
+          holding: Tổ chức cuộc họp
+        balloon_help:
+          meeting_information: "Hiển thị thông tin cuộc họp"
+          agenda: "Hiển thị nội dung cuộc họp"
+          file: "Hiển thị nội dung file"
+          message_to_participant: "Thông báo cho những người tham gia"
+          meeting_cancel: "Hoãn họp"
+          meeting_edit: "Chỉnh sửa cuộc họp"
+          meeting_start: "Tổ chức cuộc họp"
+

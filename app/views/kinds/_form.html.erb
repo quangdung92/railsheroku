@@ -1,0 +1,122 @@
+<div class="kind-details">
+  <%= form_for(@kind, html: { class: 'kind-form' }) do |f| %>
+    <div class="inputs">
+      <% if @kind.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <ul>
+          <% @kind.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="field required">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control', maxLength: 255, required: true %>
+      </div>
+      <% if controller.action_name == 'edit' %>
+      <div class="field">
+        <%= f.label :is_deleted %>
+        <%= f.check_box :is_deleted %>
+      </div>
+      <% end %>
+      <div class="field-group user-info">
+        <div class="field">
+          <label><%= t('views.kinds.form.label.participant') %></label>
+          <table class="select-table" ng-init="relational.participants=<%= (@kind.participant_templates.map { |p| { id: p.user.id, name: p.user.name } }).to_json %>">
+            <tbody>
+              <tr>
+                <td>
+                  <input type="hidden" ng-repeat="participant in relational.participants" value="{{participant.id}}" name="kind[participant_templates_attributes][{{$index}}][user_id]">
+                  <select id="kind_participants" class="form-control to-multi-select" ng-model="participants" ng-options="participant.id as participant.name for participant in relational.participants" multiple>
+                  </select>
+                </td>
+                <td class="button-field">
+                  <button type="button" from-users="users" to-users="relational.participants" selectbox="kind_participant_of_user" class="btn btn-default btn-sm" add-button tooltip="<%= t('views.meetings.form.balloon_help.add_user') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                    <i class="glyphicon glyphicon-arrow-left"></i>
+                    <%= t('views.kinds.form.button.add') %>
+                  </button>
+                  <button type="button" users="relational.participants" selectbox="participants" class="btn btn-default btn-sm" delete-button tooltip="<%= t('views.meetings.form.balloon_help.delete_user') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                    <i class="glyphicon glyphicon-arrow-right"></i>
+                    <%= t('views.kinds.form.button.delete') %>
+                  </button>
+                </td>
+                <td>
+                  <input type="text" ng-model="participant_search" class="form-control" tooltip="<%= t('views.meetings.form.balloon_help.search_user_name') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" />
+                  <select id="kind_participant_of_user" class="form-control from-multi-select" ng-model="kind_participant_of_user" ng-options="user.id as user.name for user in users | filter:participant_search" multiple>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="field">
+          <label><%= t('views.kinds.form.label.observer') %></label>
+          <table class="select-table" ng-init="relational.observers=<%= (@kind.observer_templates.map { |o| { id: o.user.id, name: o.user.name } }).to_json %>">
+            <tbody>
+              <tr>
+                <td>
+                  <input type="hidden" ng-repeat="observer in relational.observers" value="{{observer.id}}" name="kind[observer_templates_attributes][{{$index}}][user_id]">
+                  <select id="kind_observers" class="form-control to-multi-select" ng-model="observers" ng-options="observer.id as observer.name for observer in relational.observers" multiple></select>
+                </td>
+                <td class="button-field">
+                  <button type="button" from-users="users" to-users="relational.observers" selectbox="kind_observer_of_user" class="btn btn-default btn-sm" add-button tooltip="<%= t('views.meetings.form.balloon_help.add_user') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                    <i class="glyphicon glyphicon-arrow-left"></i>
+                    <%= t('views.kinds.form.button.add') %>
+                  </button>
+                  <button type="button" users="relational.observers" selectbox="observers" class="btn btn-default btn-sm" delete-button  tooltip="<%= t('views.meetings.form.balloon_help.delete_user') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                    <i class="glyphicon glyphicon-arrow-right"></i>
+                    <%= t('views.kinds.form.button.delete') %>
+                  </button>
+                </td>
+                <td>
+                  <input type="text" ng-model="observer_search" class="form-control" tooltip="<%= t('views.meetings.form.balloon_help.search_user_name') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"/>
+                  <select id="kind_observer_of_user" class="form-control from-multi-select" ng-model="kind_observer_of_user" ng-options="user.id as user.name for user in users | filter:observer_search" multiple>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="agenda-div" class="field-group content-div" ng-init="relational.agendas=<%= (@kind.agenda_templates.map { |a| { content: a.content } }).to_json %>">
+        <div class="content-header">
+          <label><%= t('views.meetings.form.label.agenda') %></label>
+          <button type="button" id="add_agenda" ng-click="addAgenda()" class="btn btn-default btn-xs" tooltip="<%= t('views.meetings.form.tooltip.agenda-add') %>"><i class="glyphicon glyphicon-plus-sign"></i></button>
+        </div>
+        <div class="content-body">
+          <table id="agenda-table" class="table table-bordered table-condensed" ng-if="relational.agendas.length != 0"> 
+            <thead>
+              <tr>
+                <th class="text-center">
+                  <%= t('views.meetings.form.label.seq') %>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+              <tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="agenda in relational.agendas">
+                <td>
+                  {{$index + 1}}
+                </td>
+                <td>
+                  <textarea ng-model="relational.agendas[$index].content" name="kind[agenda_templates_attributes][{{$index}}][content]" rows="3" cols="40" required></textarea>
+                </td>
+                <td class="button_field">
+                  <button type="button" ng-click="deleteAgenda($index)" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-minus-sign"></i> <%= t('views.meetings.form.button.delete') %></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <%= f.submit nil, class: "btn btn-default" %>
+    </div>
+  <% end %>
+</div>

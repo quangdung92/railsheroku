@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      observer: オブザーバー
+    attributes:
+      observer:
+        user_id: ユーザー
+        meeting_id: 会議
+        created_at: 新規登録日
+        updated_at: 最終変更日

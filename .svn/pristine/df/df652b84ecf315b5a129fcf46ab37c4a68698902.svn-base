@@ -1,0 +1,10 @@
+vi:
+  views:
+    logins:
+      index:
+        balloon_help:
+          select_language: "Chọn ngôn ngữ hiển thị"
+          user_id: Nhập ID người dùng""
+          password: "Nhập mật khẩu"
+          login: "Đăng nhập"
+ 

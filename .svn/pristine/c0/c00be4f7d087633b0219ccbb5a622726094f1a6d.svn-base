@@ -1,0 +1,83 @@
+# This Class is ActionItemsController of Api
+#
+# @author Koutarou Haramoto
+# @version 1.0
+class Api::ActionItemsController < ApplicationController
+
+  # get action items of proceeding
+  def get_action_items_of_proceeding
+    @action_items = ActionItem.get_action_items_of_proceeding(params[:id]) 
+  end
+
+  # get action items of agenda
+  def get_action_items_of_agenda
+    @action_items_of_agenda = ActionItem.get_action_items_of_agenda(params[:id]) 
+  end
+
+  # create action item 
+  def create_action_item 
+    @action_item = ActionItem.create_action_item(
+      params[:params][:agenda_id],
+      params[:params][:person_in_charge_user_id],
+      params[:params][:action_item_content],
+      params[:params][:scheduled_date]
+     )
+
+    # add to cybozu as schedule - issues/3997
+    # Pham Nhat Anh
+    # 25/8/2015
+    req = {}
+
+    schedule = CybozuApi::Model::Schedule.new
+    @meeting = @action_item.agenda.meeting
+    schedule.detail = @action_item.content
+    schedule
+        .description = %([#{t('activerecord.attributes.meeting.venue')}]\n#{@meeting.venue}\n)
+    schedule
+        .description << %([#{t('activerecord.attributes.meeting.message')}]\n#{@meeting.message})
+    req[:schedule] = schedule
+    req[:date] = @meeting.dates.to_s << 'T' << @meeting.start_time.strftime('%H:%M:%S')
+    req[:users] = @meeting.get_related_party
+
+    unless req[:users].blank?
+      cybozu = Cybozu.find(1)
+      client = CybozuApi::Client.new(cybozu.url, cybozu.login_id, cybozu.password)
+
+      client.create_schedule(req[:schedule], req[:users], req[:date])
+    end
+    #-------------------------------
+
+    @action_item
+  end
+
+  # update action item 
+  def update_action_item 
+    @action_item = ActionItem.update_action_item(
+      params[:params][:action_item_id],
+      params[:params][:person_in_charge_user_id],
+      params[:params][:scheduled_date]
+     ) 
+    @action_item
+  end
+
+  # update completion date of action item
+  def update_completion_date_of_action_item 
+    @action_item = ActionItem.update_completion_date_of_action_item(
+      params[:params][:action_item_id],
+      params[:params][:user_id],
+      params[:params][:completion_date]
+     ) 
+  end
+
+  # clear completion date of action item
+  def clear_completion_date_of_action_item 
+    @action_item = ActionItem.clear_completion_date_of_action_item(params[:params][:action_item_id]) 
+  end
+
+  # delete action item 
+  def delete_action_item 
+    @action_item = ActionItem.delete(params[:params][:action_item_id])
+    @action_item
+  end
+
+end

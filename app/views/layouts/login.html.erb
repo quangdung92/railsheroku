@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= page_title %></title>
+    <%= render :partial => "layouts/meta_tags" %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= stylesheet_link_tag    controller.controller_name, media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag controller.controller_name %>
+    <%= csrf_meta_tags %>
+    <!-- i18n-js -->
+    <%= javascript_include_tag  "i18n/#{I18n.locale}" %>
+    <script type="text/javascript">
+      I18n.defaultLocale = "<%= I18n.default_locale %>";
+      I18n.locale = "<%= I18n.locale %>";
+    </script>
+  </head>
+  <body>
+    <div class="content">
+      <%= render :partial => "layouts/login_header" %>
+      <%= yield %>
+      <%= render :partial => "layouts/dialog" %>
+    </div>
+  </body>
+</html>

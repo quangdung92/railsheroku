@@ -1,0 +1,10 @@
+en:
+  views:
+    shared:
+      message:
+        admin_html: To use agenda system "Rock'n you need to register meeting type. <br/> Please press manage button on the upper right of the screen to register."
+        normal_html: To use agenda system "Rock'n you need to register meeting type.<br/> Please contact admin to register."
+      angularjs:
+        datetime_format: yyyy 'year' MM 'month' dd 'day' HH 'hour' mm　'minute' ss 'second'
+        date_format: yyyy 'year' MM 'month' dd 'day'
+        comment_datetime_format: yyyy 'year' MM 'month' dd 'day' HH 'hour' mm 'minute'

@@ -1,0 +1,16 @@
+vi:
+  views:
+    whats_new_lists:
+      select:
+        history_kind:
+          all: Toàn bộ
+          meeting: Cuộc họp
+          action_item: A/I
+          comment: Ghi chú
+      label:
+        seq: Số TT
+        content: Nội dung
+        history_kind: Loại lịch sử
+        datetime: Thời gian
+      balloon_help:
+        history_kind: "Chọn loại lịch sử để tìm kiếm nội dung từ danh sách."

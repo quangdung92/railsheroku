@@ -1,0 +1,16 @@
+en:
+  views:
+    whats_new_lists:
+      select:
+        history_kind:
+          all: All
+          meeting: meeting
+          action_item: A/I
+          comment: comment
+      label:
+        seq: Sequence
+        content: content
+        history_kind: history kind
+        datetime: date time
+      balloon_help:
+        history_kind: "履歴種別を選択することで、一覧の内容を検索して表示します。"

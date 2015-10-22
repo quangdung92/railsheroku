@@ -1,0 +1,24 @@
+vi:
+  views:
+    accounts:
+      form:
+        label:
+          account_setting: Thiết lập tài khoản
+      index:
+        title: Thiết lập tài khoản
+        button:
+          edit: Chỉnh sửa 
+        balloon_help:
+          account_setting: "Hiển thị thông tin tài khoản."
+          change_setting: "Thay đổi thông tin tài khoản."
+      edit:
+        title: Thay đổi thông tin tài khoản.
+        button:
+          cancel: Hủy  
+          update: Cập nhật
+        balloon_help:
+          account_setting: "Nhập thông tin tài khoản"
+          cancel: Hủy
+          update: Cập nhật
+      update:
+        notice: 'Thông tin tài khoản đã được cập nhật.'

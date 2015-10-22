@@ -1,0 +1,1313 @@
+(function () {
+
+  "use strict";
+
+  //CONST
+  var SCROLL_WAIT = 100;
+
+  //keyCode
+  var KEY_BACKSPACE = 8;
+  var KEY_TAB = 9;
+  var KEY_ENTER = 13;
+  var KEY_SHIFT = 16;
+  var KEY_CTRL = 17;
+  var KEY_SPACE = 32;
+  var KEY_DELETE = 46;
+  var KEY_P_SMALL = 60;
+  var KEY_C_SMALL = 67;
+  var KEY_V_SMALL = 86;
+  var KEY_Y_SMALL = 89;
+  var KEY_Z_SMALL = 90;
+  var KEY_UP = 38;
+  var KEY_DOWN = 40;
+  var KEY_RIGHT = 39;
+  var KEY_LEFT = 37;
+  var KEY_F1 = 112;
+  var KEY_F2 = 113;
+  var KEY_F3 = 114;
+  var KEY_F4 = 115;
+  var KEY_F5 = 116;
+  var KEY_F6 = 117;
+  var KEY_F7 = 118;
+  var KEY_F8 = 119;
+  var KEY_F9 = 120;
+  var KEY_F10 = 121;
+  var KEY_F11 = 122;
+  var KEY_F12 = 123;
+  var KEY_SHIFT_PLUS_CPASLOCK = 20;
+  var KEY_NUMLOCK = 140;
+  var KEY_WINDOWS_LEFT = 91;
+  var KEY_WINDOWS_RIGHT = 92;
+  var KEY_CAPSLOCK = 240;
+  var KEY_INSERT = 45;
+
+  var KEY_ZENKAKU_KEYS = 229;
+  var KEY_CHANGE_ZENKAKU = 243;
+  var KEY_CHANGE_HANKAKU = 244;
+
+  //action item keydown ok
+  var AI_KEYDOWN_OK = [ 
+    KEY_TAB,
+    KEY_SHIFT,
+    KEY_CTRL,
+    KEY_UP,
+    KEY_DOWN,
+    KEY_RIGHT,
+    KEY_LEFT,
+    KEY_F1,
+    KEY_F2,
+    KEY_F3,
+    KEY_F4,
+    KEY_F5,
+    KEY_F6,
+    KEY_F7,
+    KEY_F8,
+    KEY_F9,
+    KEY_F10,
+    KEY_F11,
+    KEY_F12,
+    KEY_SHIFT_PLUS_CPASLOCK,
+    KEY_NUMLOCK,
+    KEY_WINDOWS_LEFT,
+    KEY_WINDOWS_RIGHT,
+    KEY_CAPSLOCK
+  ];
+
+  //2015/09/09 k.haramoto add -------------------------------------------------
+  var AGENDA_PERIODIC_UPDATE_SEC = 30 * 1000
+  //end -----------------------------------------------------------------------
+
+  function baseController() {
+  }
+
+  baseController.prototype.getAgenda = function ($sce, $timeout) {
+
+    var self = this;
+    var ais = [];
+    var i = 0;
+
+    self.service.get("/api/" + self.url, self.params).success(function (res) {
+      self.agendas = res;
+      // set sanitalize flag
+      angular.forEach(self.agendas, function(agenda, index){
+        self.agendas[index].content = $sce.trustAsHtml(agenda.content); 
+      });
+
+      //set event of action item of agenda
+      $timeout(function(){
+        ais = $('#agenda_table').find('.action_item');
+        for(i = 0; i < ais.length; i++){
+          setAiEvent($(ais[i]));
+        } 
+      }, 100);
+      
+      // get ai
+      self.url = "action_items/get_action_items_of_proceeding";
+      self.getActionItem();
+    });
+
+  };
+
+  baseController.prototype.getActionItem = function () {
+
+    var self = this;
+
+    self.service.get("/api/" + self.url, self.params).success(function (res) {
+      self.action_items = res;
+      //set agenda index
+      setAgendaIndex(self.action_items, self.agendas);
+    });
+
+  };
+
+  baseController.prototype.getMaterial = function ($scope, $timeout, scroll_flag) {
+
+    var self = this;
+
+    self.service.get("/api/" + self.url, self.params).success(function (res) {
+      self.files = res;
+      $scope.files = res;
+      if (scroll_flag) {
+        //scroll bottom
+        $timeout(function(){
+          scrollBottom(document.getElementById('upload_files_area'));
+        }, SCROLL_WAIT);
+      } else {
+        //nothing to do
+      }
+    });
+
+  };
+
+  baseController.prototype.getActionItemOfAgenda = function ($scope) {
+
+    var self = this;
+
+    self.service.get("/api/" + self.url, self.params).success(function (res) {
+      self.action_item_of_agenda = res;
+      $scope.deleteAgendaAfterResponseOfGetOfAiOfAgenda();
+    });
+
+  };
+
+  baseController.prototype.getUser = function (url, params, $scope) {
+
+    var self = this;
+
+    self.service.get("/api/" + url, params).success(function (res) {
+      $scope.person_in_charges = res;
+      $scope.initAfterResponseOfGetOfUser();
+    });
+
+  };
+
+  baseController.prototype.deleteAgenda = function ($scope) {
+
+    var self = this;
+
+    self.service.post("/api/" + self.url, self.params).success(function (res) {
+      self.agendas.splice($scope.delete_agenda_index, 1);
+      //set agenda index
+      setAgendaIndex(self.action_items, self.agendas);
+    });
+
+  };
+
+  baseController.prototype.createOrUpdateAgenda = function (index, $sce, $timeout) {
+
+    var self = this;
+
+    self.service.post("/api/" + self.url, self.params).success(function (res) {
+      // click a add button of agenda
+      if (index == null) {
+        var agenda_main = document.getElementById('agenda_main');
+        self.agendas.push({ id: res[0].id, content: "" });
+        $timeout(function (){
+          scrollBottom(agenda_main);
+        }, SCROLL_WAIT);
+      } else {
+        self.agendas[index].id = res[0].id;
+      }
+    });
+
+  };
+
+  //2015/09/09 k.haramoto add -------------------------------------------------
+  baseController.prototype.allUpdateAgenda = function () {
+
+    var self = this;
+
+    self.service.post("/api/" + self.url, self.params).success(function (res) {
+    });
+
+  };
+  baseController.prototype.allUpdateAgendaAndPageMove = function (path) {
+
+    var self = this;
+
+    self.service.post("/api/" + self.url, self.params).success(function (res) {
+      //After the update is complete, I will page transition.
+      window.location.href = path
+    });
+
+  };
+  //end -----------------------------------------------------------------------
+
+  baseController.prototype.createActionItem = function (url, params, $scope, $timeout, $modalInstance) {
+        
+    var self = this;
+    var aiId = "";
+    
+    self.service.post("/api/" + url, params).success(function (res) {
+        $scope.action_items.push({
+            id: res[0].id,
+            agenda_id: res[0].agenda_id,
+            user_id: res[0].user_id,
+            user_name: res[0].user_name,
+            content: res[0].content,
+            scheduled_date: res[0].scheduled_date,
+            completion_date: res[0].completion_date
+        });
+      //set agenda index
+      setAgendaIndex($scope.action_items, $scope.agendas);
+      //set AI
+      aiId = "agenda_" + res[0].agenda_id + "_of_action_item_" + res[0].id;
+      $("#tempid-9999").attr('id', aiId);
+      setAiEvent($('#'+ aiId)) 
+      //create or update agenda
+      $scope.setAgendaData($("#agenda-content-" + $scope.changeAgendaIndex));
+      $scope.changeAgenda();
+      //close modal window
+      $modalInstance.close();
+      //scroll bottom
+      $timeout(function(){
+        scrollBottom(document.getElementById('action_item_main'));
+      }, SCROLL_WAIT);
+    });
+
+  };
+
+  baseController.prototype.updateActionItem = function (url, params, $scope, $timeout) {
+
+    var self = this;
+
+    self.service.post("/api/" + url, params).success(function (res) {
+      $scope.action_items[$scope.edit_action_item_index].scheduled_date = res[0].scheduled_date;
+      $scope.action_items[$scope.edit_action_item_index].user_id = res[0].user_id;
+      $scope.action_items[$scope.edit_action_item_index].user_name = res[0].user_name;
+      //scroll bottom
+      $timeout(function(){
+        scrollBottom(document.getElementById('action_item_main'));
+      }, SCROLL_WAIT);
+    });
+
+  };
+
+  baseController.prototype.deleteActionItemOfDb = function ($scope) {
+
+    var self = this;
+    var index = $scope.delete_action_item_index;
+    var ai_id = "agenda_" + self.action_items[index].agenda_id + "_of_action_item_" + self.action_items[index].id;
+    var i = 0;
+
+    self.service.post("/api/" + self.url, self.params).success(function (res) {
+      if (res.delete_action_item_count == 1){
+        //aiの表示を元に戻す 
+        //$("#" + ai_id).replaceWith($("#" + ai_id).text());
+        $("#" + ai_id).removeAttr('id').removeAttr('class');
+        for (i = 0; index < self.agendas.length; i++) {
+          if (self.agendas[i].id == self.action_items[index].agenda_id){
+            $scope.setAgendaData($("#agenda-content-" + i));
+            $scope.changeAgenda();
+            break;
+          }
+        }
+        $scope.action_items.splice($scope.delete_action_item_index, 1);
+      } else if (res.delete_action_item_count < 1) {
+        alert(I18n.t('views.proceedings.edit.js.alert.ai_deleted'), 'success');
+        $scope.action_items.splice($scope.delete_action_item_index, 1);
+      } else {
+        alert(I18n.t('views.proceedings.edit.js.alert.ai_multiple_deleted', {deleted_ai_count: res.delete_action_item_count}), 'success');
+      }
+    });
+  
+  };
+
+  baseController.prototype.deleteUploadFile = function ($scope) {
+
+    var self = this;
+    self.service.post("/materials/" + self.url, self.params).success(function (res) {
+      $scope.files.splice($scope.delete_file_index, 1);
+    });
+
+  };
+
+
+
+  // set the prototype
+  ProceedingEditController.prototype = Object.create(baseController.prototype);
+  ActionItemController.prototype = Object.create(baseController.prototype);
+  FileController.prototype = Object.create(baseController.prototype);
+
+
+  function ActionItemController($scope, $filter, $modal, $timeout, $modalInstance, proceedingService) {
+    var self = this;
+    var url = "";
+    var params = []; 
+
+    $scope.person_in_charges = []; 
+    self.service =  proceedingService;
+   
+    url = "users/get_list_of_proceeding_relation_user"; 
+    params['proceeding_id'] = $scope.proceeding_id; 
+    self.getUser(url, params, $scope);
+
+    //click regist button event
+    $scope.regist = function () {
+
+      var agenda = $scope.agendas[$scope.changeAgendaIndex]; 
+      var edit_agenda_text = $scope.agendaText; 
+      var operation = $scope.action_item_opetation
+      if (operation == "new") {
+        url = "action_items/create_action_item";
+        params = {
+          agenda_id : agenda.id, 
+          action_item_id : "", 
+          action_item_content : edit_agenda_text, 
+          scheduled_date : $filter('date')($scope.scheduledDate, 'yyyy-MM-dd') || '',
+          person_in_charge_user_id : $scope.personInCharge.user_id
+        };
+        self.createActionItem(url, params, $scope, $timeout, $modalInstance);
+      } else if (operation == "edit") {
+        url = "action_items/update_action_item";
+        params = {
+          action_item_id : $scope.action_items[$scope.edit_action_item_index].id, 
+          scheduled_date : $filter('date')($scope.scheduledDate, 'yyyy-MM-dd') || '',
+          person_in_charge_user_id : $scope.personInCharge.user_id
+        }
+        self.updateActionItem(url, params, $scope, $timeout);
+        $modalInstance.close();
+      } else {
+        //nothing todo
+      }
+    };
+
+    //click cancele button event
+    $scope.cancel = function() {
+      $modalInstance.dismiss('cancel');
+    }; 
+    
+
+    //After Responce Function
+    $scope.initAfterResponseOfGetOfUser = function() {
+      var operation = $scope.action_item_opetation
+      var i = 0;
+      $scope.personInCharge = $scope.person_in_charges[0];
+      if (operation == "new") {
+        $scope.modalTitle = I18n.t('views.proceedings.edit.js.title.ai_registered');
+        $scope.actionItemContent = $scope.agendaText;
+        $scope.scheduledDate = $filter('date')(new Date(), 'yyyy-MM-dd') || '';
+      } else if (operation == "edit") {
+        $scope.modalTitle = I18n.t('views.proceedings.edit.js.title.ai_change');
+        $scope.actionItemContent = $scope.action_items[$scope.edit_action_item_index].content;
+        $scope.scheduledDate = $filter('date')($scope.action_items[$scope.edit_action_item_index].scheduled_date, 'yyyy-MM-dd') || '';
+        for(i = 0; i < $scope.person_in_charges.length; i++){
+          if($scope.person_in_charges[i].user_id == $scope.action_items[$scope.edit_action_item_index].user_id){
+            $scope.personInCharge = $scope.person_in_charges[i];
+            break;
+          }
+        }
+      } else {
+          //nothing todo
+      }
+    };
+
+
+      $scope.dateOpen = function ($event,$which) {
+          $event.preventDefault();
+          $event.stopPropagation();
+
+          $scope[$which] = true;
+      };
+  }
+
+  function ProceedingEditController($scope, $timeout, $modal, proceedingService, $sce, $interval) {
+    var self = this;
+    self.service = proceedingService;
+    self.agendas = [];
+    self.action_items = [];
+    self.action_item_of_agenda = [];
+    self.proceeding_id;
+    self.change_agenda_index;
+    self.selected_text = "";
+    self.edit_agenda_index;
+    self.edit_agenda_text = "";
+    self.uploding = false;
+    self.uploadMessage = "";
+    //2015/090/09 k.haramoto add ----------------------------------------------
+    self.skipAllUpdate = false;
+    //end ---------------------------------------------------------------------
+
+    $scope.init = function (proceeding_id) {
+      self.proceeding_id = proceeding_id;
+
+      self.url = "agendas/get_agendas_of_proceeding";
+      self.params = {
+        id : proceeding_id 
+      };
+      self.getAgenda($sce, $timeout);
+      $scope.proceeding_id = proceeding_id;
+    };
+
+    $scope.addAgenda = function () {
+      var index = null;
+
+      self.url = "agendas/create_or_update_agenda";
+      self.params = {
+        id : null,
+        agenda_content : null,
+        proceeding_id : self.proceeding_id 
+      };
+      self.createOrUpdateAgenda(index, $sce, $timeout);
+
+    };
+
+      $scope.runExeCommandOnSelectedDoc = function(index,command) {
+          var element = $('#agenda-content-' + index);
+          var ret = false;
+          var str = "";
+
+          str = document.getSelection().toString();
+          if(trim(str).length < 1){
+              alert(I18n.t('views.proceedings.edit.js.alert.please_select'));
+              return;
+          }
+
+          ret = checkIncludedAiIsInTheSelection(element);
+          if (ret) {
+              alert(I18n.t('views.proceedings.edit.js.alert.selection_to_contain_the_ai'));
+              return;
+          }
+
+          ret = checkIncludedAgendaTitleIsInTheSelection(element)
+          if (ret == false) {
+              //set title
+              document.execCommand(command, false);
+          } else {
+              //unset title
+              document.execCommand('insertHTML', false, str);
+          }
+
+          $scope.setAgendaData(element);
+          $scope.changeAgenda();
+
+      };
+
+      $scope.setListOfAgenda = function(index) {
+          $scope.runExeCommandOnSelectedDoc(index,'insertunorderedlist');
+      };
+    $scope.setTitleOfAgenda = function(index) {
+        $scope.runExeCommandOnSelectedDoc(index,'bold');
+    };
+
+    $scope.setAgendaIndex = function (index) {
+      $scope.changeAgendaIndex = index;
+    };
+
+    $scope.setAgendaData = function (element) {
+      var index = element[0].getAttribute("agenda-event");
+      $scope.changeAgendaIndex = index;
+      $scope.changeAgendaElement = element;
+      $scope.changeAgendaContent = element[0].innerHTML;
+    };
+
+    $scope.changeAgenda = function () {
+      var element = $scope.changeAgendaElement;
+      var index = $scope.changeAgendaIndex;
+      var agenda_id = self.agendas[index].id;
+      var agenda_content = $scope.changeAgendaContent;
+
+      self.changeAgendaIndex = index;
+      //check content is blank
+      if (agenda_content != void 0) {
+        self.url = "agendas/create_or_update_agenda";
+        self.params = {
+          id : agenda_id,
+          agenda_content : agenda_content,
+          proceeding_id : self.proceeding_id 
+        };
+        self.createOrUpdateAgenda(index, $sce);
+      }
+    };
+
+    $scope.deleteAgenda = function (index) {
+      var agenda_id = self.agendas[index].id;
+      $scope.delete_agenda_id = self.agendas[index].id;
+      $scope.delete_agenda_index = index;
+      
+      //check new agenda
+      if(self.agendas[index].id == void 0) {
+        self.agendas.splice(index, 1);
+      } else {
+        //check action item count of agenda
+        self.url = "action_items/get_action_items_of_agenda";
+        self.params = {
+          id : agenda_id
+        };
+        self.getActionItemOfAgenda($scope);
+      }
+    };
+
+    
+    $scope.keydownAgenda = function(event, element) {
+      var selection = document.getSelection();
+      var focus_element = document.getSelection().focusNode;
+      var focus_offset = document.getSelection().focusOffset;
+      var anchor_offset = document.getSelection().anchorOffset;
+      var str;
+      var range;
+      var parment_element;
+
+      //undo redo禁止(AIを復活させられると困るため)
+      if (checkUndo(event) || checkRedo(event)){
+        console.log("undo redo cancele");
+        return false;
+      }
+
+      //カーソル位置が末尾で、次のエレメントがアクションアイテムの場合デリート禁止
+      if (focus_element.data != null) {
+        if ((focus_offset == focus_element.data.length) && (anchor_offset == focus_offset)) {
+          if (focus_element.nextElementSibling != null){
+            if (focus_element.nextElementSibling.className == 'action_item'){
+              if (event.which == KEY_DELETE){ return false };
+            }
+          }
+        } 
+      }
+
+      //カーソル位置がアクションアイテムの場合
+      if (focus_element.parentElement && focus_element.parentElement.className == 'action_item') {
+        //カーソル位置が末尾の場合で、選択していない場合
+        if ((focus_offset == focus_element.data.length) && (anchor_offset == focus_offset)) {
+          //エンターかスペースを入力した場合
+          if (event.which == KEY_ENTER) {
+            document.execCommand('insertHTML', false, "<span>&nbsp;</span>");
+            return true; 
+          } else if (event.which == KEY_SPACE) {
+            document.execCommand('insertHTML', false, "<span>&nbsp;</span>");
+            return false; 
+          } else {
+            //書き換え不可キー以外
+            if (checkAiKey(event) == false) {
+              if ((event.which != KEY_INSERT) && (event.which != KEY_BACKSPACE) && (event.which != KEY_DELETE)){
+                //アクションアイテム後ろに挿入された文字を、アクションアイテムの外に出す
+                $timeout(function(){
+                  replaceAi(focus_element.data.length - 1);  
+                }, 10);
+                return true;
+              } else if (event.which == KEY_DELETE){
+                return false;
+              }  
+            }
+          }
+        //カーソル位置が先頭
+        } else if((anchor_offset == focus_offset) && (anchor_offset == 0)){
+
+          //書き換え不可キーいがいだったら
+          if (checkAiKey(event) == false) {
+            if ((event.which != KEY_INSERT) && (event.which != KEY_BACKSPACE) && (event.which != KEY_DELETE) && (event.which != KEY_ENTER)){
+              //アクションアイテム先頭に挿入された文字を、アクションアイテムの外に出す
+              $timeout(function(){
+                replaceAi(1);  
+              }, 10);
+              return true;
+            } else if (event.which == KEY_DELETE){
+              return false;
+            }  
+          }
+        } else {
+          if (checkAiKey(event) == false) {
+            return false;
+          } else {
+          }
+        }
+      } else {
+        if (trim(focus_element.data).length == 1){
+          //文字が一文字の場合にDELかBACKSPACEで消したばあい
+          if ((event.which == KEY_BACKSPACE) || (event.which == KEY_DELETE)) {
+
+            //選択位置を先頭にする
+            range = document.createRange();
+            range.collapse(true);
+            range.setStart(focus_element, 0);
+            range.setEnd(focus_element, 0);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            //エレメントを削除(ゴミのテキストが残るため）
+            parment_element = focus_element.parentElement;
+            parment_element.removeChild(focus_element);
+            //選択位置を先頭にする
+            range = document.createRange();
+            range.collapse(true);
+            range.setStart(parment_element, 0);
+            range.setEnd(parment_element, 0);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            //後の操作をキャンセルさせる 
+            return false;
+          }
+        }
+      }
+
+      //選択範囲内にAIがある場合
+      if (checkIncludedAiIsInTheSelection(element)) {
+        //許可していないキー以外は、編集無効
+        if (checkAiKey(event) == false) { return false }; 
+      }
+
+      return true;
+    }
+
+    $scope.addActionItem = function () {
+      //replace space
+      var agenda_text = trim(document.getSelection().toString());
+      $scope.agendaText = agenda_text;
+      $scope.agendas = self.agendas;
+      $scope.action_items = self.action_items;
+      $scope.action_item_opetation = "new";
+
+      if( agenda_text.length == 0 ){
+        alert(I18n.t('views.proceedings.edit.js.alert.please_select_ai_text'));
+      } else {
+
+        //set ai temporary
+        document.execCommand('insertHTML', false, "<span class='action_item' id='tempid-9999'>" + agenda_text + "</span>");
+        document.execCommand('ForeColor', false, "black");
+
+        var modalInstance = $modal.open({
+          templateUrl: 'createOrUpdateActionItemDialog.html',
+          controller: 'ActionItemController',
+          size: 'sm',
+          scope: $scope,
+          resolve: {
+            target: function () {
+            }
+          }
+        });
+        modalInstance.result.then(function () {
+          //clear
+          self.edit_agenda_text = "";
+        }, function () {
+          //clear
+          self.edit_agenda_text = "";
+          document.execCommand('undo');
+        });
+        
+     }
+    };
+
+    $scope.editActionItem = function (index) {
+      $scope.agendas = self.agendas;
+      $scope.action_items = self.action_items;
+      $scope.edit_action_item_index = index; 
+      $scope.action_item_opetation = "edit";
+
+      var modalInstance = $modal.open({
+        templateUrl: 'createOrUpdateActionItemDialog.html',
+        controller: 'ActionItemController',
+        size: 'sm',
+        scope: $scope,
+        resolve: {
+          target: function () {
+          }
+        }
+      })
+      modalInstance.result.then(function () {
+        //clear
+        self.edit_agenda_text = "";
+      }, function () {
+        //clear
+        self.edit_agenda_text = "";
+      });
+
+    };
+
+    $scope.deleteActionItem = function (index) {
+      $scope.agendas = self.agendas;
+      $scope.action_items = self.action_items;
+      $scope.delete_action_item_index = index; 
+
+      confirm(I18n.t('views.proceedings.edit.js.confirm.ai_delete', {no: (index + 1)}), function(){
+          //set params
+          self.url = "action_items/delete_action_item";
+          self.params = {
+              action_item_id :  $scope.action_items[index].id
+          };
+          //delete data of agenda of database
+          self.deleteActionItemOfDb($scope);
+      });
+    };
+
+    //After Responce Function
+    $scope.deleteAgendaAfterResponseOfGetOfAiOfAgenda = function() {
+      var index = $scope.delete_agenda_index;
+      var agenda_id = $scope.delete_agenda_id;
+      if (self.action_item_of_agenda.length == 0) {
+        //popup delete check message
+        confirm(I18n.t('views.proceedings.edit.js.confirm.agenda_delete', {no: (index + 1)}), function(){
+            self.url = "agendas/delete_agenda";
+            self.params = {
+                id : agenda_id
+            };
+            //delete data of agenda of database
+            self.deleteAgenda($scope);
+        });
+      } else {
+        alert(I18n.t('views.proceedings.edit.js.alert.agenda_not_delete'));
+      }
+    };
+
+    //2015/09/09 k.haramoto add -----------------------------------------------
+    $scope.pageMove = function(path) {
+      var agendas = angular.element('#agenda_table').find('.agenda_content');
+      var i = 0;
+      var url = "";
+      var params = {};
+      self.skipAllUpdate = true;
+      self.url = "agendas/all_update_agenda";
+      self.params = [];
+      if(agendas.length > 0){
+        for(i = 0; i < agendas.length; i++){
+          self.params.push({
+            id : self.agendas[i].id,
+            agenda_content : agendas[i].innerHTML,
+            proceeding_id : self.proceeding_id
+          });
+        }
+        self.allUpdateAgendaAndPageMove(path);
+      }
+    };
+    $scope.agendaAllUpdate = function() {
+      if (self.skipAllUpdate) {
+        self.skipAllUpdate = false;
+        return
+      };
+      var agendas = angular.element('#agenda_table').find('.agenda_content');
+      var i = 0;
+      var url = "";
+      var params = {};
+      self.url = "agendas/all_update_agenda";
+      self.params = [];
+      if(agendas.length > 0){
+        for(i = 0; i < agendas.length; i++){
+          self.params.push({
+            id : self.agendas[i].id,
+            agenda_content : agendas[i].innerHTML,
+            proceeding_id : self.proceeding_id
+          });
+        }
+        self.allUpdateAgenda();
+      }
+    }
+    angular.element(document).ready(function() {
+      //When the page transition, and update all the items of the agenda
+      angular.element(window).on('beforeunload', function(event) {
+        $scope.agendaAllUpdate();
+      });
+      //Periodically, Auto all the items of the agenda Save
+      $scope.fnAgendaAllUpdate = $interval(function() {
+        $scope.agendaAllUpdate();
+      }, AGENDA_PERIODIC_UPDATE_SEC);
+    });
+    //end ---------------------------------------------------------------------
+  }
+
+  function FileController($scope, $timeout, FileUploader, proceedingService) {
+    var self = this;
+    self.service = proceedingService;
+    self.files = [];
+    self.uploding = false;
+
+    //file uploader sething 
+    var csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    var uploader = $scope.uploader = new FileUploader({url: '/materials/upload', headers: {'X-CSRF-TOKEN': csrf_token}});
+
+    uploader.onBeforeUploadItem = function() {
+      $scope.uploding = true;
+    }; 
+
+    uploader.onCompleteItem = function(fileItem, response, status, headers) {
+      $scope.uploding = false;
+      self.url = "materials/get_materials_of_proceeding";
+      self.params = {
+        id : self.proceeding_id
+      };
+      self.getMaterial($scope, $timeout, true);
+      //clear
+      $scope.fileAnnotation = "";
+      document.getElementById("uploadfile").value = "";
+      $scope.uploader.clearQueue();
+
+      angular.element('#filename').val('');
+      angular.element('#fileUpload').modal('hide');
+      alert(I18n.t('views.proceedings.file.js.alert.file_upload_success'), 'success');
+    };
+
+    uploader.onErrorItem = function(fileItem, response, status, headers) {
+      $scope.uploding = false;
+      alert(I18n.t('views.proceedings.file.js.alert.file_upload_error'));
+    };
+    //file uploader sething end 
+
+    $scope.init = function (proceeding_id) {
+      self.proceeding_id = proceeding_id;
+      self.url = "materials/get_materials_of_proceeding";
+      self.params = {
+        id : proceeding_id 
+      };
+      self.getMaterial($scope, $timeout, false);
+    };
+
+    //File
+    $scope.addFile = function() {
+      var files = document.getElementById("uploadfile").files;
+      var upload_file = $scope.uploader.queue[$scope.uploader.queue.length - 1];
+      var annotation = $scope.fileAnnotation;
+      var flg = false;
+      if (files[0] == void 0){
+        alert(I18n.t('views.proceedings.file.js.alert.please_select_upload_file'));
+        return;
+      }
+      if (annotation == void 0) {
+        alert(I18n.t('views.proceedings.file.js.alert.please_input_annotation'));
+        return;
+      }
+      if (trim(annotation).length ==  0) {
+        alert(I18n.t('views.proceedings.file.js.alert.please_input_annotation'));
+        return;
+      }
+      //file name check
+      angular.forEach($scope.files, function(a_file){
+        if (upload_file['file']['name'] == a_file.file_name) {
+          //remove upload file
+          alert(I18n.t('views.proceedings.file.js.alert.same_file_name'));
+          flg = true;
+          return;
+        }
+      });
+      //file name confrict
+      if (flg) {
+        return;
+      }
+      upload_file.formData.push({
+        proceeding_id : self.proceeding_id,
+        annotation : $scope.fileAnnotation
+      });
+      upload_file.upload();
+    };
+ 
+    $scope.deleteFile = function(index) {
+      var filename = "";
+
+      $scope.delete_file_index = index;
+      $scope.files = self.files;
+      filename = $scope.files[index].file_name;
+
+      confirm(I18n.t('views.proceedings.file.js.confirm.delete_file', {filename: filename}), function(){
+          self.url = "delete";
+          self.params = {
+              id : $scope.files[index].id
+          };
+          self.deleteUploadFile($scope);
+      });
+    };
+
+  } 
+
+  function baseService () {}
+
+  baseService.prototype.get = function (url, options) {
+    return this.$http.get(url, {params: options});  
+  };
+
+  baseService.prototype.post = function (url, formData) {
+   return this.$http.post(url, {params: formData});  
+  };
+
+  baseService.prototype.delete = function (url) {
+   return this.$http.delete(url);  
+  };
+
+  proceedingService.prototype = Object.create(baseService.prototype);
+  fileService.prototype = Object.create(baseService.prototype);
+
+  /**
+   * @ngInject
+   */
+  function proceedingService($http) {
+
+    this.$http = $http;
+
+  }
+
+  function fileService($http) {
+
+    this.$http = $http;
+
+  }
+
+
+  //directive------------------------------------------------------------------
+  function fileCheck ($window) {
+
+    return {
+      restrict: 'A',
+      link: function (scope, element, attrs) {
+        function checkType(file) {
+            //if (file.type != 'application/pdf') {
+          if (file.name.substr(file.name.lastIndexOf('.') +1).toUpperCase() != "PDF") {
+            $window.alert(attrs.warningMessage, 'warning');
+          }
+
+        }
+
+        function checkUniqe(file) {
+
+          var flag = true;
+          
+          angular.forEach(scope.files, function(a_file){
+            if (file.name == a_file.file_name) {
+              //remove upload file
+              scope.uploader.clearQueue();
+              flag = false;
+              return false;
+            }
+          });
+
+          if (flag == false) {
+            $window.alert(attrs.errorMessage);
+            element.val('');
+          }
+
+          return flag;
+
+        }
+
+        element.on('change', function (e) {
+          angular.element('#filename').val('');
+          var file = e.target.files[0];
+
+          if (file != void 0) {
+            if (checkUniqe(file)) {
+              checkType(file);
+              angular.element('#filename').val(file.name);
+            }
+          } else {
+            //remove upload file
+            scope.uploader.clearQueue();
+          }
+        });
+      }
+    };
+
+  }
+
+  //directive
+  function agendaEvent() {
+    return {
+      restrict: 'A',
+      link: function (scope, element, attr) {
+        var focusEditHtml = "";
+        var preKeyEvent = "";
+        var preKeyCode = 0;
+        var flag = false;
+
+        element.data('flag', false);
+
+        element.on('DOMCharacterDataModified', function() {
+          element.data('flag', true);
+
+          //コントローラ側のアジェンダ変更時の処理を呼び出し
+          scope.setAgendaData(element);
+          //scope.changeAgenda();
+        });
+
+        element.on('input', function() {
+          if(element.data('flag') == false) {
+            //コントローラ側のアジェンダ変更時の処理を呼び出し
+            scope.setAgendaData(element);
+            //scope.changeAgenda();
+          } else {
+            element.data('flag', false);
+          }
+        });
+        //キーダウン時の処理
+        element.on('keydown', function() {
+          if (element.data('flag') == false) {
+            //check keyCode change zenkaku hankaku
+            if (checkKeyOfChangeZenkakuHankaku(event, preKeyEvent, preKeyCode)){ return };
+            //check char
+            var str = document.getSelection().toString();
+            if(trim(str).length < 1) {
+              if (scope.keydownAgenda(event, element) == false) {
+                return false;
+              } 
+            } else {
+              //when include ai then input cancel
+              if (checkIncludedAiIsInTheSelection(element)) {
+                if(checkAiKey(event) == false) {
+                  //check zenkaku char
+                  if (event.keyCode == KEY_ZENKAKU_KEYS){
+                    flag = true;
+                  }
+                  console.log("false");
+                  return false;
+                } else {
+                  console.log(event.keyCode);
+                  console.log("true");
+                }
+              }
+            }
+
+            preKeyEvent = "keydown";
+            preKeyCode = event.keyCode; 
+
+          } else {
+            element.data('flag', false);
+            preKeyEvent = "keydown";
+            preKeyCode = event.keyCode; 
+          }
+        });
+        
+        element.on('keypress', function() {
+          preKeyEvent = "keypress";
+          preKeyCode = event.keyCode;
+        });
+
+        element.on('keyup', function() {
+          if (flag){
+            this.innerHTML = focusEditHtml;
+            flag = false;
+            return false;
+          }
+
+          preKeyEvent = "keyup";
+          preKeyCode = event.keyCode;
+        });
+
+        element.on('focus', function() {
+          focusEditHtml = this.innerHTML;
+        });
+
+        element.on('blur', function(){
+          preKeyEvent = "";
+          preKeyCode = 0;
+        });
+
+        //貼り付け時の処理
+        element.on('paste', function() {
+          if (checkIncludedAiIsInTheSelection(element)) {
+            return false;
+          } 
+        });
+      }
+    }
+  }
+/*
+  function aiEvent() {
+    return {
+      restrict: 'A',
+      link: function (scope, element, attr) {
+        setAiEvent(element);
+      }
+    }
+  }
+*/
+
+  // Check agenda
+  function checkAgenda() {
+    return {
+      priority: -1,
+      link: function (scope, element, attr) {
+        element.on('click', function (e) {
+          if (checkBlankOfAgenda()) {
+            // stop default event
+            e.stopImmediatePropagation();
+            e.preventDefault();
+          }
+        });
+
+        /**
+         * Check content of agenda is blank.
+         *
+         * @return [Boolean] true is blank, false is not blank.
+         */
+        function checkBlankOfAgenda() {
+          var blank = false;
+          angular.element(attr.checkTarget).each(function () {
+            if (jQuery.trim(this.textContent) == '') {
+              blank = true;
+              return false;
+            }
+          });
+          if (blank == true) {
+            alert(attr.contentIsBlank.replace(/\\n/g, "\n"));
+          }
+          return blank;
+        }
+
+      }
+    };
+  }
+
+  //user function
+  function trim(str) {
+    if (str == void 0) {
+      str = "";
+    } else {
+      str =  str.replace(/(^\s+)|(\s+$)/g, "");
+      str  = str.replace(/(^[\s　]+)|([\s　]+$)/g, "");
+    }
+    return str;
+  }
+
+  function scrollBottom(em) {
+    if (em == void 0) {
+      return;
+    } else {
+      em.scrollTop = em.scrollHeight;
+    }
+  }
+
+  function setAiEvent(element) {
+    element.on('drop dragstart', function() {
+      alert(I18n.t('views.proceedings.edit.js.alert.to_ai_not_drag_and_drop'));
+      return false;
+    });
+  }
+
+  function setAgendaIndex(action_items, agendas) {
+
+    angular.forEach(action_items, function(action_item, ai_index) {
+      angular.forEach(agendas, function(agenda, agenda_index) {
+        if ( action_item.agenda_id == agenda.id ) {
+          action_items[ai_index]['agenda_index'] = agenda_index;
+        } else {
+          //nothing to do
+        }
+      });
+    }); 
+
+  }
+
+  function checkKeyOfChangeZenkakuHankaku(event, preKeyEvent, preKeyCode){
+    //半角/全角切替キーを押した場合に全角モードに変わるときkeyCodeは243で、
+    //半角モードは244
+    //keyup→keydownの順にイベントが起きる(keypressはない)
+    //keydownのキーコードは229
+    if ((preKeyEvent == "keyup") &&
+    (preKeyCode == KEY_CHANGE_ZENKAKU) &&
+    (event.keyCode == KEY_ZENKAKU_KEYS)){
+      console.log("全角モード");
+      return true;
+    } else if((preKeyEvent == "keyup") &&
+    (preKeyCode == KEY_CHANGE_HANKAKU) &&
+    (event.keyCode == KEY_ZENKAKU_KEYS)){
+      console.log("半角モード");
+      return true;
+    }
+    return false;
+  }
+
+  function checkIncludedAgendaTitleIsInTheSelection(element) {
+    var selection = document.getSelection();
+    var agendas = element.find("b");
+    var check = false;
+    var index = 0;
+    for (index = 0; index < agendas.length; index++) {
+      //選択範囲内にAgendaNodeがあるかチェック
+      check = selection.containsNode(agendas[index], true);
+      if (check) { return true };
+    }
+    return false; 
+  };
+
+  function checkIncludedAiIsInTheSelection(element) {
+    var selection = document.getSelection();
+    var action_items = element.find("span");
+    var check = false;
+    var index = 0;
+    for (index = 0; index < action_items.length; index++) {
+      //選択範囲内にアクションアイテムのNodeがあるかチェック
+      if (action_items[index].className == 'action_item') {
+        check = selection.containsNode(action_items[index], true);
+        if (check) { return true };
+      } else {
+      }
+    }
+    return false; 
+  };
+
+  function replaceAi(position) {
+    var range;
+    var selection = document.getSelection();
+    var str_insert;
+    var str_prev;
+    var id;
+
+    //文字切り取る
+    str_insert = selection.focusNode.data.substring(0, position);
+    str_prev = selection.focusNode.data.substring(position, selection.focusNode.data.length);
+    id = selection.focusNode.parentElement.id;
+    console.log(str_insert);
+    console.log(str_prev);
+    //全体を選択して、HTMLを置き換える
+    range = selection.getRangeAt(0);
+    range.setStart(selection.focusNode, 0);
+    console.log(selection);
+    range.setEnd(selection.focusNode, selection.focusNode.data.length);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    if (position == 1) {
+      document.execCommand('insertHTML', false, str_insert + "<span class='action_item' id='" + id + "'>" + str_prev + "</span>");
+    } else {
+      document.execCommand('insertHTML', false, "<span class='action_item' id='" + id + "'>" + str_insert + "</span>" + str_prev);
+    }
+    //カーソル位置を調整
+    if (position == 1) {
+      range.setStart(selection.focusNode, 0);
+      range.setEnd(selection.focusNode, 0);
+    } else {
+      range.setStart(selection.focusNode, selection.focusNode.data.length);
+      range.setEnd(selection.focusNode, selection.focusNode.data.length);
+    }
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
+
+  function checkUndo(event) {
+    if (event.ctrlKey && (event.which == KEY_Z_SMALL)){
+      return true;
+    }
+    return false;
+  }
+
+  function checkRedo(event) {
+    if (event.ctrlKey && (event.which == KEY_Y_SMALL)){
+      return true;
+    }
+    return false;
+
+  }
+
+  function checkAiKey(event) {
+    var index;
+    for (index = 0; index < AI_KEYDOWN_OK.length; index++) {
+      if (AI_KEYDOWN_OK[index] == event.which){
+        return true;
+      }
+    };
+    return false;
+  };
+
+    //Datepicker match regex
+    function datepickerPattern() {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function(scope,elem,attrs,ngModelCtrl) {
+                var dRegex = new RegExp(attrs.datepickerPattern);
+                ngModelCtrl.$parsers.unshift(function(value) {
+
+                    if (typeof value === 'string') {
+                        var isValid = dRegex.test(value);
+                        ngModelCtrl.$setValidity('date',isValid);
+                        if (!isValid) {
+                            return undefined;
+                        }
+                    }
+                    return value;
+                });
+
+            }
+        };
+    };
+
+  ProceedingEditController.$inject = ['$scope', '$timeout', '$modal', 'proceedingService', '$sce', '$interval'];
+  ActionItemController.$inject = ['$scope', '$filter', '$modal', '$timeout', '$modalInstance', 'proceedingService'];
+  FileController.$inject = ['$scope', '$timeout', 'FileUploader', 'proceedingService'];
+  proceedingService.$inject = ['$http'];
+  fileCheck.$inject = ['$window'];
+
+  angular.module('proceedingModule', ['ui.bootstrap', 'angularFileUpload', 'ng-rails-csrf'])
+    .service('proceedingService', proceedingService)
+    .controller('ProceedingEditController', ProceedingEditController)
+    .controller('ActionItemController', ActionItemController)
+    .controller('FileController', FileController)
+    .directive('fileCheck', fileCheck)
+    .directive('agendaEvent', agendaEvent)
+    .directive('checkAgenda', checkAgenda)
+    .directive('datepickerPattern', datepickerPattern);
+    //  .directive('aiEvent', aiEvent);
+
+})();

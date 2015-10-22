@@ -1,0 +1,12 @@
+<div id="cybozu-edit" class="cybozu-div" ng-app="adminModule" ng-controller="CybozuController as cybozuCtrl">
+
+  <div class="main-header">
+    <h3><%= t('views.cybozus.edit.title') %></h3>
+    <div class="operation">
+      <%= link_to t('admin.button.show'), @cybozu, class: "btn btn-default" %>
+    </div>
+  </div>
+
+  <%= render 'form' %>
+
+</div>

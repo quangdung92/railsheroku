@@ -1,0 +1,175 @@
+  <section ng-app="homeModule" ng-controller="InfoController" class="main-content">
+    <div class="search-header">
+      <%= form_tag "/home", method: "post", id: "search-box", class: "search-area form-inline clearfix" do %>
+        <p class="form-group search-title">
+          <i class="glyphicon glyphicon-search"></i> 
+        </p>
+        <p class="form-group">
+          <label><%= t("home.search.meeting-name") %></label>
+          <input ng-model="freeWord" class="form-control display-inline-block" type="text" name="free_word" placeholder="<%= t("home.search.freeword") %>" tooltip="<%= t('views.homes.index.balloon_help.free_word') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+        </p>
+        <p class="form-group">
+          <label><%= t("home.search.date") %></label>
+          <span class="input-group">
+            <input type="text" id="fromDate" name="from_date" class="form-control" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" ng-model="fromDate" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="fromOpened" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" placeholder="<%= t('common.datepicker.placeholder') %>" tooltip="<%= t('views.homes.index.balloon_help.meeting_start_date') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" />
+            <span class="input-group-btn input-group-btn-override">
+              <button type="button" class="btn btn-default" ng-click="dateOpen($event, 0)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </span>
+          ～
+          <span class="input-group">
+            <input type="text" id="toDate" name="to_date" class="form-control" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" ng-model="toDate" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="toOpened" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" placeholder="<%= t('common.datepicker.placeholder') %>" tooltip="<%= t('views.homes.index.balloon_help.meeting_end_date') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" />
+            <span class="input-group-btn input-group-btn-override">
+              <button type="button" class="btn btn-default" ng-click="dateOpen($event, 1)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </span>
+        </p>
+        <p class="form-group">
+          <label><%= t("home.search.kind") %></label>
+          <select ng-model="kind" class="form-control display-inline-block" id="kind" name="kind" tooltip="<%= t('views.homes.index.balloon_help.meeting_kind') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <%= options_for_select(@kinds) %>
+          </select>
+        </p>
+        <p class="form-group pull-right">
+          <button ng-click="clear()" id="search-clear" type="button" class="btn btn-default" tooltip="<%= t('views.homes.index.balloon_help.clear') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <%= t("home.search.button.clear") %>
+          </button>
+        </p>
+      <% end %>
+    </div>
+    <div class="main">
+      <div class="self-content">
+        <div class="ai">
+          <div ng-controller="SelfUnresolvedAiController as self" id="unresolved-ai-me" class="info-list">
+            <div class="list-title">
+              <p>
+                <i class="glyphicon glyphicon-warning-sign"></i>
+                <span tooltip="<%= t('views.homes.index.balloon_help.ai_me') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                  <%= t("home.unresolved.ai.me.title") %>
+                </span>
+              </p>
+            </div>
+            <div class="list-content">
+              <a ng-href="{{data.url}}" ng-repeat="data in self.datas" tooltip="<%= t('views.homes.index.balloon_help.unresolved_me') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                <span class="list-ai-meeting-name" ng-bind="data.name">
+                </span>
+                <span class="list-ai-content" ng-bind="data.content">
+                </span>
+                <span class="list-date" ng-bind="data.date">
+                </span>
+              </a>
+            </div>
+            <div class="list-view">
+              <a href="/unresolved_ai_lists/me" form-target="search-box" form-submit tooltip="<%= t('views.homes.index.balloon_help.see_more') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                <i class="glyphicon glyphicon-share-alt"></i>
+                <%= t("home.list.view") %>
+              </a>
+            </div>
+          </div>
+          <div ng-controller="MeetingUnresolvedAiController as meeting" id="unresolved-ai-meeting" class="info-list">
+            <div class="list-title">
+              <p>
+                <i class="glyphicon glyphicon-bullhorn"></i>
+                <span tooltip="<%= t('views.homes.index.balloon_help.ai_meeting') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                  <%= t("home.unresolved.ai.meeting.title") %>
+                </span>
+              </p>
+            </div>
+            <div class="list-content">
+              <a ng-href="{{data.url}}" ng-repeat="data in meeting.datas" tooltip="<%= t('views.homes.index.balloon_help.unresolved_meeting') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                <span class="list-ai-meeting-name" ng-bind="data.name">
+                </span>
+                <span class="list-ai-content" ng-bind="data.content">
+                </span>
+                <span class="list-date" ng-bind="data.date">
+                </span>
+              </a>
+            </div>
+            <div class="list-view">
+              <a href="/unresolved_ai_lists/meeting" form-target="search-box" form-submit tooltip="<%= t('views.homes.index.balloon_help.see_more') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                <i class="glyphicon glyphicon-share-alt"></i>
+                <%= t("home.list.view") %>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="meeting">
+          <div ng-controller="ScheduledMeetingController as scheduled" id="scheduled-meeting" class="info-list">
+            <div class="list-title">
+              <p>
+                <i class="glyphicon glyphicon-time"></i>
+                <span tooltip="<%= t('views.homes.index.balloon_help.scheduled_meeting') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                  <%= t("home.meeting.scheduled.title") %>
+                </span>
+                <a href="/meetings/new" tooltip="<%= t('views.homes.index.balloon_help.meeting_new') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                  <i class="glyphicon glyphicon-plus-sign"></i>
+                  <span id="add-meeting-button"><%= t('home.button.meeting.new') %></span>
+                </a>
+              </p>
+            </div>
+            <div class="list-content">
+              <a ng-href="{{data.url}}" ng-repeat="data in scheduled.datas" tooltip="<%= t('views.homes.index.balloon_help.scheduled_meeting') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                <span class="list-scheduled-meeting-name" ng-bind="data.name">
+                </span>
+                <span class="list-meeting-venue" ng-bind="data.venue">
+                </span>
+                <span class="list-timedate" ng-bind="data.date">
+                </span>
+              </a>
+            </div>
+            <div class="list-view">
+              <a href="/meeting_lists/scheduled" form-target="search-box" form-submit tooltip="<%= t('views.homes.index.balloon_help.see_more') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                <i class="glyphicon glyphicon-share-alt"></i>
+                <%= t("home.list.view") %>
+              </a>
+            </div>
+          </div>
+          <div ng-controller="EndedMeetingController as ended" id="ended-meeting" class="info-list">
+            <div class="list-title">
+              <p>
+                <i class="glyphicon glyphicon-ok-sign"></i>
+                <span tooltip="<%= t('views.homes.index.balloon_help.end_meeting') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                  <%= t("home.meeting.ended.title") %>
+                </span>
+              </p>
+            </div>
+            <div class="list-content">
+              <a ng-href="{{data.url}}" ng-repeat="data in ended.datas" tooltip="<%= t('views.homes.index.balloon_help.ended_meeting') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                <span class="list-ended-meeting-name" ng-bind="data.name">
+                </span>
+                <span class="list-date" ng-bind="data.date">
+                </span>
+              </a>
+            </div>
+            <div class="list-view">
+              <a href="/meeting_lists/ended" form-target="search-box" form-submit tooltip="<%= t('views.homes.index.balloon_help.see_more') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                <i class="glyphicon glyphicon-share-alt"></i>
+                <%= t("home.list.view") %>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-controller="WhatsNewController as whats_new" id="whats-new" class="new-information">
+        <div class="list-title">
+          <p>
+            <i class="glyphicon glyphicon-comment"></i>
+            <span tooltip="<%= t('views.homes.index.balloon_help.whats_new') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+              <%= t("home.new.information") %>
+            </span>
+          </p>
+        </div>
+        <div class="list-content">
+          <a ng-href="{{data.url}}" ng-repeat="data in whats_new.datas" tooltip="{{data.balloon_help}}" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <p ng-bind="data.content"></p>
+          </a>
+        </div>
+        <div class="list-view">
+          <a href="/whats_new_lists" tooltip="<%= t('views.homes.index.balloon_help.see_more') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <i class="glyphicon glyphicon-share-alt"></i> 
+            <%= t("home.list.view") %>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>

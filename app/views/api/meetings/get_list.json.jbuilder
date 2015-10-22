@@ -1,0 +1,1 @@
+json.meetings create_list_of_meeting

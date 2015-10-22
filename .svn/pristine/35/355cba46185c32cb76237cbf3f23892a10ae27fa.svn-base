@@ -1,0 +1,28 @@
+@import "variable";
+
+header {
+  height: 60px;
+  min-height: 60px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  background-color: $header-background-color;
+  border-bottom: 5px solid rgba(mediumblue, 0.7);
+  box-sizing: content-box;
+
+  .user-space {
+    width: 300px;
+    text-align: right;
+    line-height: 60px;
+    padding-right: 15px;
+    -webkit-flex: 1;
+    flex: 1;
+
+    > a:first-child {
+      margin: 0 5px;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}

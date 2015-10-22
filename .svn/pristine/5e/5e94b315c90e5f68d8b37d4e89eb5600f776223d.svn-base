@@ -1,0 +1,91 @@
+<section class="main-content" ng-app="unresolvedAiLists" ng-controller="MeetingController as meeting">
+  <div class="search-header">
+    <div class="search-area form-inline clearfix">
+      <p class="form-group search-title">
+        <i class="glyphicon glyphicon-search"></i> 
+      </p>
+      <p class="form-group">
+        <label><%= t_m("action_item.content") %></label>
+        <input ng-model="meeting.content" class="form-control display-inline-block" type="text" name="content" tooltip="<%= t('views.unresolved_ai_lists.common.balloon_help.ai_content') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+      </p>
+      <p class="form-group">
+        <label><%= t_m("action_item.scheduled_date") %></label>
+        <span class="input-group">
+          <input type="text" name="ai_from_date" class="form-control" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" ng-model="meeting.aiFromDate" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="meeting.aiFromOpened" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" placeholder="<%= t('common.datepicker.placeholder') %>" tooltip="<%= t('views.unresolved_ai_lists.common.balloon_help.ai_stat_corresponding_date') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" />
+          <span class="input-group-btn input-group-btn-override">
+            <button type="button" class="btn btn-default" ng-click="meeting.dateOpen($event, 2)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </span>
+        ～
+        <span class="input-group">
+          <input type="text" name="ai_to_date" class="form-control" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" ng-model="meeting.aiToDate" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="meeting.aiToOpened" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" placeholder="<%= t('common.datepicker.placeholder') %>" tooltip="<%= t('views.unresolved_ai_lists.common.balloon_help.ai_end_corresponding_date') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" />
+          <span class="input-group-btn input-group-btn-override">
+            <button type="button" class="btn btn-default" ng-click="meeting.dateOpen($event, 3)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </span>
+      </p>
+      <p class="form-group">
+        <label><%= t_m("meeting.name") %></label>
+        <input ng-model="meeting.likeName" class="form-control display-inline-block" type="text" name="free_word" ng-init="meeting.likeName='<%= params[:free_word] %>'" tooltip="<%= t('views.homes.index.balloon_help.free_word') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" >
+      </p>
+      <p class="form-group filter_date">
+        <label><%= t_m("meeting.dates") %></label>
+        <span class="input-group">
+          <input type="text" name="from_date" class="form-control" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" ng-model="meeting.fromDate" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="meeting.fromOpened" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" ng-init="meeting.fromDate='<%= params[:from_date] %>'" placeholder="<%= t('common.datepicker.placeholder') %>" tooltip="<%= t('views.homes.index.balloon_help.meeting_start_date') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" />
+          <span class="input-group-btn input-group-btn-override">
+            <button type="button" class="btn btn-default" ng-click="meeting.dateOpen($event, 0)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </span>
+        ～
+        <span class="input-group">
+          <input type="text" name="to_date" class="form-control" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" ng-model="meeting.toDate" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="meeting.toOpened" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" ng-init="meeting.toDate='<%= params[:to_date] %>'" placeholder="<%= t('common.datepicker.placeholder') %>" tooltip="<%= t('views.homes.index.balloon_help.meeting_end_date') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" />
+          <span class="input-group-btn input-group-btn-override">
+            <button type="button" class="btn btn-default" ng-click="meeting.dateOpen($event, 1)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </span>
+      </p>
+      <p class="form-group">
+        <label><%= t_m("meeting.kind_id") %></label>
+        <select ng-model="meeting.kind" class="form-control display-inline-block" id="kind" name="kind" ng-init="meeting.kind='<%= params[:kind] %>'" tooltip="<%= t('views.homes.index.balloon_help.meeting_kind') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+          <%= options_for_select(@kinds) %>
+        </select>
+      </p>
+      <p class="form-group pull-right">
+        <button ng-click="meeting.clear()" id="search-clear" class="btn btn-default" tooltip="<%= t('views.homes.index.balloon_help.clear') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+          <%= t("views.meetings.index.button.clear") %>
+        </button>
+      </p>
+    </div>
+  </div>
+  <div class="main">
+    <div id="unresolved-ai-list-meeting" class="meeting-div">
+      <div class="table-wrap">
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr>
+              <th class="action_item_content"><%= t_m('action_item.content') %></th>
+              <th class="action_item_date"><%= t_m('action_item.scheduled_date') %></th>
+              <th class="meeting_name"><%= t_m('meeting.name') %></th>
+              <th class="meeting_kind_id"><%= t_m('meeting.kind_id') %></th>
+              <th class="meeting_dates"><%= t_m('meeting.dates') %></th>
+            </tr>
+          </thead>
+        
+          <tbody>
+            <tr ng-repeat="data in meeting.datas" ng-click="meeting.show(data.proceeding_id)" tooltip="<%= t('views.homes.index.balloon_help.unresolved_meeting') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+              <td class="action_item_content" ng-bind="data.content"></td>
+              <td class="action_item_date" ng-bind="data.date"></td>
+              <td class="meeting_name" ng-bind="data.name"></td>
+              <td class="meeting_kind_id" ng-bind="data.kind_name"></td>
+              <td class="meeting_dates" ng-bind="data.dates"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <pagination total-items="meeting.totalItems" ng-model="meeting.currentPage" max-size="meeting.maxSize" previous-text="<%= t('admin.pagination.previous') %>" next-text="<%= t('admin.pagination.next') %>" first-text="<%= t('admin.pagination.first') %>" last-text="<%= t('admin.pagination.last') %>" items-per-page="meeting.itemsPerPage" class="pagination-sm" boundary-links="true"></pagination> 
+      </div>
+    
+    </div>
+  </div>
+</section>

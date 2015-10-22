@@ -1,0 +1,9 @@
+en:
+  views:
+    firstlogins:
+      index:
+        balloon_help:
+          new_password: "Enter new password"
+          confirm_password: "Confirm password"
+          cancel: "Cancel"
+          registration: "Register"

@@ -1,0 +1,10 @@
+vi:
+  activerecord:
+    models:
+      material: Tài liệu
+    attributes:
+      material:
+        name: Tên tập tin  
+        annotation: Chú thích
+        created_at: Ngày đăng ký mới
+        updated_at: Ngày cập nhật mới nhất

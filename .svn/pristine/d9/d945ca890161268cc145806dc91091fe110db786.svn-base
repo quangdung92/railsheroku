@@ -1,0 +1,63 @@
+<div class="user-details">
+  <%= form_for(@user) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation" class="alert alert-danger">
+        <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="field required">
+      <%= f.label :login_id %>
+      <%= f.text_field :login_id, class: 'form-control', required: true, maxLength: 100 %>
+    </div>
+    <div class="field required">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control', required: true, maxLength: 100 %>
+    </div>
+    <div class="field">
+      <%= f.label :kana %>
+      <%= f.text_field :kana, class: 'form-control', pattern: "[\u3040-\u309Fー\s　]*$", maxLength: 200, "katakana-to-hiragana" => true %>
+    </div>
+    <div class="field">
+      <%= f.label :mailaddress %>
+      <%= f.email_field :mailaddress, class: 'form-control' %>
+    </div>
+    <% require_flag = (controller.action_name == 'edit' || controller.action_name == 'update') ? false : true %>
+    <div class="field <%= "required" if require_flag %>">
+      <%= f.label :password_digest %>
+      <%= f.password_field :password, 'ng-model' => 'password', class: 'form-control', maxLength: 16, pattern: "^([a-zA-Z0-9]{4,16})$", required: require_flag %>
+      <%= f.password_field :password_confirmation, 'compare-to' => 'password', 'ng-model' => 'password_confirmation', class: 'form-control', data: {error_message: t('firstlogin.message.not_match')}, maxLength: 16, pattern: "^([a-zA-Z0-9]{4,16})$", placeholder: t('firstlogin.placeholder.confirm_password'), required: require_flag %>
+    </div>
+    <div class="field">
+      <%= f.label :cybozu_id %>
+      <%= f.text_field :cybozu_id, class: 'form-control', pattern: "^([0-9]*)$", title: t('views.users.form.validate.message.cybozu') %>
+    </div>
+    <div class="field required">
+      <%= f.label :grant %>
+      <%= f.radio_button :grant, 0, required: true %>
+      <%= f.label :grant, t('views.users.shared.grant.admin'), value: 0 %>
+      <%= f.radio_button :grant, 1, required: true %>
+      <%= f.label :grant, t('views.users.shared.grant.normal'), value: 1 %>
+    </div>
+    <% if controller.action_name == 'edit' || controller.action_name == 'update' %>
+    <div class="field">
+      <%= f.label :is_deleted %>
+      <%= f.check_box :is_deleted %>
+    </div>
+    <% end %>
+    <div class="notes">
+      <p><%= t("views.users.note.require") %></p>
+      <p><%= t("views.users.note.kana") %></p>
+      <p><%= t("views.users.note.mailaddress") %></p>
+      <p><%= t("views.users.note.password") %></p>
+      <p><%= t("views.users.note.cybozu_id") %></p>
+    </div>
+    <div class="actions">
+      <%= f.submit nil, class: "btn btn-default" %>
+    </div>
+  <% end %>
+</div>

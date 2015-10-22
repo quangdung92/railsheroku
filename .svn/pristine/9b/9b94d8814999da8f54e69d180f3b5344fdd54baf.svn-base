@@ -1,0 +1,12 @@
+ja:
+  activerecord:
+    models:
+      action_item: A/I
+    attributes:
+      action_item:
+        id: ID
+        content: A/I 内容
+        user_id: 担当者
+        scheduled_date: 対応予定日
+        created_at: 新規登録日
+        updated_at: 最終変更日

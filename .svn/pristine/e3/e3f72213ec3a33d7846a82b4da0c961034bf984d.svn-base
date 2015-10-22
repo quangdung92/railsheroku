@@ -1,0 +1,66 @@
+$back-color: #efefef;
+
+.account-div {
+  background-color: $back-color;
+  border-radius: 5px;
+  margin: 15px;
+  -webkit-flex: 1;
+  flex: 1;
+  overflow: hidden;
+
+  .content-header {
+    padding: 5px;
+    background-color: #000;
+    color: #fff;
+    height: 30px;
+    min-height: 30px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .content-body {
+    padding: 10px;
+  }
+
+  label {
+    width: 150px;
+  }
+
+  .form-control {
+    display: inline-block;
+    width: 180px;
+  }
+  .field {
+    margin: 5px 0px;
+  }
+}
+
+.form-account {
+  -webkit-flex: 1;
+  flex: 1;
+
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.has-error {
+  display: inline-block;
+}
+
+.actions {
+  text-align: right;
+  padding: 5px;
+  border-top: 1px solid gray;
+  background-color: $back-color;
+  border-radius: 5px;
+  position: relative;
+  min-height: 44px;
+  margin: 0px 15px 15px 15px;
+
+  //a, button {
+  //  width: 90px;
+  //}
+
+}

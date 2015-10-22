@@ -1,0 +1,191 @@
+class Meeting < ActiveRecord::Base
+  extend MeetingsSearch
+
+  belongs_to :kind
+  belongs_to :scheduled_time
+  belongs_to :related_meeting, class_name: "Meeting"
+  has_one :proceeding
+  has_many :related_meetings, class_name: "Meeting", foreign_key: :related_meeting_id
+  has_many :participants
+  has_many :observers
+  has_many :materials
+  has_many :meeting_histories
+  has_many :agendas, through: :proceeding
+  has_many :action_items, through: :agendas
+
+  accepts_nested_attributes_for :proceeding
+  accepts_nested_attributes_for :agendas
+  accepts_nested_attributes_for :participants
+  accepts_nested_attributes_for :observers
+  accepts_nested_attributes_for :materials
+
+  validates :name, presence: true
+  validates :kind_id, presence: true
+  validates :dates, presence: true
+  validates :start_time, presence: true
+  validates :venue, presence: true
+  validates :message, length: { maximum: 500 }
+
+  IS_NO_CANCELED = false
+  IS_CANCELED = true
+
+  IS_NO_COMPLETED = false
+  IS_COMPLETED = true
+
+  IS_NOT_HOLDING = false
+  IS_HOLDING = true
+
+  scope :eq_dates, -> (date) { where(arel_table[:dates].eq date) }
+  scope :gteq_dates, -> (date) { where(arel_table[:dates].gteq date) }
+  scope :lteq_dates, -> (date) { where(arel_table[:dates].lteq date) }
+  scope :eq_kind, -> (kind_id) { where(arel_table[:kind_id].eq kind_id) }
+  scope :is_canceled, -> (flag) { where(arel_table[:is_canceled].eq flag) }
+  scope :is_completed, -> (flag) { where(arel_table[:is_completed].eq flag) }
+  scope :find_like_name, -> (name) { where(arel_table[:name].matches(name)) }
+  scope :is_holding, -> (flag) do
+    if flag
+      where(arel_table[:is_canceled].eq(false)
+        .and(arel_table[:is_completed].eq(false))
+      )
+    else
+      where(arel_table[:is_canceled].eq(true)
+        .or(arel_table[:is_completed].eq(true))
+      )
+    end
+  end
+
+  # To complete the meeting.
+  def ended
+    update_attributes({is_completed: IS_COMPLETED, is_holding: IS_NOT_HOLDING})
+  end
+
+  # To complete the meeting.
+  def revert
+    update_attributes({is_completed: IS_NO_COMPLETED, is_holding: IS_HOLDING})
+  end
+
+  # To cancel the meeting.
+  def cancel
+    update_attributes!({is_canceled: IS_CANCELED})
+  end
+
+  # get a related party of meeting.
+  # 
+  # @return [Array] [integer, integer, ...]
+  def get_related_party
+    party = observers.map { |o| o.user.cybozu_id }
+    party += participants.map { |p| p.user.cybozu_id }
+    party.uniq.compact
+  end
+
+  class << self
+
+    # get a meetings information in the search conditions
+    # @params [Hash] options { likeName, fromDate, toDate, kind }
+    # @return [ActiveRecord::Relation] Meeting of Relation
+    def search(options)
+      create_search_condition(Meeting.all, options)
+    end
+
+    # get the list of user
+    #
+    # @params [Hash] options { likeName, date, kind, page, itemCount }
+    # @return [Hash] { count : ..., datas : [{Model}, {Model} ...] }
+    def get_list(options, user_id)
+
+      params = {};
+
+      page_num = options[:page]
+      item_count = options[:itemCount]
+
+      meetings = get_list_of_meeting_data(Meeting.all, user_id, options)
+
+      params[:count] = meetings.count
+
+      start_position = (page_num.to_i - 1) * item_count.to_i
+      params[:datas] = meetings.offset(start_position).limit(item_count).to_a
+
+      params
+
+    end
+
+    # get a venue of the meeting of all
+    # @return [Array] Array of venues
+    def get_venues
+      order(arel_table[:venue]).uniq.pluck(:venue)
+    end
+
+    # get a schedule meeting
+    # @param [Hash] options { freeWord, fromDate, toDate, kind }
+    # @param [Integer] user id
+    # @return [ActiveRecord::Relation]
+    def get_schedule(options, user_id)
+
+      order = "meetings.dates, meetings.start_time"
+
+      meeting_relation = is_canceled(IS_NO_CANCELED).is_completed(IS_NO_COMPLETED)
+
+      get_list_of_meeting_data(meeting_relation, user_id, options, order, true)
+
+    end
+
+    # get a ended meeting
+    # @param [Hash] options { freeWord, fromDate, toDate, kind }
+    # @param [Integer] user id
+    # @return [ActiveRecord::Relation]
+    def get_ended(options, user_id)
+
+      order = "meetings.dates DESC, meetings.start_time DESC"
+
+      meeting_relation = is_completed(IS_COMPLETED)
+
+      get_list_of_meeting_data(meeting_relation, user_id, options, order, true)
+
+    end
+
+    # find a unresolved ai of related meeting
+    # @param [Integer] user id
+    # @param [Hash] options { freeWord, fromDate, toDate, kind }
+    # @return [ActiveRecord::Relation]
+    def find_unresolved_ai_by_meeting(user_id, options)
+
+      order = "action_items.scheduled_date"
+
+      meeting_relation = is_canceled(IS_NO_CANCELED)
+        .merge(ActionItem.is_null(false))
+        .merge(ActionItem.is_completed(false))
+
+      get_list_of_meeting_data(meeting_relation, user_id, options, order)
+
+    end
+
+    private
+
+    # get a list of meeting data
+    # @private
+    # @param [ActiveRecord::Relation] meeting relation
+    # @param [Integer] user id
+    # @param [Hash] options { freeWord, fromDate, toDate, kind }
+    # @param [String] order statement of sql. default nil
+    # @param [boolean] uniqe statement of sql. true(on), false or nil(off) default nil
+    # @return [ActiveRecord::Relation]
+    def get_list_of_meeting_data(relation, user_id, options, order = nil, uniq = nil)
+
+      relation = create_search_condition(relation, options)
+
+      participant_user_id = Participant.arel_table[:user_id]
+      observer_user_id = Observer.arel_table[:user_id]
+
+      meetings = relation.eager_load(:kind, :participants, :observers, {:proceeding => {:agendas => :action_items}})
+        .where(participant_user_id.eq(user_id).or(observer_user_id.eq(user_id)))
+        .reorder(order)
+
+      meetings.uniq! unless uniq.nil?
+
+      meetings
+
+    end
+
+  end
+
+end

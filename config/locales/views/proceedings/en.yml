@@ -1,0 +1,179 @@
+en:
+  views:
+    proceedings:
+      common:
+        label:
+          seq: Sequence
+          action-item: A/I
+          person-in-charge: person in charge
+          scheduled-date: Scheduled date
+          completion-date: Completion date
+          operation: Operation
+        balloon_help:
+          meeting_information: "Show meeting information. Click on meeting information or icon on the right, you can hide or show meeting information."
+          file: "Meeting files are shown. You can add or delete files."
+          add_file: "Add file"
+          delete_file: "Delete file"
+          export_pdf: "Export PDF"
+          print: "Print"
+          back: "Back"
+      error-message:
+        meeting-is-completed: "meeting %{meeting_name} is completed."
+        meeting-is-not-completed: "meeting %{meeting_name} is not completed."
+        meeting-is-canceled: "meeting %{meeting_name} is canceled."
+      comment:
+        label:
+          comment: comment
+          explain: "※Shift+Enter to go to new line. Comment by pressing Enter."
+        button:
+          write: comment
+          confirm: confirm
+        placeholder:
+          comment: comment
+        js:
+          alert:
+            please_input_comment: "Please input comment"
+          label:
+            comment_user: "%{user_name}'s comment"
+            confirmed_comment: "%{all_user_count} has confirmed %{comment_user_count}."
+      file:
+        uploding: uploading
+        js:
+          alert:
+            file_upload_error: "Error upload file."
+            file_upload_success: "File uploaded successfully"
+            please_select_upload_file: "Please choose file to upload."
+            please_input_annotation: "please input annotation."
+            same file name: "File exists."
+          confirm:
+            delete_file: "Delete %{filename}.\n Are you sure?"
+      confirm:
+        title: "Confirm finish meeting %{meeting_name}"
+        button:
+          print: print
+          back: back
+          ended: end meeting
+          export: Export
+        dialog:
+          confirm: Confirm finish meeting. Are you sure?
+          confirm_revert: Confirm revert meeting. Are you sure?
+        label:
+          seq: Mã
+          meeting-info: Meeting information
+          proceeding-content: Proceeding report content
+        balloon_help:
+          meeting_content: "Show meeting content (agenda, A/I)."
+          file: "Show meeting files."
+          meeting_end_confirm: "Close meeting. Note: After meeting is closed, you cannot edit meeting agenda!"
+      edit:
+        title: "meeting %{kind_name}%{meeting_name}  Write meeting report"
+        button:
+          add-agenda: add agenda
+          add-action-item: add A/I
+          set-title-of-agenda: set title of agenda
+          unset-title-of-agenda: unset title of agenda
+          set-list-of-agenda: set list of agenda
+          unset-list-of-agenda: unset list of agenda
+          add-file: Add file
+          edit: edit
+          delete: delete
+          regist: Register
+          confirm-end: Confirm end
+          cancel: cancel
+          search: search meeting
+          meeting-look: Show meeting
+          prev: previous
+          home: Home
+          upload: Upload
+          update: Update
+        dialog:
+          agenda-not-delete: A/I agenda has been registered. Cannot delete.
+        label:
+          meeting-name: meeting name
+          meeting-related-meeting-name: related meeting name
+          meeting-start-date: start date
+          meeting-start-time: start time
+          meeting-scheduled-time: scheduled time
+          meeting-venue: meeting venue
+          meeting-message: meeting message
+          participant: participant
+          observer: observer
+          proceeding-content: Meeting report content
+          agenda: agenda
+          agenda-index: agenda index
+          action-item: A/I
+          seq: Sequence
+          file-name: file name
+          annotation: annotation
+          meeting-info: meeting info
+          id: ID
+          agenda-content: agenda content
+          operation: operation
+          person-in-charge: person in charge
+          scheduled-date: scheduled date
+          file: file
+          update_observer : Update Observer
+        file:
+          message:
+            warning: File is not PDF.
+            error: Exist file with the same name.
+        placeholder:
+          annotation: annotation
+        tooltip:
+          agenda-add: Add agenda
+          file-add: Add file
+        error-message:
+          content-is-blank: There are agenda without content. Please delete unfilled agenda, or add content for agenda.
+        js:
+          alert:
+            ai_deleted: "A/I has been deleted."
+            ai_multiple_deleted: "Multiple A/I have been deleted.\n Number of AI that has been deleted =%{deleted_ai_count}"
+            please_select: "Please select."
+            please_select_ai_text: "Please A/I from meeting agenda."
+            selection_to_contain_the_ai: "Selection to contain the ai."
+            agenda_not_delete: "Cannot delte agenda because it has A/I.\n Please delete all AI in the agenda."
+            to_ai_not_drag_and_drop: "Cannot drag and drop AI."
+          confirm:
+            ai_delete: "Delete A/I at row %{no}.\n Are you sure?"
+            agenda_delete: "Delete agenda at row %{no}\n. Are you sure?"
+          title:
+            ai_registered: "Register A/I"
+            ai_change: "Change A/I"
+        balloon_help:
+          meeting_content: "Show meeting content(agenda, A/I). You can edit agenda and A/I."
+          add_ai: "From agenda, select content you want to convert to A/I, then press this button, you can add A/I to meeting."
+          add_agenda: "Add agenda"
+          set_title: "From agenda, select content you want to convert to A/I, then press this button, the selected content will appear in bold."
+          set_list: "Set list of agenda"
+          delete_agenda: "Delete meeting agenda. If the agenda has A/I, you cannot delete.Please delete A/I first."
+          change_ai: "Change A/I"
+          delete_ai: "Delete A/I"
+          search_meeting: "Meeting search screen will open in another window."
+          back: "Go back to previous screen (The content you entered will be auto saved)"
+          meeting_confirm: "Go to confirm ending meeting screen. (The content you entered will be auto saved)"
+      show:
+        title: "Perform A/I for meeting report %{meeting_name}"
+        label:
+          meeting-info: Meeting information
+          proceeding-content: Proceeding report content
+          update_success: update successfully!
+        button:
+          edit-complete: Complete edit
+          revert-complete: Revert
+          complete: Complete
+          modify: modify
+        js:
+          alert:
+            please_input_completion_date: "please input completion date"
+          confirm:
+            ai_completion_date_clear: "Delete A/I completion date and go back to incomplete status. \n Are you sure?"
+        balloon_help:
+          comment: "Show comment. You can write comment and confirm having read comment."
+          write_comment: "After writing comment, you can press this button or press Enter to post comment."
+          confirm_comment: "Confirm having read comment."
+          meeting_content: "Show meeting agenda (meeting agenda, A/I). Can enter A/I complete date."
+          ai_complete_date: "Enter A/I complete date."
+          ai_complete: "Change A/I to finish status."
+          ai_modify: "If you clear A/I finish date, A/I status will be changed."
+          edit_complete: "Edit complete"
+          revert_complete: "Revert meeting complete"

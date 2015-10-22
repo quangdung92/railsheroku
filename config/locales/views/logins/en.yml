@@ -1,0 +1,9 @@
+en:
+  views:
+    logins:
+      index:
+        balloon_help:
+          select_language: "select language"
+          user_id: Enter user ID
+          password: "Enter password"
+          login: "Login"

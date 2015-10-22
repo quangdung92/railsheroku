@@ -1,0 +1,30 @@
+  <div class="login-div" ng-app="LoginModule">
+    <%= form_tag(login_path, {:method => "post", :class => "form-login", :id => "form_login", :name => "form_login"}) do %>
+      <div class="form-header">
+        <i class="glyphicon glyphicon-user"></i> <%= t("login.title") %>
+        <div class="span6 pull-right" id="select-language">
+          <select ng-language id="language" class="form-control" tooltip="<%= t('views.logins.index.balloon_help.select_language') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" >
+            <option value="en" <%= (I18n.locale.to_s == 'en'? "selected='selected'" : "") %>><%= t('login.select.option.english') %></option>
+            <option value="ja" <%= (I18n.locale.to_s == 'ja'? "selected='selected'" : "") %>><%= t('login.select.option.japanese') %></option>
+            <option value="vi" <%= (I18n.locale.to_s == 'vi'? "selected='selected'" : "") %>><%= t('login.select.option.vietnamese') %></option>
+          </select>
+        </div>
+      </div>
+      <div class="form-div">
+        <div class="field">
+          <%= text_field :user, :login_id, {class: 'form-control', maxlength: 100, value: params.key?(:user) ? params[:user][:login_id]:'',placeholder: t("login.placeholder.user_id"), "tooltip" => t('views.logins.index.balloon_help.user_id'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY} %>
+        </div>
+        <div class="field">
+          <%= password_field :user, :password, {class: 'form-control', maxLength: 100, value: '',placeholder: t("login.placeholder.password"), "tooltip" => t('views.logins.index.balloon_help.password'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY} %>
+        </div>
+        <% unless @error_msg.blank? %>
+          <div class="field">
+            <div class='alert alert-danger'><%= @error_msg %></div>
+          </div>
+        <% end %>
+        <div class="field text-center">
+          <%= submit_tag t("login.btn.login"), {class: "btn btn-default btn-sm submit", "tooltip" => t('views.logins.index.balloon_help.login'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY} %>
+        </div>
+      </div>
+    <% end %>
+  </div>

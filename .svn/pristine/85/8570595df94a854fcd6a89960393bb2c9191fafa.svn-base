@@ -1,0 +1,85 @@
+////***Style screen for SamSung Galaxy, Iphone***////
+//For potraits
+@media screen and (min-width: 320px) and (max-width: 412px) {
+  body {
+    -moz-transform: scale(0.4,0.4); /* Moz-browsers */
+    -moz-transform-origin: 0 0;
+    //-o-transform: scale(0.4,0.4);
+    //-o-transform-origin: 0 0;
+    //-webkit-transform: scale(0.4,0.4);
+    //-webkit-transform-origin: 0 0;
+    zoom: 0.4; /* Other non-webkit browsers */
+    zoom: 40%; /* Webkit browsers */
+    position:absolute;
+    .header-content {
+      font-size: 1em;
+    }
+    div.search-header{
+      overflow: scroll;
+    }
+  }
+}
+//For Landscape
+@media screen and (min-width: 568px) and (max-width: 736px) {
+  body {
+    -moz-transform: scale(0.7,0.7); /* Moz-browsers */
+    -moz-transform-origin: 0 0;
+    zoom: 0.7; /* Other non-webkit browsers */
+    zoom: 70%; /* Webkit browsers */
+    position:absolute;
+    .header-content {
+      font-size: 1em;
+    }
+  }
+}
+//For Landscape Iphone4 and Potrait Iphone 6 Plus
+@media screen and (min-width: 414px) and (max-width: 480px) {
+  body {
+    -moz-transform: scale(0.5,0.5); /* Moz-browsers */
+    -moz-transform-origin: 0 0;
+    zoom: 0.5; /* Other non-webkit browsers */
+    zoom: 50%; /* Webkit browsers */
+    position:absolute;
+    .header-content {
+      font-size: 1em;
+    }
+    div.search-header{
+      overflow: scroll;
+    }
+  }
+}
+
+////***Style screen for Tablet***////
+//For potraits
+@media screen and (min-width: 768px) and (max-width: 800px) {
+  body {
+    -moz-transform: scale(0.8,0.8); /* Moz-browsers */
+    -moz-transform-origin: 0 0;
+    zoom: 0.8; /* Other non-webkit browsers */
+    zoom: 80%; /* Webkit browsers */
+    position:absolute;
+    .header-content {
+      font-size: 1em;
+    }
+  }
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  .modal-dialog{
+    width: 50%!important;
+    margin: 30px auto!important;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 800px) {
+  .whats_new_content{
+    min-width: 200px;
+  }
+  .action_item_content {
+    min-width: 200px;
+  }
+  .header-content {
+    min-width: 150px;
+  }
+}

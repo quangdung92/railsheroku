@@ -1,0 +1,418 @@
+$back-color: #efefef;
+
+div.errors {
+  background-color: $back-color;
+  border-radius: 5px;
+  margin: 15px 15px 15px 15px;
+  padding: 10px;
+  height: 80px;
+  display: table;
+
+  .error-content {
+    vertical-align: middle;
+    display: table-cell;    
+    
+    h3 {
+      display: inline;
+      vertical-align: middle;
+    }
+  }
+}
+
+.main-content {
+  padding: 10px;
+}
+
+div.main {
+  align-items: stretch;
+  margin-bottom: 10px;
+  min-height: 63vh; //fix on safari
+  div.info-div {
+    background-color: $back-color;
+    -webkit-flex: 1;
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  div.comment {
+    margin-right: 10px;
+    min-width: 330px;
+    max-width: 330px;
+    padding: 0px;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-direction: column;
+    flex-direction: column;
+
+    input {
+      margin-bottom: 5px;
+    }
+
+    .comment-header {
+      min-height: 85px;
+      display: -webkit-flex;
+      display: flex;
+
+      -webkit-flex-direction: column;
+      flex-direction: column;
+
+      p.comment-explain {
+        font-size: 12px;
+        margin: 0px;
+        -webkit-flex: 1;
+        flex: 1;
+      }
+      textarea {
+        -webkit-flex: 1;
+        flex: 1;
+        margin: 0px 0px 5px 0px;
+        resize: none;
+      }
+
+    }
+
+    .comment-main {
+      display: -webkit-flex;
+      display: flex;
+
+      -webkit-flex-direction: column;
+      flex-direction: column;
+
+      -webkit-flex: 1;
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+
+     .comments-area {
+          border-top: 2px solid #000000;
+          overflow-y: auto;
+        .a-comment {
+          border-bottom: solid 1px;
+          p {
+            margin: 0;
+            
+          }
+          .comment-name {
+            max-width: 165px;
+            min-width: 165px;
+            display: inline-block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-height: 16px;
+          }
+          .comment-datetime {
+            font-size: 10px;
+          }
+          .comment-content {
+            word-break: break-all;
+            white-space: pre-wrap;
+            background-color: bisque;
+            border-radius: 5px;
+            margin: 0px 0px 0px 5px;
+          }
+          .comfirm-comment {
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+
+  div.file {
+    max-width: 300px;
+    min-width: 300px;
+    
+    padding: 0px;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-direction: column;
+    flex-direction: column;
+
+    //input {
+    //  margin-bottom: 5px;
+    //}
+
+    .material-header {
+      min-height: 78px;
+    }
+
+    .material-main {
+      display: -webkit-flex;
+      display: flex;
+
+      -webkit-flex-direction: column;
+      flex-direction: column;
+
+      -webkit-flex: 1;
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+
+     .upload-files-area {
+          border-top: 2px solid #000000;
+          overflow-y: auto;
+        .upload-file {
+          display: -webkit-flex;
+          display: flex;
+
+          -webkit-flex-direction: row;
+          flex-direction: row;
+          align-items: center;
+          border-bottom: solid 1px;
+          
+          .left {
+            -webkit-flex: 1;
+            flex: 1;
+            p {
+              margin: 0;
+            } 
+          }
+        }
+      }
+    }
+  }
+}
+
+div.meeting-div {
+  background-color: $back-color;
+  margin-bottom: 10px;
+  min-height: 115px;
+
+  > .content-body {
+
+    span {
+      display: inline-block;
+      min-width: 200px;
+
+      > label {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.user-label {
+  width: 100px;
+  margin-right: 10px;
+}
+
+div.actions {
+  text-align: right;
+  padding: 5px;
+  border-top: 1px solid gray;
+  background-color: $back-color;
+  border-radius: 5px;
+  position: relative;
+  min-height: 44px;
+
+/*
+  button {
+    position: absolute;
+    left: 5px;
+  }
+*/
+
+  //a, button {
+  //  width: 90px;
+  //}
+}
+
+.content-div {
+
+  background-color: $back-color;
+  border-radius: 5px;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
+  div.content-header {
+    padding: 5px;
+    background-color: #000;
+    color: #fff;
+    height: 30px;
+    min-height: 30px;
+    border-radius: 5px 5px 0 0;
+
+    > button {
+      float: right;
+    }
+    a{
+      color:#fff;
+      cursor: pointer;
+    }
+
+  }
+
+  div.content-body {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow-y: auto;
+    padding: 5px 10px;
+  }
+
+}
+
+table {
+  background-color: #fff;
+
+  th, td {
+    text-align: center;
+    vertical-align: middle !important;
+  }
+
+  .table-no {
+    width: 50px;
+  }
+
+  .table-content {
+    > div {
+      white-space: pre-wrap;
+      width: 100%;
+      text-align: left;
+      border: none;
+      word-break: break-all;
+    }
+  }
+
+  .table-user {
+    width: 100px;
+  }
+
+  .table-date {
+    width: 130px;
+  }
+}
+  div.field {
+    margin-right: 20px;
+    margin-bottom: 15px;
+
+    input, select {
+      width: 170px;
+    }
+  }
+  select.from-multi-select {
+    height: 190px;
+  }
+
+  select.to-multi-select {
+    height: 222px;
+  }
+
+  .button-field {
+
+    button {
+      margin: 10px;
+
+      &:first-child {
+        display: block;
+      }
+    }
+  }
+
+table.action-item-table {
+  .seq {
+    width: 50px; 
+  }
+  .person-in-charge {
+    min-width: 60px;
+  }
+  .scheduled-date {
+    min-width: 100px;
+  }
+  .completion-date {
+    min-width: 180px;
+  }
+  .operation{
+    min-width: 80px;
+    width: 80px;
+  }
+}
+
+
+.info-div {
+  .content-body {
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
+#ai-div {
+  min-height: 150px;
+  margin-bottom: 10px;
+}
+
+#agenda-div {
+  -webkit-flex: 1 1 300px;
+  flex: 1 1 300px;
+}
+
+.info {
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
+  .info-header {
+    min-height: 25px;
+  }
+
+  .info-body {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+  }
+}
+
+.logo-print {
+  display: none;
+}
+
+@media print {
+
+  .logo-print,
+  .main-content {
+    display: block !important;
+  } 
+
+  * {
+    overflow: visible !important;
+  }
+
+  .meeting-div {
+    .content-body {
+      border: 1px solid #000;
+      word-wrap: break-word;
+    }
+  }
+
+
+
+
+  header,
+  div.file,
+  .actions,
+  .comment,
+  .btn,
+  .button-field,
+  .operation {
+    display: none !important;
+  }
+
+  #ai-div {
+    height: auto !important;
+    max-height: none;
+    .action-item-content {
+      font-weight: bold;
+    }
+  }
+
+}

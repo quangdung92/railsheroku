@@ -1,0 +1,25 @@
+en:
+  views:
+    homes:
+      index:
+        balloon_help:
+          free_word: "Enter meeting name to search from list."
+          meeting_start_date: "Enter meeting start date to search from list."
+          meeting_end_date: "Enter meeting end date to search from list."
+          meeting_kind: "Enter meeting kind to search from list."
+          clear: "Clear search conditions."
+          ai_me: "Display unfinished A/I. Click on A/I, move to A/I proceeding screen. Click on \"View details\", go to list screen."
+          ai_meeting: "Display unfinished A/I in your meetings. Click on A/I, move to A/I proceeding screen. Click on \"View details\", go to list screen."
+          scheduled_meeting: "Display pending meetings and on going meetings. Click on meeting, if it is pending, go to meeting info screen; if it is an on going meeting, go to proceeding screen. Click on \"View details\", go to list screen."
+          meeting_new: "Create meeting."
+          end_meeting: "Display finished meetings. Click on meeting, go to A/I proceeding screen. Click on \"View details\", go to list screen."
+          whats_new: "Display updated info. Click on the news, go to associated screen. Click on \"View details\", go to list screen."
+          see_more: "Display list."
+          unresolved_me: "These are unfinished A/I. Click on A/I, move to A/I proceeding screen."
+          unresolved_meeting: "These are unfinished A/I in your meetings. Click on A/I, move to A/I proceeding screen."
+          scheduled_meeting: "Display pending meetings and on going meetings. Click on meeting, go to meeting info screen."
+          ended_meeting: "These are finished meetings. Click on a meeting, move to A/I proceeding screen."
+          meeting_whats_new: "This is new info about meetings. Click on meeting, go to meeting info screen."
+          ended_meeting_whats_new: "This is new info about meetings. Click on meeting, go to A/I proceeding screen."
+          comment_whats_new: "This is new note. Click on a note, go to A/I proceeding screen."
+          ai_whats_new: "This is new info about A/I. Click on A/I, move to A/I proceeding screen."

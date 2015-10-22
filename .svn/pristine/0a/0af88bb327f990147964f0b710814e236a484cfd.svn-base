@@ -1,0 +1,25 @@
+vi:
+  views:
+    homes:
+      index:
+        balloon_help:
+          free_word: ""
+          meeting_start_date: ""
+          meeting_end_date: ""
+          meeting_kind: ""
+          clear: ""
+          ai_me: ""
+          ai_meeting: "" 
+          scheduled_meeting: "" 
+          meeting_new: "" 
+          end_meeting: "" 
+          whats_new: "" 
+          see_more: ""
+          unresolved_me: ""
+          unresolved_meeting: ""
+          scheduled_meeting: ""
+          ended_meeting: ""
+          meeting_whats_new: ""
+          ended_meeting_whats_new: ""
+          comment_whats_new: ""
+          ai_whats_new: ""

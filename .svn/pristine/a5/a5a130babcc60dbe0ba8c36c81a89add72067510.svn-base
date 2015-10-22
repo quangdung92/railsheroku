@@ -1,0 +1,24 @@
+ja:
+  views:
+    kinds:
+      form:
+        label:
+          info: &info 会議情報
+          observer: &observer オブザーバー
+          participant: &participant 参加者
+          agenda: &agenda アジェンダ
+          seq: &seq 項番
+          content: &content 設備/指摘
+        button:
+          add: 追加
+          delete: 削除
+      show:
+        label:
+          info: *info
+          observer: *observer
+          participant: *participant
+          agenda: *agenda
+          seq: *seq
+          content: *content
+      destroy:
+        notice: 'Kind was successfully destroyed.'

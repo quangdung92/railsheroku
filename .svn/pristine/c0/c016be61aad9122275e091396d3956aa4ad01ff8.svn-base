@@ -1,0 +1,25 @@
+<div class="comment content-div" ng-controller="CommentController as commentCtrl" ng-init="init(<%= @proceeding.id %>, <%= current_user.id %>)">
+  <div class="content-header">
+    <label tooltip="<%= t('views.proceedings.show.balloon_help.comment') %>" tooltip-placement="right" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-comment"></i> <%= t('views.proceedings.comment.label.comment') %></label>
+    <button type="button" ng-click="writeComment()" class="btn btn-default btn-xs button-write-comment" tooltip="<%= t('views.proceedings.show.balloon_help.write_comment') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+      <i class="glyphicon glyphicon-plus-sign"></i> <%= t('views.proceedings.comment.button.write') %></button>
+  </div>
+  <div id="comment-div" class="comment-main" >
+    <div class="comment-header">
+      <p class="comment-explain"><%= t('views.proceedings.comment.label.explain') %></p>
+      <textarea ng-model="commentContent" ng-keydown="keyDownComment($event)" id="comment-content" class="form-control" name="comment_contemt" placeholder="<%= t('views.proceedings.comment.placeholder.comment') %>" maxlength="250" required/></textarea>
+    </div>
+    <div id="comments_area" class="comments-area">
+      <div class="a-comment" ng-repeat="comment in commentCtrl.comments" id="comment_{{comment.id}}" jump-to-comment>
+        <p><span class="comment-name" ng-bind="comment.comment_user"></span>
+          <span class="comment-datetime" ng-bind='comment.created_at | date:"<%= t('views.shared.angularjs.comment_datetime_format') %>"'></span>
+        </p>
+        <p class="comment-content" ng-bind-html="comment.content"></p>
+        <p class="comfirm-comment">
+          <a ng-if="allUserCount > 0" tooltip="{{comment.comment_confirm_users_name}}" href><span ng-bind="comment.confirmed_comment"></span></a>
+          <button class="btn btn-xs btn-default" ng-if="(commentCtrl.show_user_id != comment.user_id) && ((comment.comment_confirm_users_id | filter:commentCtrl.show_user_id) != commentCtrl.show_user_id)" ng-click="confirmComment($index)" type="button" tooltip="<%= t('views.proceedings.show.balloon_help.confirm_comment') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><%= t("views.proceedings.comment.button.confirm") %></button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

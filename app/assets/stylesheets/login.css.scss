@@ -1,0 +1,105 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "variable";
+@import "login_header";
+$color-base: rgba(205,205,205,0.5);
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+div.content {
+  height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
+  .main-content {
+    display: flex;
+    display: -webkit-flex;
+    -webkit-flex: 1;
+    flex: 1;
+  }
+}
+
+.login-div {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1;
+  flex: 1;
+
+  .form-login {
+    -webkit-flex-shrink: 1;
+    flex-shrink: 1;
+    border: 1px solid #999;
+    border-radius: 5px;
+    margin: auto;
+    width: 400px; 
+
+    .form-header {
+      height: 41px;
+      background-color: #dddddd;
+      border-radius: 5px 5px 0px 0px;
+      border-bottom: solid 1px #999999;
+      text-align: left; 
+      padding: 10px 15px;
+
+      #select-language{
+        margin-top: -7px;
+      }
+
+    }
+
+    .form-div {
+      margin: 20px auto 0;
+      width: 250px; 
+
+      .field {
+        margin: 10px 0px;
+
+        .submit {
+          width: 80px;          
+        }
+        .alert-danger {
+          margin: 0px;
+          padding: 8px;
+        }
+      }
+    }
+  }
+}
+
+.explain-font {
+  font-size: 12px;
+}
+
+.essential-font {
+  color: red;
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  body {
+    transform: none;
+    header {
+      position: absolute;
+    }
+  }
+}
+//chrome
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-width: 320px) and (max-width: 480px) {
+  header {
+    position: static!important;
+  }
+}
+  @media screen and (min-width: 768px) and (max-width: 800px) {
+  body {
+    transform: none;
+  }
+}

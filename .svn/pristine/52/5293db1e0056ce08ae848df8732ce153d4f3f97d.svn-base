@@ -1,0 +1,12 @@
+<div id="user-new" class="user-div" ng-app="adminModule">
+
+  <div class="main-header">
+    <h3><%= t('views.users.new.title') %></h3>
+    <div class="operation">
+      <%= link_to t('admin.button.list'), users_path, class: "btn btn-default" %>
+    </div>
+  </div>
+
+  <%= render 'form' %>
+
+</div>

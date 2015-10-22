@@ -1,0 +1,1 @@
+json.kind create_hash_of_relational_information_of_kind

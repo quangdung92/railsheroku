@@ -1,0 +1,17 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        login_id: ログインID
+        name: 名前
+        kana: ふりがな
+        mailaddress: メールアドレス
+        password_digest: パスワード
+        cybozu_id: サイボウズID
+        grant: 権限
+        is_deleted: 無効
+        is_firstlogged: 初回ログイン
+        created_at: 新規登録日
+        updated_at: 最終変更日

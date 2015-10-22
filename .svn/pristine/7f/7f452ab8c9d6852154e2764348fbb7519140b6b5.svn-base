@@ -1,0 +1,24 @@
+ja:
+  views:
+    accounts:
+      form:
+        label:
+          account_setting: アカウント設定
+      index:
+        title: アカウント設定
+        button:
+          edit: 設定変更
+        balloon_help:
+          account_setting: "あなたのアカウント情報が表示されます。"
+          change_setting: "設定を変更します。"
+      edit:
+        title: アカウント設定 変更
+        button:
+          cancel: キャンセル  
+          update: 更新する  
+        balloon_help:
+          account_setting: "あなたのアカウント情報を入力します。"
+          cancel: "キャンセルします。"
+          update: "アカウント情報を更新します。"
+      update:
+        notice: 'User was successfully updated.'

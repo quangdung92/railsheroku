@@ -1,0 +1,36 @@
+ja:
+  views:
+    cybozus:
+      title: &title サイボウズ連携情報
+      new:
+        title: *title
+      show:
+        title: *title
+        button:
+          get_users: ユーザ取得
+        message:
+          get_users: サイボウズからユーザを取得します。宜しいですか？
+      edit:
+        title: *title
+      form:
+        button:
+          test_connect: 接続テスト
+        confirm:
+          test_connect: 接続テストを行います。宜しいですか？
+        validate:
+          error: 入力項目が正しくありません。確認して下さい。
+      note:
+        require: "「*」が付いている項目は必須入力です。"
+        url: サイボウズURLには使用しているサイボウズのログインページURLを入力して下さい。
+        login_id: ログインIDはサイボウズにログインする際に使用するIDを入力して下さい。
+        password: パスワードはサイボウズにログインする際に使用するパスワードを入力して下さい。
+        user_get: サイボウズからユーザを取得する場合は、画面右下のユーザ取得ボタンをクリックして下さい。
+        user_password: サイボウズから取得したユーザのパスワードは1234となります。
+        user_warning: 本システム上に作成されているユーザと、同じユーザIDを持つサイボウズユーザは取得できません。
+      get_users:
+        success: ユーザ取得が終了しました。\nユーザ管理画面よりご確認下さい。
+      test_connect:
+        success: 接続テストに成功しました。\n接続情報を保存します。宜しいですか？
+      send_email:
+        title: サイボウズ/メール通知設定 
+        enable: チェック(サイボウズで通知)/チェック無し(メールで通知)

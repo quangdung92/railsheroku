@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= page_title %></title>
+    <%= render :partial => "layouts/meta_tags" %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= stylesheet_link_tag    'default_share', media: 'all' %>
+
+    <%= stylesheet_link_tag %(#{controller.controller_name}_#{controller.action_name}), media: 'all' %>
+    <%= stylesheet_link_tag    'bootstrap-timepicker.min', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'angular-i18n/angular-locale_'+I18n.locale.to_s %>
+    <%= javascript_include_tag 'angularjs-validation-compare-to' %>
+    <%= javascript_include_tag 'angularjs-confirm-click' %>
+    <%= javascript_include_tag 'angularjs-agendacontent-to-hiddeninput' %>
+
+    <%= javascript_include_tag %(#{controller.controller_name}_#{controller.action_name}) %>
+    <%= javascript_include_tag 'bootstrap-timepicker.min' %>
+
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag 'favicon.ico' %>
+    <!-- i18n-js -->
+    <%= javascript_include_tag  "i18n/#{I18n.locale}" %>
+    <script type="text/javascript">
+      I18n.defaultLocale = "<%= I18n.default_locale %>";
+      I18n.locale = "<%= I18n.locale %>";
+    </script>
+  </head>
+  <body>
+    <div class="content">
+      <%= render :partial => "layouts/header" %>
+      <%= yield %>
+
+      <%= render :partial => "layouts/dialog" %>
+    </div>
+  </body>
+</html>

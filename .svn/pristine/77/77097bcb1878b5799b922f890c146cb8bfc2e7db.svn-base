@@ -1,0 +1,36 @@
+vi:
+  views:
+    cybozus:
+      title: &title Thông tin liên kết cybozu
+      new:
+        title: *title
+      show:
+        title: *title
+        button:
+          get_users: Liên kết tài khoản 
+        message:
+          get_users: Liên kết tài khoản người dùng từ Cybozu. Bạn có chắc không?
+      edit:
+        title: *title
+      form:
+        button:
+          test_connect: Kiểm tra kết nối
+        confirm:
+          test_connect: Thực hiện kiểm tra kết nối. Bạn có chắc không?
+        validate:
+          error: Trường nhập liệu không hợp lệ. Hãy xác nhận lại.
+      note:
+        require: "Các trường đánh dấu 「*」 là bắt buộc nhập."
+        url: Nhập URL của trang đăng nhập vào Cybozu.
+        login_id: Nhập ID đăng nhập là ID Cybozu. 
+        password: Nhập mật khẩu là mật khẩu đăng nhập vào Cybozu.
+        user_get: Nếu liên kết tài khoản người dùng từ Cybozu hãy ấn nút liên kết tài khoản ở phía dưới bên phải màn hình. 
+        user_password: Mật khẩu của người dùng liên kết tài khoản từ Cybozu là 1234.
+        user_warning: Không thể liên kết tài khoản đối với người dùng có ID Cybozu trùng với ID người dùng đã tồn tại trong hệ thống. 
+      get_users:
+        success: Kết thúc liên kết tài khoản.\n Hãy xác nhận tại màn hình quản lý người dùng. 
+      test_connect:
+        success: Đã kiểm tra kết nối thành công. \n Hệ thống lưu trữ thông tin kết nối. Bạn có chắc không?
+      send_email:
+        title: Bật/Tắt tính năng gửi thông báo qua Email
+        enable: Bật/Tắt gửi qua Email (Mặc định là Cybozu)

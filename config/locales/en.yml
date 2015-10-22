@@ -1,0 +1,189 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  hello: "Hello world"
+  home:
+    unresolved:
+      ai:
+        me:
+          title:  Unfinished A/I
+          nothing: You have no unfinished A/I.
+        meeting:
+          title: Unfinished A/I in your meetings
+          nothing: Your meetings have no unfinished A/I.
+    meeting:
+      ended:
+        title: Finished meeting report
+        nothing: There are no finished meeting reports.
+      scheduled:
+        title: Planned meeting
+        nothing: There are no planned meeting.
+    new:
+      information: "What's New"
+      list:
+        create_meeting:  "Mr./Ms. %{user_name} has created meeting %{meeting_name}."
+        ended_meeting: "Meeting %{meeting_name} has ended."
+        edit_meeting: "Mr./Ms. %{user_name} has edited %{meeting_name}."
+        meeting_today: "Expected date for meeting %{meeting_name}."
+        canceled_meeting: "Meeting %{meeting_name} has been cancelled."
+        comment: "Mr./Ms. %{user_name} has noted in meeting report %{meeting_name}."
+        beforer_action_item_scheduled_date: "Expected A/I %{ai_name} date in upcoming meeting report %{meeting_name}."
+        action_item_scheduled_date: "Expected A/I %{ai_name} date in meeting report %{meeting_name}"
+        action_item_ended: "Mr./Ms. %{user_name} has finished A/I %{ai_name}."
+    ai:
+      achievement-rate: Your A/I finish rate is %{rate}. (%{ai}/%{all})
+      nothing: There is no A/I.
+    button:
+      meeting:
+        new: New
+    search:
+      meeting-name: Meeting name
+      freeword: Free word search
+      date: Meeting date
+      kind: Meeting type
+      select:
+        default: All
+      button:
+        clear: Clear
+    list:
+      view: View details
+  default:
+    message:
+      loading: Loading
+    button:
+      logout: Logout
+      admin-setting: Admin setting
+  admin:
+    menu:
+      user: User
+      kind: Meeting type
+      cybozu: Cybozu
+      home: Home
+      setting: Setting
+    button:
+      list: List
+      new: New
+      detail: Details
+      show: Show
+      edit: Edit
+      delete: Delete
+      disable: Disable
+    dialog:
+      message:
+        disable: The system will disable... Are you sure?
+    pagination:
+      previous: Previous
+      next: Next
+      first: First
+      last: Last
+    table-info:
+      disable:
+      not-login: Not login
+    page:
+      kind:
+        new: New meeting type
+        index: List meeting type
+        edit: Edit meeting type
+        show: Show meeting type
+        delete: Delete meeting type
+        deleted: Deleted
+        participant: participant
+        observer: observer
+        agenda_template: Agenda template
+        agenda_add: Add agenda
+        agenda_id: ID
+        agenda_content: Agenda content
+        agenda_operation: Agenda operation
+  login:
+    title: Login
+    placeholder:
+      user_id: User ID
+      password: Password
+    label:
+      user_id: User ID
+      password: Password
+    btn:
+      login: Login
+    message:
+      login_error: Login error.
+    select:
+      option:
+        english: "English"
+        japanese: "Japanese"
+        vietnamese: "Vietnamese"
+  firstlogin:
+    placeholder:
+      new_password: New password
+      confirm_password: Confirm password.
+    label:
+      user_id: User ID
+    title: Set password
+    explain:
+      password: Input password with 4～16 hankaku characters.
+    btn:
+      regist: Register
+      cancel: Cancel
+    message:
+      not_match: Password does not match.
+      not_input: Input new password.
+    update:
+      notice: 'User was successfully updated.'
+  validate:
+    date: (?:19|20)[0-9]{2}/(?:(?:0[1-9]|1[0-2])/(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])/(?:30))|(?:(?:0[13578]|1[02])/31))
+    user:
+      email: Wrong email format.
+      kana: Input hiragana zenkaku characters.
+      password: Input password with hankaku characters.
+      cybozu_id: Input with hankaku number.
+  time:
+    formats:
+      time: '%H:%M'
+      scheduled_time: '%-H:%M'
+      scheduled_time_short: '%M minute'
+    scheduled_time:
+      and_under: "Under %{time}"
+      and_over: "Over %{time}"
+  date:
+    formats:
+      date: '%Y/%m/%d'
+  button:
+    disable_with: 'Sending...'
+  error:
+    cybozu: '[Error connection cybozu]'
+    stale:  System has conflict. Please cancel to edit.
+    error: Error
+    warning: Warning
+    success: Success
+  common:
+    label:
+      row_description: "Expand:"
+      browse: "Browse..."
+    datepicker:
+      datepicker-popup: "yyyy/MM/dd"
+      format-day-title: "yyyy/MM"
+      close-text: "Close"
+      current-text: "Current"
+      clear-text: "Clear"
+      placeholder: "yyyy/MM/dd"
+    dialog:
+      title:
+        confirm: confirm 

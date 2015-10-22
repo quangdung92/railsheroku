@@ -1,0 +1,113 @@
+div.main {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex: 1;
+  flex: 1;
+  padding: 0 15px 15px;
+}
+
+.cybozu-div {
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
+  position: relative;
+  -webkit-flex: 1;
+  flex: 1;
+
+  > .actions {
+    border-top: 1px solid #9aae9a;
+    padding-top: 10px;
+    text-align: right;
+  }
+}
+
+div.main-header {
+  position: relative;
+  border-bottom: 1px solid #9aae9a;
+  margin-bottom: 10px;
+  min-height: 57px;
+
+  .operation {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+
+    a {
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+  }
+}
+
+.cybozu_operation {
+  width: 180px;
+  text-align: center;
+
+  a.btn {
+    padding: 0 10px;
+  }
+}
+
+.cybozu-edit {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex: 1;
+  flex: 1;
+
+  form {
+    position: relative;
+    width: 100%;
+
+    .actions {
+      bottom: 0;
+      width: 100%;
+      border-top: 1px solid #9aae9a;
+      padding-top: 10px;
+      position: absolute;
+      text-align: right;
+    }
+  }
+
+  strong,
+  label {
+    display: inline-block;
+    width: 150px;
+  }
+}
+
+.cybozu-details {
+  -webkit-flex: 1;
+  flex: 1;
+
+  strong,
+  label {
+    display: inline-block;
+    width: 150px;
+  }
+}
+
+#cybozu_url {
+  width: 360px;
+}
+
+.form-control {
+  display: inline-block;
+  width: auto;
+  margin: 5px 0;
+}
+
+.notes {
+  margin-top: 15px;
+  p:before { content: "※" }
+  color: red;
+}
+
+//fix for firefox multiple screen
+@media screen and (min-width: 320px) and (max-width: 640px) {
+  #cybozu_url {
+    position: absolute;
+  }
+}

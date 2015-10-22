@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      material: 資料
+    attributes:
+      material:
+        name: ファイル名
+        annotation: 注釈
+        created_at: 新規登録日
+        updated_at: 最終変更日

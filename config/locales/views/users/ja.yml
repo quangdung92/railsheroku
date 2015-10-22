@@ -1,0 +1,43 @@
+ja:
+  views:
+    users:
+      title: &title サイボウズ連携情報
+      index:
+        title: ユーザ一覧
+      new:
+        title: ユーザ作成
+      show:
+        title: ユーザ表示
+        button:
+          get_users: ユーザ取得
+        message:
+          get_users: サイボウズからユーザを取得します。宜しいですか？
+      edit:
+        title: ユーザ編集
+      form:
+        button:
+          test_connect: 接続テスト
+        confirm:
+          test_connect: 接続テストを行います。宜しいですか？
+        validate:
+          error: 入力項目が正しくありません。確認して下さい。
+          message:
+            cybozu: サイボウズIDは半角数字のみ有効です。
+      shared:
+        grant:
+          admin: 管理者
+          normal: 一般
+        deleted: ○
+        firstlogged: ○
+      note:
+        require: "「*」が付いている項目は必須入力です。"
+        kana: ふりがなを入力する場合は、必ずひらがなで入力して下さい。
+        mailaddress: メールアドレスは@を含む正確なメールアドレスを入力して下さい。
+        password: パスワードは半角英数字4～16文字で入力して下さい。
+        cybozu_id: サイボウズIDはサイボウズとの連携で使用します。サイボウズIDが不明な場合は入力しないで下さい。
+      create:
+        notice: 'User was successfully created.'
+      update:
+        notice: 'User was successfully updated.'
+      destroy:
+        notice: 'User was successfully destroyed.'

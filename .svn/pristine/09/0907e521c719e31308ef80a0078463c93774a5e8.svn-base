@@ -1,0 +1,245 @@
+$back-color: #efefef;
+
+div.info-div {
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  margin: 15px;
+
+  -webkit-flex: 1;
+  flex: 1;
+
+  .inputs {
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-direction: column;
+    flex-direction: column;
+
+    -webkit-flex: 1;
+    flex: 1;
+
+    #top-div {
+      display: -webkit-flex;
+      display: flex;
+
+      height: 625px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+
+      > div {
+        margin-right: 10px;
+        &:first-child{
+          width: 30%;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+    }
+
+    #bottom-div {
+      -webkit-flex: 1;
+      flex: 1;
+      margin-bottom: 10px;
+      min-height: 100px;
+
+      > .content-body {
+        position: relative;
+      }
+    }
+  }
+
+  div.actions {
+    width: 100%;
+    text-align: right;
+    padding: 10px;
+    border-top: 1px solid gray;
+    background-color: $back-color;
+    border-radius: 5px;
+    position: relative;
+    min-height: 55px;
+
+    //a, input {
+    //  width: 90px;
+    //}
+  }
+
+}
+
+.content-div {
+
+  background-color: $back-color;
+  border-radius: 5px;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
+  div.content-header {
+    padding: 5px;
+    background-color: #000;
+    color: #fff;
+    height: 30px;
+    min-height: 30px;
+    border-radius: 5px 5px 0 0;
+
+    > button {
+      float: right;
+    }
+
+  }
+
+  div.content-body {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow-y: auto;
+    //width: 550px;
+  }
+
+}
+
+.display-block {
+  display: block;
+}
+
+.display-inline-block {
+  display: inline-block;
+}
+
+div.field {
+  margin-right: 20px;
+  margin-bottom: 15px;
+
+  input, select {
+    display: inline-block;
+    width: 200px;
+  }
+}
+
+select.multi-select {
+  height: 222px;
+}
+
+.button-field {
+  padding: 15px;
+
+  button {
+    margin: 10px;
+
+    &:first-child {
+      display: block;
+    }
+  }
+}
+
+#agenda-div {
+  background-color: $back-color;
+  -webkit-flex: 1;
+  flex: 1;
+  overflow: auto;
+  height: 100%;
+
+  > #agenda-header {
+    position: relative;
+    padding: 5px;
+    background-color: #000;
+    color: #fff;
+  }
+
+  .content-body {
+    padding: 5px;
+  }
+}
+
+#material-div {
+
+  width: 300px;
+  background-color: $back-color;
+
+  .content-body {
+    padding: 5px;
+
+    .upload-div {
+      border-bottom: 1px solid #aaa;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+#agenda-table {
+
+  thead {
+    th {
+      vertical-align: middle;
+      text-align: center;
+
+      &:first-child {
+        width: 46px;
+      }
+    }
+  }
+
+  tbody {
+    background-color: white;
+
+    td {
+      vertical-align: middle;
+      text-align: center;
+
+      div {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+    }
+  }
+}
+
+#meeting_kind_id,
+#related_meeting_name {
+  width: 171px;
+}
+
+.meeting-info {
+  //width: 300px;
+  width: 50%;
+  float: left;
+  padding: 5px 10px;
+
+  div.field {
+    height: 61px;
+  }
+}
+
+.user-info {
+  //width: 250px;
+  width: 50%;
+  float: left;
+  padding: 5px 10px;
+
+  .field {
+
+    > label {
+      display: block;
+    }
+  }
+}
+
+#meeting-message {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px){
+  div.main{
+    max-height: 572px;
+  }
+}

@@ -1,0 +1,95 @@
+#meeting-list {
+  background-color: #fafafa;
+  margin: 15px;
+  padding: 10px;
+  -webkit-flex: 1;
+  flex: 1;
+  border: 1px solid #999;
+  border-radius: 5px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+div.pagination {
+  height: 30px;
+  text-align: right;
+}
+
+.table-wrap {
+  -webkit-flex: 1;
+  flex: 1;
+  overflow: auto;
+}
+
+.meeting_id {
+  width: 50px;
+}
+
+.meeting_kind_id,
+.meeting_related_meeting_id {
+  width: 375px;
+}
+
+.meeting_dates {
+  width: 150px;
+}
+
+.meeting_start_time,
+.meeting_scheduled_time {
+  text-align: center;
+  width: 105px;
+}
+
+.meeting_is_canceled,
+.meeting_is_completed {
+  text-align: center;
+  width: 105px;
+}
+
+td.meeting_grant,
+td.meeting_is_deleted,
+td.meeting_is_firstlogged {
+  width: 90px;
+}
+
+div.main-header {
+  margin: 0 0 0 auto;
+  margin-bottom: 5px;
+  min-height: 47px;
+  font-size: 12px;
+  font-weight: bold;
+
+  .info {
+    border: 1px solid rgba(gray, 0.5);
+    border-radius: 5px;
+    padding: 5px 10px;
+
+    div {
+      display: inline-block;
+      width: 100px;
+      text-align: center;
+      padding: 5px 10px;
+      border: 1px solid rgba(gray, 0.2);
+      border-radius: 2px;
+
+      &.canceled {
+        background-color: #fcf8e3;
+      }
+
+      &.completed {
+        background-color: #dff0d8;
+      }
+    }
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px){
+  //div.search-header{
+  //  min-height: 81px;
+  //}
+  .form-inline .form-control{
+    width: 120px!important;
+  }
+}

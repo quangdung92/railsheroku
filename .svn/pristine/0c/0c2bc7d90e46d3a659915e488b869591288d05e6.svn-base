@@ -1,0 +1,10 @@
+vi:
+  views:
+    unresolved_ai_lists:
+      common:
+        balloon_help:
+          ai_content: ""
+          ai_stat_corresponding_date: ""
+          ai_end_corresponding_date: ""
+      me:
+      meeting:

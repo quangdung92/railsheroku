@@ -1,0 +1,179 @@
+ja:
+  views:
+    proceedings:
+      common:
+        label:
+          seq: 項番
+          action-item: A/I 
+          person-in-charge: 担当者
+          scheduled-date: 対応予定日
+          completion-date: 完了日
+          operation: 操作
+        balloon_help:
+          meeting_information: "会議情報を表示します。会議情報の文字か、右の矢印をクリックすると、会議情報欄を閉じたり開いたりすることができます。"
+          file: "会議の資料が表示されます。資料を追加したり、削除することができます。"
+          add_file: "資料を追加します。"
+          delete_file: "資料を削除します。"
+          export_pdf: "会議の内容をPDFで保存します。"
+          print: "会議の内容を印刷します。"
+          back: "前の画面に戻ります。"
+      error-message:
+        meeting-is-completed: "%{meeting_name}会議は終了しています。"
+        meeting-is-not-completed: "%{meeting_name}会議は終了されていません。"
+        meeting-is-canceled: "%{meeting_name}会議はキャンセルされています。"
+      comment:
+        label:
+          comment: コメント
+          explain: "※Shift+Enterキーで改行　Enterキーで書き込み "
+        button:
+          write: 書き込む 
+          confirm: 確認 
+        placeholder:
+          comment: コメントを入力
+        js:
+          alert:
+            please_input_comment: "コメントを入力して下さい。"
+          label:
+            comment_user: "%{user_name}さんのコメント"
+            confirmed_comment: "%{all_user_count}名中%{comment_user_count}名が確認済み。"
+      file:
+        uploding: アップロード中：
+        js:
+          alert:
+            file_upload_error: "ファイルのアップロードでエラーが発生しました。"
+            file_upload_success: "File uploaded successfully"
+            please_select_upload_file: "アップロードするファイルを選択して下さい。"
+            please_input_annotation: "注釈を入力して下さい。"
+            same file name: "同じ名前のファイルがすでにあります。" 
+          confirm:
+            delete_file: "%{filename}を削除します。\nよろしいでしょうか?"
+      confirm:
+        title: "%{meeting_name}会議終了確認"
+        button:
+          print: 印刷
+          back: 戻る
+          ended: 会議終了
+          export: PDFで保存
+        dialog:
+          confirm: 会議を終了します。宜しいですか？
+          confirm_revert: Confirm revert meeting. Are you sure?
+        label:
+          seq: 項番
+          meeting-info: 会議情報
+          proceeding-content: 議事録内容
+        balloon_help:
+          meeting_content: "議事録の内容(アジェンダ、A/I)が表示されます。"
+          file: "会議の資料が表示されます。"
+          meeting_end_confirm: "会議を終了します。議事録の内容は変更できなくなりますのでご注意ください!"
+      edit:
+        title: "%{kind_name}%{meeting_name}会議 議事録開催" 
+        button:
+          add-agenda: アジェンダ追加
+          add-action-item: A/I追加
+          set-title-of-agenda: タイトル
+          unset-title-of-agenda: アジェンダタイトルを解除
+          set-list-of-agenda: 箇条書き 
+          unset-list-of-agenda: 箇条書きを解除
+          add-file: 追加
+          edit: 変更
+          delete: 削除
+          regist: 登録
+          confirm-end: 終了確認
+          cancel: キャンセル 
+          search: 会議検索
+          meeting-look: 会議参照
+          prev: 戻る
+          home: ホームへ
+          upload: Upload
+          update: Update
+        dialog:
+          agenda-not-delete: このアジェンダに対してA/Iが登録されている為削除できません。
+        label:
+          meeting-name: 会議名 
+          meeting-related-meeting-name: 関連会議名 
+          meeting-start-date: 開催日
+          meeting-start-time: 開始予定時刻
+          meeting-scheduled-time: 予定時間 
+          meeting-venue: 開催場所 
+          meeting-message: 参加者へのメッセージ
+          participant: 参加者
+          observer: オブザーバー
+          proceeding-content: 議事録内容
+          agenda: アジェンダ
+          agenda-index: アジェンダ項番
+          action-item: A/I 
+          seq: 項番
+          file-name: ファイル名
+          annotation: 注釈
+          meeting-info: 会議情報
+          id: ID
+          agenda-content: 協議内容/指摘/決定事項
+          operation: 操作
+          person-in-charge: 担当者
+          scheduled-date: 対応予定日
+          file: 資料
+          update_observer : Update Observer
+        file:
+          message:
+            warning: PDF以外のファイルです。
+            error: すでに同じ名前のファイルがあります。
+        placeholder:
+          annotation: 注釈を必ず入力して下さい。
+        tooltip:
+          agenda-add: アジェンダ追加
+          file-add: 資料追加
+        error-message:
+          content-is-blank: 入力されていないアジェンダが存在します。\n削除するか入力を行ってください。
+        js:
+          alert:
+            ai_deleted: "A/Iは既に削除されています。"
+            ai_multiple_deleted: "複数のA/Iが削除されました。\n削除AI数=%{deleted_ai_count}"
+            please_select: "選択して下さい。"
+            please_select_ai_text: "アジェンダから、A/Iとするテキストを選択してください。"
+            selection_to_contain_the_ai: "選択範囲にAIが含まれています。"
+            agenda_not_delete: "このアジェンダに対してA/Iが登録されている為、アジェンダを削除できません。\n削除するアジェンダに関連するA/Iを全て削除して下さい。"
+            to_ai_not_drag_and_drop: "AIに対してはドラッグ&ドロップできません。"
+          confirm:
+            ai_delete: "%{no}行目のA/Iを削除します。\nよろしいでしょうか？"
+            agenda_delete: "%{no}行目のアジェンダを削除します。\nよろしいでしょうか？"
+          title:
+            ai_registered: "A/I登録"
+            ai_change: "A/I変更"
+        balloon_help:
+          meeting_content: "議事録の内容(アジェンダ、A/I)が表示されます。アジェンダとA/Iを編集することができます。"
+          add_ai: "アジェンダからA/Iにしたい文字を選択して、このボタンをクリックすることでA/Iを追加します。"
+          add_agenda: "アジェンダを追加します。"
+          set_title: "アジェンダからタイトルにしたい文字を選択して、このボタンをクリックすることでアジェンダのタイトル(太字)にします。"
+          set_list: "アジェンダから箇条書きにしたい文字を選択して、このボタンをクリックすることで箇条書きにします。"
+          delete_agenda: "アジェンダを削除します。アジェンダに紐づくA/Iがある場合は、削除できません。先にA/Iを削除して下さい。"
+          change_ai: "A/Iを変更します。"
+          delete_ai: "A/Iを削除します。"
+          search_meeting: "会議を検索する画面を、別ウィンドウで表示します。"
+          back: "前の画面に戻ります。(入力内容は自動保存されています。)"
+          meeting_confirm: "会議の終了確認画面に移動します。(入力内容は自動保存されています。)"
+      show:
+        title: "%{meeting_name}議事録 A/I対応"
+        label:
+          meeting-info: 会議情報
+          proceeding-content: 議事録内容
+          update_success: update successfully!
+        button:
+          edit-complete: 編集完了
+          revert-complete: Revert
+          complete: 完了
+          modify: 修正
+        js:
+          alert:
+            please_input_completion_date: "完了日を入力して下さい。"
+          confirm:
+            ai_completion_date_clear: "A/Iの完了日をクリアして未完了状態にします。\nよろしいでしょうか？"
+        balloon_help:
+          comment: "コメントが表示されます。コメントを書き込んだり、書き込んだコメントを確認済みにすることができます。"
+          write_comment: "コメントを入力した後、このボタンをクリックするかエンターキーでコメントを書き込みます。"
+          confirm_comment: "コメントを確認済みにします。"
+          meeting_content: "議事録の内容(アジェンダ、A/I)が表示されます。A/Iの完了日を入力することができます。"
+          ai_complete_date: "A/Iの完了日を入力します。"
+          ai_complete: "A/Iを完了にします。"
+          ai_modify: "A/Iの完了日をクリアして、未完了状態にします。"
+          edit_complete: "編集を完了します。"
+          revert_complete: "Revert meeting complete"

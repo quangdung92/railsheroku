@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    models:
+      action_item: A/I
+    attributes:
+      action_item:
+        id: ID
+        content: content
+        user_id: User
+        scheduled_date: scheduled date
+        created_at: created at
+        updated_at: updated at

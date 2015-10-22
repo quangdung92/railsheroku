@@ -1,0 +1,33 @@
+.logo-print {
+  display: none;
+}
+.main-content {
+  display: block !important;
+}
+
+* {
+  overflow: visible !important;
+}
+
+header {
+  display: none;
+}
+
+.meeting-div {
+  .content-body {
+    border: 1px solid #000;
+    word-wrap: break-word;
+  }
+}
+
+.actions,
+.material-div {
+  display: none;
+}
+
+#ai-div {
+  height: auto !important;
+  .action-item-content {
+    font-weight: bold;
+  }
+}

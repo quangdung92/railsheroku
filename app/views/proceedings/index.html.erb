@@ -1,0 +1,21 @@
+<h1>Listing Proceedings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @proceedings.each do |proceeding| %>
+      <tr>
+        <td><%= link_to 'Edit', edit_poceeding_path(proceeding) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Proeeting', edit_proceeding_path %>

@@ -1,0 +1,63 @@
+<div id="user-show" class="user-div">
+    <div class="main-header">
+      <h3><%= t('views.users.show.title') %></h3>
+      <div class="operation">
+        <%= link_to t('admin.button.edit'), edit_user_path(@user), class: "btn btn-default" %>
+        <%= link_to t('admin.button.list'), users_path, class: "btn btn-default" %>
+      </div>
+    </div>
+
+    <div class="user-details">
+      <div>
+        <p>
+          <strong><%= t_m('user.login_id') %></strong>
+          <%= @user.login_id %>
+        </p>
+        
+        <p>
+          <strong><%= t_m('user.name') %></strong>
+          <%= @user.name %>
+        </p>
+        
+        <p>
+          <strong><%= t_m('user.kana') %></strong>
+          <%= @user.kana %>
+        </p>
+        
+        <p>
+          <strong><%= t_m('user.mailaddress') %></strong>
+          <%= @user.mailaddress %>
+        </p>
+        
+        <p>
+          <strong><%= t_m('user.cybozu_id') %></strong>
+          <%= @user.cybozu_id %>
+        </p>
+        
+        <p>
+          <strong><%= t_m('user.grant') %></strong>
+          <%= @user.grant.zero? ? t('views.users.shared.grant.admin') : t('views.users.shared.grant.normal') %>
+        </p>
+        
+        <p>
+          <strong><%= t_m('user.is_deleted') %></strong>
+          <%= t('views.users.shared.deleted') if @user.is_deleted %>
+        </p>
+        
+        <p>
+          <strong><%= t_m('user.is_firstlogged') %></strong>
+          <%= t('views.users.shared.firstlogged') if @user.is_firstlogged %>
+        </p>
+
+        <p>
+          <strong><%= t_m('user.created_at') %></strong>
+          <%= @user.created_at.strftime('%Y/%m/%d %T') %>
+        </p>
+
+        <p>
+          <strong><%= t_m('user.updated_at') %></strong>
+          <%= @user.updated_at.strftime('%Y/%m/%d %T') %>
+        </p>
+      </div>
+    </div>
+</div>

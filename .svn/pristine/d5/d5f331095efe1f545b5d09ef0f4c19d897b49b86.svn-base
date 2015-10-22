@@ -1,0 +1,56 @@
+<div class="content-header">
+  <a ng-click="opened=!opened" tooltip="<%= t('views.proceedings.common.balloon_help.meeting_information') %>" tooltip-placement="right" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+      <label><i class="glyphicon glyphicon-info-sign"></i><%= t('views.proceedings.edit.label.meeting-info') %></label>
+      <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': opened, 'glyphicon-chevron-right': !opened}"></i>
+  </a>
+</div>
+<div class="meeting-info-main" ng-show="opened">
+  <span>
+    <label class="display-inline-block"><i class="glyphicon glyphicon-pencil"></i> <%= t('views.proceedings.edit.label.meeting-name') %></label>
+    <%= @meeting_info[0].meeting.name %>
+  </span>
+  <span>
+    <label class="display-inline-block"><i class="glyphicon glyphicon-pencil"></i> <%= t('views.proceedings.edit.label.meeting-related-meeting-name') %></label>
+    <% unless @meeting_info[0].meeting.related_meeting_id.blank? %>
+      <a href="/meetings/<%= @meeting_info[0].meeting.related_meeting_id %>" target="_blank">
+        <%= @meeting_info_related_meeting[0].name %>
+      </a>
+    <% end %>
+  </span>
+  <span>
+    <label class="display-inline-block"><i class="glyphicon glyphicon-calendar"></i> <%= t('views.proceedings.edit.label.meeting-start-date') %></label>
+    <%= @meeting_info[0].meeting.dates %>
+  </span>
+  <span>
+    <label class="display-inline-block"><i class="glyphicon glyphicon-time"></i> <%= t('views.proceedings.edit.label.meeting-start-time') %></label>
+    <% unless @meeting_info[0].meeting.start_time.blank? %>
+      <%= @meeting_info[0].meeting.start_time.strftime("%T") %>
+    <% end %>
+  </span>
+  <span>
+    <label class="display-inline-block"><i class="glyphicon glyphicon-time"></i> <%= t('views.proceedings.edit.label.meeting-scheduled-time') %></label>
+    <% unless @meeting_info[0].meeting.scheduled_time_id.blank? %>
+      <%= format_scheduled_time(@meeting_info[0].meeting.scheduled_time) %>
+    <% end %>
+  </span>
+  <span>
+    <label class="display-inline-block"><i class="glyphicon glyphicon-home"></i> <%= t('views.proceedings.edit.label.meeting-venue') %></label>
+    <%= @meeting_info[0].meeting.venue %>
+  </span>
+  <span>
+    <label class="display-inline-block user-label"><i class="glyphicon glyphicon-comment"></i> <%= t('views.proceedings.edit.label.meeting-message') %></label>
+  <%= @meeting_info[0].meeting.message %>
+  </span>
+  <div>
+    <label class="display-inline-block user-label"><i class="glyphicon glyphicon-user"></i> <%= t('views.proceedings.edit.label.participant') %></label>
+    <% @meeting_info_participant.each do |a| %>
+      <%= "#{a.user.name}, " %>
+    <% end %>
+  </div>
+  <div>
+    <label class="display-inline-block user-label"><i class="glyphicon glyphicon-user"></i> <%= t('views.proceedings.edit.label.observer') %></label>
+    <% @meeting_info_observer.each do |a| %>
+      <%= "#{a.user.name}, " %>
+    <% end %>
+  </div>
+</div>

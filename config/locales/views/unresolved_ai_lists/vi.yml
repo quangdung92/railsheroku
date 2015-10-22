@@ -1,0 +1,12 @@
+vi:
+  views:
+    unresolved_ai_lists:
+      common:
+        balloon_help:
+          ai_content: "Nhập nội dung A/I để tìm kiếm A/I từ danh sách."
+          ai_stat_corresponding_date: "Nhập ngày bắt đầu A/I dự kiến để tìm kiếm A/I từ danh sách."
+          ai_end_corresponding_date: "Nhập ngày hoàn thành A/I để tìm kiếm A/I từ danh sách."
+      me:
+      meeting:
+
+

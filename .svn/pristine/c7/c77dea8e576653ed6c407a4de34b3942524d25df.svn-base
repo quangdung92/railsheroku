@@ -1,0 +1,56 @@
+vi:
+  views:
+    meetings:
+      form:
+        tooltip:
+          kind: Nhận thông tin liên quan.
+          related-meeting: Tìm kiếm cuộc họp liên quan.
+          agenda-add: Thêm chương trình cuộc họp
+          file-add: Thêm tài liệu
+        dialog:
+          confirm: Các dữ liệu bạn đã nhập sẽ bị xóa nếu thực hiện hủy. Bạn có chắc không?
+          kind: Nhận các dữ liệu của người tham gia người giám sát và chương trình cuộc họp liên quan đến các loại cuộc họp.\nNếu nhận dữ liệu người tham gia người giám sát\n và chương trình cuộc họp đã nhập sẽ bị xóa. Bạn có chắc không?
+        label:
+          info: Thông tin cuộc họp
+          observer: Người giám sát
+          participant: Người tham gia
+          agenda: Chương trình cuộc họp
+          seq: Mã
+          file-name: Tên tập tin
+          annotation: Chú thích
+          select_approver: -- Chọn --
+        button:
+          add: Thêm
+          delete: Xóa
+          refer: Tham khảo cuộc họp
+          cancel: Hủy
+          regist: Đăng ký
+          search: Tìm kiếm
+        file:
+          message:
+            warning: Các tập tin ngoài tập tin PDF.
+            error: Đã tồn tại tập tin trùng tên. 
+            delete: Xóa tập tin tải lên. Bạn có chắc không?
+        placeholder:
+          annotation: Hãy nhập chú thích.
+        validate:
+          participant: Hãy chọn người tham gia.
+      index:
+        title: Danh sách cuộc họp 
+        button:
+          clear: Xóa
+        canceled: ○
+        completed: ○
+      new:
+        title: Đăng ký cuộc họp
+      edit:
+        title: Chỉnh sửa cuộc họp
+      show:
+        title: Chi tiết cuộc họp 
+        dialog:
+          cancel_confirm: Hủy cuộc họp. Bạn có chắc không? 
+          holding_confirm: Bắt đầu cuộc họp. Bạn có chắc không?
+        button:
+          cancel: Hủy cuộc họp
+          edit: Chỉnh sửa cuộc họp
+          holding: Tổ chức cuộc họp

@@ -1,0 +1,12 @@
+    <!--h1>Missing files</h1>
+    <ul>
+      <% for line in @missing_files do %>
+          <li><%= line %></li>
+      <% end %>
+    </ul-->
+    <h1>Missing keys</h1>
+    <ul>
+      <% for line in @missing_keys do %>
+          <li><%= line %></li>
+      <% end %>
+    </ul>

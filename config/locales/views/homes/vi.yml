@@ -1,0 +1,25 @@
+vi:
+  views:
+    homes:
+      index:
+        balloon_help:
+          free_word: "Nhập tên cuộc họp để tìm kiếm các nội dung từ danh sách."
+          meeting_start_date: "Nhập ngày bắt đầu cuộc họp để tìm kiếm các nội dung từ danh sách."
+          meeting_end_date: "Nhập ngày kết thúc cuộc họp để tìm kiếm các nội dung từ danh sách."
+          meeting_kind: "Nhập loại cuộc họp để tìm kiếm nội dung từ danh sách."
+          clear: "Xóa điều kiện tìm kiếm."
+          ai_me: "Hiền thị A/I bạn chưa thực hiện. Ấn vào nội dung A/I, di chuyển đến màn hình thực hiện A/I. Ấn nút \"Xem chi tiết\", di chuyển đến màn hình danh sách."
+          ai_meeting: "Hiền thị toàn bộ A/I chưa thực hiện của các cuộc họp bạn tham gia. Ấn vào nội dung A/I, di chuyển đến màn hình thực hiện A/I. Ấn vào nút \"Xem chi tiết\", di chuyển đến màn hình danh sách." 
+          scheduled_meeting: "Hiển thị các cuộc họp dự kiến tổ chức và đã bắt đầu tổ chức. Ấn vào nội dung cuộc họp, nếu là cuộc họp dự kiến tổ chức di chuyển đến màn hình thông tin cuộc họp, còn nếu là cuộc họp đã bắt đầu sẽ di chuyển đến 			màn hình tổ chức cuộc họp. Ấn nút \"Xem chi tiết\", di chuyển đến màn hình danh sách." 
+          meeting_new: "Đăng ký cuộc họp." 
+          end_meeting: "Hiển thị các cuộc họp đã kết thúc. Ấn vào nội dung cuộc họp, di chuyển đến màn hình thực hiện A/I. Ấn nút \"Xem chi tiết\", di chuyển đến màn hình danh sách." 
+          whats_new: "Hiển thị thông tin mới cập nhật. Ấn vào nội dung thông tin, di chuyển đến màn hình tương ứng. Ấn nút \"Xem chi tiết\", di chuyển đến màn hình danh sách." 
+          see_more: "Hiển thị danh sách."
+          unresolved_me: "Đây là A/I bạn chưa thực hiện. Ấn vào nội dung A/I, di chuyển đến màn hình thực hiện A/I."
+          unresolved_meeting: "Đây là A/I chưa thực hiện của cuộc họp bạn tham gia. Ấn vào nội dung A/I, di chuyển đến màn hình thực hiện A/I."
+          scheduled_meeting: "Đây là cuộc họp dự kiến tổ chức hoặc cuộc họp đang được tổ chức. Ấn vào nội dung cuộc họp, di chuyển đến màn hình chi tiết cuộc họp đó."
+          ended_meeting: "Đây là cuộc họp đã kết thúc. Ấn vào nội dung cuộc họp, di chuyển đến màn hình thực hiện A/I."
+          meeting_whats_new: "Đây là thông tin mới của cuộc họp. Ấn vào nội dung thông tin, di chuyển đến màn hình chi tiết cuộc họp."
+          ended_meeting_whats_new: "Đây là thông tin mới của cuộc họp. Ấn vào nội dung thông tin, di chuyển đến màn hình thực hiện A/I."
+          comment_whats_new: "Đây là ghi chú mới. Ấn vào nội dung ghi chú, di chuyển đến màn hình thực hiện A/I."
+          ai_whats_new: "Đây là thông tin mới cho A/I. Ấn vào nội dung thông tin, di chuyển đến màn hình thực hiện A/I."

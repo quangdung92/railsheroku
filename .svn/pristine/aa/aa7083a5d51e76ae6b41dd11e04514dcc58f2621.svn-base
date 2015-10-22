@@ -1,0 +1,14 @@
+vi:
+  views:
+    whats_new_lists:
+      select:
+        history_kind:
+          all: Toàn bộ
+          meeting: Cuộc họp
+          action_item: A/I
+          comment: Ghi chú
+      label:
+        seq: Mã
+        content: Nội dung
+        history_kind: Loại lịch sử cuộc họp
+        datetime: Thời gian 

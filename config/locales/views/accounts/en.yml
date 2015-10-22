@@ -1,0 +1,24 @@
+en:
+  views:
+    accounts:
+      form:
+        label:
+          account_setting: Account setting
+      index:
+        title: Account setting
+        button:
+          edit: Edit
+        balloon_help:
+          account_setting: "Your account information is displayed."
+          change_setting: "Change settings"
+      edit:
+        title: Edit
+        button:
+          cancel: Cancel
+          update: Update
+        balloon_help:
+          account_setting: "Enter your account information"
+          cancel: "Cancel"
+          update: "Update"
+      update:
+        notice: 'User was successfully updated.'

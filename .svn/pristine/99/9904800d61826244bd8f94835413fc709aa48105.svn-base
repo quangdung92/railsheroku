@@ -1,0 +1,25 @@
+<% unless @error_message.blank? %>
+  <div class="errors">
+    <div class="error-content">
+      <h3><%= @error_message %></h3>
+      <a class="btn btn-default btn-to-home" href="<%= home_path %>"><i class="glyphicon glyphicon-home"></i><%= t('views.proceedings.edit.button.home') %></a>
+    </div>
+  </div>
+<% else %>
+  <section class="main-content" ng-app="proceedingModule" ng-controller="ProceedingEditController as proceedingCtrl" ng-init="init(<%= @proceeding.id %>)">
+    <div class="meeting-info" ng-init="opened=true" ng-style="{'min-height':(opened?'87px':'30px')}">
+      <%= render 'meeting_info' %>
+    </div>
+    <div class="main">
+      <div class="info-div">
+        <%= render 'form' %>
+      </div>
+      <div class="file" ng-controller="FileController as fileCtrl" ng-init="init(<%= @proceeding.id %>)">
+        <%= render 'file' %>
+      </div>
+    </div>
+    <div class="actions">
+      <%= render 'actions' %>
+    </div>
+  </section>
+<% end %>

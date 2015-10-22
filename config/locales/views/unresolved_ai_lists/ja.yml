@@ -1,0 +1,10 @@
+ja:
+  views:
+    unresolved_ai_lists:
+      common:
+        balloon_help:
+          ai_content: "A/I内容を入力することで、一覧の内容を検索して表示します。"
+          ai_stat_corresponding_date: "A/Iの対応予定日の開始日を入力することで、一覧の内容を検索して表示します。"
+          ai_end_corresponding_date: "A/Iの対応予定日の終了日を入力することで、一覧の内容を検索して表示します。"
+      me:
+      meeting:

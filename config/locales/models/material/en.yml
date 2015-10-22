@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    models:
+      material: material
+    attributes:
+      material:
+        name: name
+        annotation: annotation
+        created_at: created at
+        updated_at: updated at

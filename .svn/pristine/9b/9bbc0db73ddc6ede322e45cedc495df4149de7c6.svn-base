@@ -1,0 +1,77 @@
+<div id="kind-show" class="kind-div">
+  <div class="main-header">
+    <h3><%= t('admin.page.kind.show') %></h3>
+    <div class="operation">
+      <%= link_to t('admin.button.edit'), edit_kind_path(@kind), class: "btn btn-default" %>
+      <%= link_to t('admin.button.list'), kinds_path, class: "btn btn-default" %>
+    </div>
+  </div>
+
+  <div class="kind-details">
+    <div>
+      <div class="field">
+        <strong><%= t_m('kind.name') %></strong>
+        <%= @kind.name %>
+      </div>
+      <div class="field">
+        <strong><%= t_m('kind.is_deleted') %></strong>
+        <%= t('admin.page.kind.deleted') if @kind.is_deleted %>
+      </div>
+      <div class="field-group user-info">
+        <div class="field">
+          <label><%= t('views.kinds.show.label.participant') %></label>
+          <select id="kind_participants" class="form-control multi-select" multiple>
+            <%= options_for_select(@kind.participant_templates.map { |p| [p.user.name, p.user.id] }) %>
+          </select>
+        </div>
+        <div class="field">
+          <label><%= t('views.kinds.show.label.observer') %></label>
+          <select id="kind_observers" class="form-control multi-select" multiple>
+            <%= options_for_select(@kind.observer_templates.map { |o| [o.user.name, o.user.id] }) %>
+          </select>
+        </div>
+      </div>
+      <div id="agenda-div" class="field-group content-div">
+        <div class="content-header">
+          <label><%= t_m('Agenda') %></label>
+        </div>
+        <div class="content-body">
+          <% unless @kind.agenda_templates.blank? %>
+          <table id="agenda-table" class="table table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th class="number text-center">
+                  <%= t('views.kinds.show.label.seq') %>
+                </th>
+                <th class="text-center">
+                  <%= t('views.kinds.show.label.content') %>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @kind.agenda_templates.each_with_index do |agenda, i| %>
+              <tr>
+                <td class="number text-center">
+                  <%= (i + 1) %>
+                </td>
+                <td>
+                  <div class="text-left"><%= sanitize agenda.content, tag: %w(b div p span br) %></div>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <% end %>
+        </div>
+      </div>
+      <div class="field clear">
+        <strong><%= t_m('kind.created_at') %></strong>
+        <%= @kind.created_at.strftime('%Y/%m/%d %T') %>
+      </div>
+      <div class="field">
+        <strong><%= t_m('kind.updated_at') %></strong>
+        <%= @kind.updated_at.strftime('%Y/%m/%d %T') %>
+      </div>
+    </div>
+  </div>
+</div>

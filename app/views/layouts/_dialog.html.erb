@@ -1,0 +1,86 @@
+<div class="modal fade" id="alert-dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header alert">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="dialog_title"></h4>
+      </div>
+      <div class="modal-body" id="dialog_message"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="confirm-dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header alert success">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="dialog_title"></h4>
+      </div>
+      <div class="modal-body" id="dialog_message"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="confirmBtn">OK</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('firstlogin.btn.cancel') %></button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+  //overwrite alert function
+  //@type: 'warning', 'success', default is 'error'
+    window.alert = function (message, type) {
+        if (typeof type == 'undefined')
+            type = 'error';
+        angular.element('#alert-dialog #dialog_title').text(I18n.t('error.'+type));
+        angular.element('#alert-dialog .modal-header').removeClass('warning success error').addClass(type);
+        angular.element('#alert-dialog #dialog_message').text(message);
+        angular.element('#alert-dialog').modal('show');
+    };
+
+  /**
+   * override confirm dialog
+   * @param message
+   * @param callback Callback confirm function if user click OK
+   */
+  window.confirm = function(message, callback) {
+      if (typeof callback=='undefined'){
+          return false;
+      }
+      angular.element('#confirm-dialog #dialog_title').text(I18n.t('common.dialog.title.confirm'));
+      angular.element('#confirm-dialog #dialog_message').text(message);
+      angular.element('#confirm-dialog').modal('show');
+      angular.element('#confirm-dialog #confirmBtn').off('click').on('click',function(){
+          callback();
+          angular.element('#confirm-dialog').modal('hide');
+      });
+  };
+
+  /**
+   * override rails confirm link
+   * @param element
+   * @returns confirm dialog
+   */
+  $.rails.allowAction = function(element) {
+      var message = element.data('confirm'),
+              method = element.data('method') || 'get',
+              link = element.attr('href');
+
+      if (!message) { return true; }
+
+      if (method=='get')
+          return confirm(message,function(){
+              window.location.href = link;
+          });
+      else{
+          return confirm(message,function(){
+              element.data("confirm", null);
+              element.trigger("click.rails");
+          });
+      }
+
+  }
+
+</script>

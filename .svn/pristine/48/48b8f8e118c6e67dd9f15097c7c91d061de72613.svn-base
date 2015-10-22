@@ -1,0 +1,147 @@
+#whats-new-list {
+  background-color: #fafafa;
+  margin: 15px;
+  padding: 10px;
+  -webkit-flex: 1;
+  flex: 1;
+  border: 1px solid #999;
+  border-radius: 5px;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+div.pagination {
+  //height: 30px;
+  text-align: right;
+}
+
+.table-wrap {
+  -webkit-flex: 1;
+  flex: 1;
+  overflow: auto;
+}
+
+table {
+
+  th {
+    text-align: center;
+  }
+
+  td {
+    text-align: center;
+    vertical-align: middle !important;
+  }
+
+  td.whats_new_content,
+  td.meeting_name,
+  td.kind_name {
+    white-space: pre-wrap;
+    text-align: left;
+    word-break: break-all;
+  }
+
+  .seq {
+    width: 50px;
+  }
+
+  .history_kind {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+  }
+
+  .meeting_name {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+  }
+
+  .meeting_date {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+  }
+
+  .kind_name {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+  }
+
+  .datetime {
+    width: 210px;
+    min-width: 210px;
+    max-width: 210px;
+  }
+}
+
+
+div.main-header {
+  margin: 0 0 0 auto;
+  margin-bottom: 5px;
+  min-height: 47px;
+  font-size: 12px;
+  font-weight: bold;
+
+  .info {
+    border: 1px solid rgba(gray, 0.5);
+    border-radius: 5px;
+    padding: 5px 10px;
+
+    div {
+      display: inline-block;
+      width: 100px;
+      text-align: center;
+      padding: 5px 10px;
+      border: 1px solid rgba(gray, 0.2);
+      border-radius: 2px;
+
+      &.meeting {
+        background-color: #dff0d8;
+      }
+      &.action_item {
+        background-color: #ebcccc;
+      }
+      &.comment {
+        background-color: #fcf8e3;
+      }
+
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 800px) {
+  .form-inline {
+    .form-control{
+      width: 98px;
+    }
+    .input-group{
+      width: 98px;
+    }
+  }
+}
+@media screen and (min-width: 906px) and (max-width: 1280px){
+  .form-inline {
+    .form-control{
+      width: 110px;
+    }
+    .input-group{
+      width: 110px;
+    }
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  div.pagination{
+    position: absolute;
+    bottom: -5px;
+    right: 55px;
+  }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px){
+  div.search-header{
+    min-height: 80px;
+  }
+}

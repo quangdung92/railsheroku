@@ -1,0 +1,37 @@
+en:
+  views:
+    users:
+      title: &title cybozu connection info
+      index:
+        title: User list
+      new:
+        title: add user
+      show:
+        title: show user
+        button:
+          get_users: Connect account
+        message:
+          get_users: Connect account from cybozu. Are you sure？
+      edit:
+        title: Edit user
+      form:
+        button:
+          test_connect: Check connect
+        confirm:
+          test_connect: Check connect. Are you sure?
+        validate:
+          error: Invalid input field. Please check.
+          message:
+            cybozu: Valid ID cybozu must be hankaku character.
+      shared:
+        grant:
+          admin: admin
+          normal: normal
+        deleted: deleted
+        firstlogged: first logged in
+      note:
+        require: "Fields with 「*」 are mandatory."
+        kana: If input with furigana, please use hiragana.
+        mailaddress: Input valid email address with @
+        password: Password with 4 ~ 16 hankaku characters.
+        cybozu_id: Please connect with cybozu account to use ID cybozu. Do not input if you don't rememeber ID cybozu correctly.

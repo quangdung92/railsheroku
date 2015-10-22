@@ -1,0 +1,321 @@
+<%= form_for(@meeting, html: { multipart: true, id: "form-meeting", name: "form-meeting" }) do |f| %>
+  <% if @meeting.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <ul>
+      <% @meeting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% unless @error.nil? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <ul>
+        <li><%= @error %></li>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="inputs">
+    <div id="top-div">
+      <div class="hidden">
+        <%= f.hidden_field :lock_version %>
+        <%= f.fields_for :proceeding do |pro| %>
+          <%= pro.hidden_field :meeting_id %>
+        <% end %>
+      </div>
+
+      <div class="content-div">
+        <div class="content-header">
+          <span tooltip="<%= t('views.meetings.form.balloon_help.meeting_information') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <i class="glyphicon glyphicon-info-sign"></i> <%= t('views.meetings.form.label.info') %>
+          </span>
+        </div>
+        <div class="content-body">
+          <div class="field-group meeting-info">
+            <div class="field required">
+              <label class="display-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.name') %></label>
+              <%= f.text_field :name, class: "form-control", required: true, "tooltip" => t('views.meetings.form.balloon_help.meeting_name'), "tooltip-placement" => "bottom", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+            </div>
+            <div class="field required">
+              <label class="display-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.kind_id') %></label>
+              <p class="input-group">
+                <% if @meeting.kind_id.nil? %>
+                  <%= select_tag "meeting[kind_id]", options_for_select(@select_kinds), class: "form-control", "ng-model" => "meetingKind", required: true, "tooltip" => t('views.meetings.form.balloon_help.meeting_kind'), "tooltip-placement" => "bottom", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+                <% else %>
+                  <%= select_tag "meeting[kind_id]", options_for_select(@select_kinds), class: "form-control", "ng-model" => "meetingKind", "ng-init" => "meetingKind='#{@meeting.kind_id}'", required: true, "tooltip" => t('views.meetings.form.balloon_help.meeting_kind'), "tooltip-plaement" => "bottom", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+                <% end %>
+                <span class="input-group-btn input-group-btn-override">
+                  <button type="button" id="get_kind" class="btn btn-default" ng-click="kindChange('<%== t('views.meetings.form.dialog.kind') %>')" tooltip="<%= t('views.meetings.form.tooltip.kind') %>"><i class="glyphicon glyphicon-download"></i></button>
+                </span>
+              </p>
+            </div>
+            <div class="field required">
+              <label class="display-block"><i class="glyphicon glyphicon-calendar"></i> <%= t_m('meeting.dates') %></label>
+              <p class="input-group">
+              <input type="text" id="meeting_dates" name="meeting[dates]" class="form-control" datepicker-append-to-body="true" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" ng-model="dt" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="opened" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" ng-init="dt='<%= @meeting.dates %>'" placeholder="<%= t('common.datepicker.placeholder') %>" pattern="<%= t('validate.date') %>" required tooltip="<%= t('views.meetings.form.balloon_help.meeting_scheduled_date') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" />
+                <span class="input-group-btn input-group-btn-override">
+                  <button type="button" class="btn btn-default" ng-click="dateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+            </div>
+            <div class="field required">
+              <label class="display-block"><i class="glyphicon glyphicon-time"></i> <%= t_m('meeting.start_time') %></label>
+
+              <div class="input-group input-append bootstrap-timepicker">
+                <input class="form-control" id="meeting_start_time" name="meeting[start_time]" type="text" class="input-small" placeholder="HH:MM" required tooltip="<%= t('views.meetings.form.balloon_help.meeting_start_scheduled_time') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                <span class="input-group-btn add-on">
+                  <button class="btn btn-default" type="button">
+                    <i class="icon-time glyphicon glyphicon-time"></i>
+                  </button>
+                </span>
+              </div>
+              <% @time_input = (@meeting.start_time.nil?) ? '' : @meeting.try(:start_time).try(:strftime, "%r") %>
+              <script type="text/javascript">
+                  $(document).ready(function(){
+                      $('#meeting_start_time').timepicker({
+                          minuteStep: 5,
+                          showMeridian: false,
+                          defaultTime: '<%= @time_input %>'
+                      });
+                  });
+              </script>
+
+            </div>
+            <div class="field required">
+              <label class="display-block"><i class="glyphicon glyphicon-home"></i> <%= t_m('meeting.venue') %></label>
+              <%= f.hidden_field :venue, id:"test", "ng-model" => "orgVenue", "ng-init" => "orgVenue='#{@meeting.venue}'" %>
+              <%= f.text_field :venue, autocomplete: "off", class: "form-control", required: true, "ng-init" => "selected='#{@meeting.venue}'", "ng-model" => "selected", typeahead: "venue for venue in venues | filter:$viewValue | limitTo:8", "tooltip" => t('views.meetings.form.balloon_help.meeting_room'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY  %>
+            </div>
+            <div class="field">
+              <label class="display-block"><i class="glyphicon glyphicon-time"></i> <%= t_m('meeting.scheduled_time') %></label>
+              <%= select_tag "meeting[scheduled_time_id]", options_for_select(create_scheduled_time_options, selected: @meeting.scheduled_time_id), class: "form-control", "tooltip" => t('views.meetings.form.balloon_help.meeting_scheduled_time'), "tooltip-placement" => "bottom", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY  %>
+            </div>
+            <div class="field">
+              <label class="display-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.related_meeting_id') %></label>
+              <p class="input-group">
+                <input type="hidden" id="related_meeting_id" name="meeting[related_meeting_id]" class="form-control" ng-value="relatedMeetingId" ng-init="relatedMeetingId='<%= @meeting.related_meeting_id %>'" />
+                <input type="text" id="related_meeting_name" class="form-control" ng-value="relatedMeetingName" ng-init="relatedMeetingName='<%= @meeting.related_meeting.name unless @meeting.related_meeting_id.nil? %>'" readonly/>
+                <span class="input-group-btn input-group-btn-override">
+                  <button type="button" id="search_meeting" class="btn btn-default" ng-click="open()" tooltip="<%= t('views.meetings.form.tooltip.related-meeting') %>"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <label class="display-block"><i class="glyphicon glyphicon-user"></i> <%= t_m('meeting.approver_id') %></label>
+                <% if @all_user
+                     approver_id =  @meeting.approver_id.to_i if @meeting.approver_id.present?
+                %>
+                    <%= select_tag "meeting[approver_id]", options_from_collection_for_select(@all_user, "id", "name", approver_id ), include_blank:  t('views.meetings.form.label.select_approver'), class: "form-control" %>
+                <% end %>
+            </div>
+          </div>
+
+          <div class="field-group user-info">
+            <div class="field required">
+              <label><i class="glyphicon glyphicon-user"></i> <%= t('views.meetings.form.label.participant') %></label>
+              <table class="select-table" ng-init="relational.participants=<%= (@meeting.participants.map { |p| { id: p.user.id, name: p.user.name } }).to_json %>">
+                <tbody>
+                  <tr>
+                    <td>
+                      <input type="hidden" ng-repeat="participant in relational.participants" value="{{participant.id}}" name="meeting[participants_attributes][{{$index}}][user_id]">
+                      <select id="meeting_participants" class="form-control to-multi-select" ng-model="participants" ng-options="participant.id as participant.name for participant in relational.participants" multiple option-check target="relational.participants" trigger="preSubmit" data-error-message="<%= t('views.meetings.form.validate.participant') %>">
+                      </select>
+                    </td>
+                    <td class="button-field">
+                      <button type="button" from-users="users" to-users="relational.participants" selectbox="meeting_participant_of_user" class="btn btn-default btn-sm" add-button tooltip="<%= t('views.meetings.form.balloon_help.add_user') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                        <i class="glyphicon glyphicon-arrow-left"></i>
+                        <%= t('views.meetings.form.button.add') %>
+                      </button>
+                      <button type="button" users="relational.participants" selectbox="participants" class="btn btn-default btn-sm" delete-button tooltip="<%= t('views.meetings.form.balloon_help.delete_user') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                        <i class="glyphicon glyphicon-arrow-right"></i>
+                        <%= t('views.meetings.form.button.delete') %>
+                      </button>
+                    </td>
+                    <td>
+                      <input type="text" ng-model="participant_search" class="form-control" tooltip="<%= t('views.meetings.form.balloon_help.search_user_name') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" />
+                      <select id="meeting_participant_of_user" class="form-control from-multi-select" ng-model="meeting_participant_of_user" ng-options="user.id as user.name for user in users | filter:participant_search" multiple>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="field">
+              <label><i class="glyphicon glyphicon-user"></i> <%= t('views.meetings.form.label.observer') %></label>
+              <table class="select-table" ng-init="relational.observers=<%= (@meeting.observers.map { |o| { id: o.user.id, name: o.user.name } }).to_json %>">
+                <tbody>
+                  <tr>
+                    <td>
+                      <input type="hidden" ng-repeat="observer in relational.observers" value="{{observer.id}}" name="meeting[observers_attributes][{{$index}}][user_id]">
+                      <select id="meeting_observers" class="form-control to-multi-select" ng-model="observers" ng-options="observer.id as observer.name for observer in relational.observers" multiple></select>
+                    </td>
+                    <td class="button-field">
+                      <button type="button" from-users="users" to-users="relational.observers" selectbox="meeting_observer_of_user" class="btn btn-default btn-sm" add-button tooltip="<%= t('views.meetings.form.balloon_help.add_user') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                        <i class="glyphicon glyphicon-arrow-left"></i>
+                        <%= t('views.meetings.form.button.add') %>
+                      </button>
+                      <button type="button" users="relational.observers" selectbox="observers" class="btn btn-default btn-sm" delete-button tooltip="<%= t('views.meetings.form.balloon_help.delete_user') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                        <i class="glyphicon glyphicon-arrow-right"></i>
+                        <%= t('views.meetings.form.button.delete') %>
+                      </button>
+                    </td>
+                    <td>
+                      <input type="text" ng-model="observer_search" class="form-control" tooltip="<%= t('views.meetings.form.balloon_help.search_user_name') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>" />
+                      <select id="meeting_observer_of_user" class="form-control from-multi-select" ng-model="meeting_observer_of_user" ng-options="user.id as user.name for user in users | filter:observer_search" multiple>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="agenda-div" class="field-group content-div" ng-init="relational.agendas=<%= (@meeting.proceeding.agendas.map { |a| { content: a.content } }).to_json %>">
+        <div class="content-header">
+          <span tooltip="<%= t('views.meetings.form.balloon_help.agenda') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <i class="glyphicon glyphicon-th-list"></i> <%= t('views.meetings.form.label.agenda') %>
+          </span>
+          <button type="button" id="add_agenda" ng-click="addAgenda()" class="btn btn-default btn-xs" tooltip="<%= t('views.meetings.form.tooltip.agenda-add') %>"><i class="glyphicon glyphicon-plus-sign"></i></button>
+        </div>
+        <div class="content-body">
+          <table id="agenda-table" class="table table-bordered table-condensed" ng-if="relational.agendas.length != 0"> 
+            <thead>
+              <tr>
+                <th>
+                  <%= t('views.meetings.form.label.seq') %>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+              <tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="agenda in relational.agendas">
+                <td ng-bind="$index + 1">
+                </td>
+                <td>
+                  <div id="contentedit-agendas" ng-bind-html="relational.agendas[$index].content" name="meeting[agendas_attributes][{{$index}}][content]" contenteditable="true"></div>
+                </td>
+                <td class="button_field">
+                  <button type="button" ng-click="deleteAgenda($index)" class="btn btn-default btn-sm" tooltip="<%= t('views.meetings.form.balloon_help.delete_agenda') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-minus-sign"></i> <%= t('views.meetings.form.button.delete') %></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="material-div" class="field-group content-div" ng-controller="FileController as fileCtrl" ng-init="fileCtrl.files=<%= (@meeting.materials.map { |m| { id: m.id, name: m.file_name, annotation: m.annotation } }).to_json %>">
+        <div class="content-header">
+          <span tooltip="<%= t('views.meetings.form.balloon_help.file') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <i class="glyphicon glyphicon-file"></i><%= t_m('Material') %>
+          </span>
+          <button type="button" ng-click="fileCtrl.addFile()" class="btn btn-default btn-xs" tooltip="<%= t('views.meetings.form.tooltip.file-add') %>"><i class="glyphicon glyphicon-plus-sign"></i></button>
+        </div>
+        <div class="content-body">
+          <div ng-repeat="file in fileCtrl.files" ng-switch on="!!file.id">
+            <div ng-switch-when="true" class="upload-div">
+              <a ng-href="/materials/{{file.id}}/download" target="_blank" ng-bind="file.name"></a>
+              <p ng-bind="file.annotation"></p>
+              <button type="button" confirm-message="<%= t('views.meetings.form.file.message.delete') %>" ng-click="fileCtrl.deleteUploadFile($index)" class="btn btn-default btn-sm" confirm-click tooltip="<%= t('views.meetings.form.balloon_help.file_delete') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><i class="glyphicon glyphicon-trash"></i> <%= t('views.meetings.form.button.delete') %></button>
+            </div>
+            <div ng-switch-default class="file-div">
+              <div class="input-group file-upload">
+                <span class="input-group-btn">
+                    <span class="btn btn-default btn-file" tooltip="<%= t('views.meetings.form.balloon_help.file_select') %>" tooltip-placement="right" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+                        <%= t('common.label.browse') %> <input type="file" ng-disabled="uploding" file-check nv-file-select uploader="uploader" data-error-message="<%= t('views.proceedings.edit.file.message.error') %>" data-warning-message="<%= t('views.proceedings.edit.file.message.warning') %>" id="meeting_materials_attributes_{{$index}}" class="form-control" name="meeting[materials_attributes][{{$index}}][file]" required>
+                    </span>
+                </span>
+                <input type="text" class="form-control filename" readonly="">
+              </div>
+              <input type="text" id="meeting_materials_attributes_{{$index}}_annotation" class="form-control file-annotation" name="meeting[materials_attributes][{{$index}}][annotation]" placeholder="<%= t('views.meetings.form.placeholder.annotation') %>" required tooltip="<%= t('views.meetings.form.balloon_help.file_annotation') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"/>
+
+              <button type="button" ng-click="fileCtrl.deleteFile($index)" class="btn btn-default btn-delete"><i class="glyphicon glyphicon-trash"></i> <%= t('views.meetings.form.button.delete') %></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="bottom-div" class="field-group content-div">
+      <div class="content-header">
+        <span tooltip="<%= t('views.meetings.form.balloon_help.message_to_participant') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+          <i class="glyphicon glyphicon-comment"></i> <%= t_m('meeting.message') %>
+        </span>
+      </div>
+      <div class="content-body">
+        <%= f.text_area :message, id: "meeting-message", class: "form-control" %> 
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= link_to %(<i class="glyphicon glyphicon-search"></i> #{t("views.meetings.form.button.refer")}).html_safe, meetings_path, class: "btn btn-default", target: "_blank", "tooltip" => t('views.meetings.form.balloon_help.search_meeting'), "tooltip-placement" => "right", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+    <%= link_to t("views.meetings.form.button.cancel"), url_for(:back), class: "btn btn-default", data: { confirm: t("views.meetings.form.dialog.confirm") }, "tooltip" => t('views.meetings.form.balloon_help.cancel'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+    <input type="button" class="btn btn-default" ng-click="preSubmitSelect()" data-disable-with="<%= t('button.disable_with') %>" value="<%= t("views.meetings.form.button.update")%>" tooltip="<%=t('views.meetings.form.balloon_help.registration')%>" tooltip-placement="top"/>
+<% end %>
+
+
+<script type="text/ng-template" id="meetingSearchDialog.html">
+  <div class="modal-header">
+    <p>
+      <label><%= t("home.search.meeting-name") %></label>
+      <input ng-model="relatedFreeWord" class="form-control" type="text" name="free_word" placeholder="<%= t("home.search.freeword") %>">
+    </p>
+    <p>
+      <label><%= t("home.search.date") %></label>
+      <p class="input-group">
+      <input ng-model="relatedDate" class="form-control" datepicker-append-to-body="false" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="opened" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" placeholder="<%= t('common.datepicker.placeholder') %>" pattern="<%= t('validate.date') %>" required />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="dateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+        </p>
+    </p>
+    <p>
+      <label><%= t("home.search.kind") %></label>
+      <select ng-model="relatedKind" class="form-control">
+        <%= options_for_select(@search_kinds) %>
+      </select>
+    </p>
+  </div>
+  <div class="modal-body modal-body-height" ng-if="searchMeetings.length != 0">
+    <table class="table table-hover table-bordered table-condensed">
+      <thead>
+        <td>
+          <%= t_m('meeting.id') %>          
+        </td>
+        <td>
+          <%= t_m('meeting.name') %>          
+        </td>
+        <td>
+          <%= t_m('meeting.kind_id') %>          
+        </td>
+        <td>
+          <%= t_m('meeting.dates') %>          
+        </td>
+      </thead>
+      <tbody>
+        <tr ng-click="clickSearchMeeting($index)" ng-repeat="meeting in searchMeetings">
+          <td ng-bind="meeting.id">
+          </td>
+          <td ng-bind="meeting.name">
+          </td>
+          <td ng-bind="meeting.kind_name">
+          </td>
+          <td ng-bind="meeting.dates">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-info" ng-click="search()"><%= t('views.meetings.form.button.search') %></button>
+    <button class="btn btn-warning" ng-click="cancel()"><%= t('views.meetings.form.button.cancel') %></button>
+  </div>
+</script>
+

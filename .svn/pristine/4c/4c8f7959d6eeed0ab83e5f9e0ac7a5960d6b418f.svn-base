@@ -1,0 +1,231 @@
+<% unless @error_message.blank? %>
+  <div class="errors">
+    <div class="error-content">
+      <h3><%= @error_message %></h3>
+      <a class="btn btn-default btn-to-home" href="<%= home_path %>"><i class="glyphicon glyphicon-home"></i><%= t('views.proceedings.edit.button.home') %></a>
+    </div>
+  </div>
+<% else %>
+  <section class="main-content" ng-app="proceedingModule" ng-controller="ProceedingShowController as proceedingCtrl" ng-init="init(<%= @proceeding.id %>,<%= (@proceeding.meeting.observers.map { |o| { id: o.user.id, name: o.user.name } }).to_json %>)">
+    <%= image_tag 'logo_main.png', class: "logo-print"%>
+    <div class="meeting-div content-div" ng-init="opened=true" ng-style="{'min-height':(opened?'115px':'30px')}">
+      <div class="content-header">
+        <a ng-click="opened=!opened" tooltip="<%= t('views.proceedings.common.balloon_help.meeting_information') %>" tooltip-placement="right" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <label><i class="glyphicon glyphicon-info-sign"></i> <%= t('views.proceedings.show.label.meeting-info') %></label>
+            <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': opened, 'glyphicon-chevron-right': !opened}"></i>
+        </a>
+      </div>
+      <div class="content-body" ng-show="opened">
+        <div>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.name') %></label>
+            <%= @proceeding.meeting.name %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.kind_id') %></label>
+            <%= @proceeding.meeting.kind.name %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.related_meeting_id') %></label>
+            <%= @proceeding.meeting.related_meeting.name unless @proceeding.meeting.related_meeting.nil? %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-home"></i> <%= t_m('meeting.venue') %></label>
+            <%= @proceeding.meeting.venue %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-calendar"></i> <%= t_m('meeting.dates') %></label>
+            <%= l(@proceeding.meeting.dates, format: :date) %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-time"></i> <%= t_m('meeting.start_time') %></label>
+            <%= l(@proceeding.meeting.start_time, format: :time) %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-time"></i> <%= t_m('meeting.scheduled_time') %></label>
+            <%= format_scheduled_time(@proceeding.meeting.scheduled_time) unless @proceeding.meeting.scheduled_time_id.nil? %>
+          </span>
+        </div>
+        <div>
+          <label class="display-inline-block user-label"><i class="glyphicon glyphicon-user"></i> <%= t_m('participant') %></label>
+          <%= create_participants %>
+        </div>
+        <div>
+          <label class="display-inline-block user-label"><i class="glyphicon glyphicon-user"></i> <%= t_m('observer') %></label>
+          <span id="observers_name" ><%= create_observers %></span>
+          <a id="editObservers" href="javascript:void(0)" ng-click="editObservers()"><span class="glyphicon glyphicon-pencil" aria-hidden="true"><%= t('admin.button.edit') %></span></a>
+        </div>
+        <div>
+          <label class="display-inline-block user-label"><i class="glyphicon glyphicon-user"></i> <%= t_m('meeting.approver_id') %></label>
+          <%= @approver_name.name if @approver_name %>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <!-- comment -->
+      <%= render 'comment' %>
+      <!-- comment end -->
+      <div class="info-div content-div">
+        <div class="content-header">
+          <span tooltip="<%= t('views.proceedings.show.balloon_help.meeting_content') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <i class="glyphicon glyphicon-info-sign"></i> <%= t('views.proceedings.show.label.proceeding-content') %> 
+          </span>
+        </div>
+        <div class="content-body">
+          <div id="ai-div" class="info" ng-if="proceedingCtrl.action_items.length != 0">
+            <div class="info-header">
+              <i class="glyphicon glyphicon-th-list"></i> <%= t_m('action_item') %>
+            </div>
+            <div class="info-body">
+              <table id="action_item_table" class="table table-bordered table-condensed action-item-table" ng-if="proceedingCtrl.action_items.length != 0">
+                <thead>
+                  <tr>
+                    <th class="seq">
+                      <%= t('views.proceedings.common.label.seq') %>
+                    </th>
+                    <th class="action-item">
+                      <%= t('views.proceedings.common.label.action-item') %>
+                    </th>
+                    <th class="person-in-charge">
+                      <%= t('views.proceedings.common.label.person-in-charge') %>
+                    </th>
+                    <th class="scheduled-date">
+                      <%= t('views.proceedings.common.label.scheduled-date') %>
+                    </th>
+                    <th class="completion-date">
+                      <%= t('views.proceedings.common.label.completion-date') %>
+                    </th>
+                    <th class="operation">
+                      <%= t('views.proceedings.common.label.operation') %>
+                    </th>
+                <tbody>
+                  <tr ng-repeat="action_item in proceedingCtrl.action_items" ng-class="{success : (action_item.completion_date != null)}" id="ai_{{action_item.id}}" jump-to-ai>
+                    <td ng-bind="$index + 1">
+                    </td>
+                    <td class="table-content">
+                      <div class="action-item-content" ng-bind="action_item.content"></div>
+                    </td>
+                    <td ng-bind="action_item.user_name">
+                    </td>
+                    <td ng-bind="action_item.scheduled_date">
+                    </td>
+                    <td>
+                      <span class="input-group">
+                        <input ng-disabled="(action_item.completion_date != null)" class="form-control action-item-completion-date" id="action_items_{{$index}}_completion_date" ng-model="action_item.completion_date2" datepicker-append-to-body="true" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="openedCompleteDate[$index]" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" placeholder="<%= t('common.datepicker.placeholder') %>" pattern="<%= t('validate.date') %>" />
+
+                        <span class="input-group-btn input-group-btn-override">
+                          <button type="button" class="btn btn-default" ng-click="dateOpen($event, $index)" ng-disabled="(action_item.completion_date != null)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                      </span>
+                    </td>
+                    <td class="button-field">
+                      <button type="button" ng-click="completeActionItem($index)" ng-if="(action_item.completion_date == null)" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-thumbs-up"></i> <%= t('views.proceedings.show.button.complete') %></button>
+                      <button type="button" ng-click="completeClearActionItem($index)" ng-if="(action_item.completion_date != null)" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i> <%= t('views.proceedings.show.button.modify') %></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <% unless @proceeding.agendas.blank? %>
+          <div id="agenda-div" class="info">
+            <div id="agenda-header" class="info-header">
+              <i class="glyphicon glyphicon-th-list"></i> <%= t_m('agenda') %>
+            </div>
+            <div class="info-body">
+              <table id="agenda-table" class="table table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <th class="table-no">
+                      <%= t('views.proceedings.confirm.label.seq') %>
+                    </th>
+                    <th class="table-content">
+                      <%= t_m('agenda.content') %>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @proceeding.agendas.each_with_index do |agenda, i| %>
+                  <tr>
+                    <td class="table-no">
+                      <%= (i + 1) %>
+                    </td>
+                    <td class="table-content">
+                      <div><%= sanitize agenda.content, tag: %w(b div p span br) %></div>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <!-- material -->
+      <div class="file content-div" ng-controller="FileController as fileCtrl" ng-init="init(<%= @proceeding.id %>)">
+        <%= render 'file' %>
+      </div>
+      <!-- material end -->
+    </div>
+    <div class="actions">
+      <button class="btn btn-default" ng-click="exportPDF()" type="button" tooltip="<%= t('views.proceedings.common.balloon_help.export_pdf') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><%= t("views.proceedings.confirm.button.export") %></button>
+      <button class="btn btn-default" onclick="window.print()" type="button" tooltip="<%= t('views.proceedings.common.balloon_help.print') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><%= t("views.proceedings.confirm.button.print") %></button>
+      <% if @current_user.id == @proceeding.meeting.approver_id %>
+      <%= link_to t('views.proceedings.show.button.revert-complete'), revert_meeting_path(@proceeding.meeting), class: "btn btn-default", method: :put, data: { confirm: t("views.proceedings.confirm.dialog.confirm_revert") }, "tooltip" => t('views.proceedings.show.balloon_help.revert_complete'), "tooltip-placement" => "top" %>
+      <% end %>
+      <%= link_to t("views.proceedings.show.button.edit-complete"), home_path, class: "btn btn-default", "tooltip" => t('views.proceedings.show.balloon_help.edit_complete'), "tooltip-placement" => "top" %>
+    </div>
+
+    <!-- edit observers modal -->
+    <script type="text/ng-template" id="editObserverDialog.html">
+      <div class="modal-header">
+        <button type="button" ng-click="cancel()" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><%= t("views.proceedings.edit.label.update_observer") %></h4>
+      </div>
+      <div class="modal-body">
+        <div  ng-show="success" class="alert alert-success ng-hide" role="alert">
+          <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <%= t("views.proceedings.show.label.update_success") %>
+        </div>
+        <div class="field-group user-info">
+            <div class="field">
+              <label><i class="glyphicon glyphicon-user"></i> <%= t('views.meetings.form.label.observer') %></label>
+              <table class="select-table">
+                <tbody>
+                <tr>
+                  <td>
+                    <input type="hidden" ng-repeat="observer in relational.observers" value="{{observer.id}}" name="meeting[observers_attributes][{{$index}}][user_id]">
+                    <select id="meeting_observers" class="form-control to-multi-select" ng-model="observers" ng-options="observer.id as observer.name for observer in relational.observers" multiple></select>
+                  </td>
+                  <td class="button-field">
+                    <button type="button" from-users="users" to-users="relational.observers" selectbox="meeting_observer_of_user" class="btn btn-default btn-sm" add-button>
+                      <i class="glyphicon glyphicon-arrow-left"></i>
+                      <%= t('views.meetings.form.button.add') %>
+                    </button>
+                    <button type="button" users="relational.observers" selectbox="observers" class="btn btn-default btn-sm" delete-button>
+                      <i class="glyphicon glyphicon-arrow-right"></i>
+                      <%= t('views.meetings.form.button.delete') %>
+                    </button>
+                  </td>
+                  <td>
+                    <input type="text" ng-model="observer_search" class="form-control" />
+                    <select id="meeting_observer_of_user" class="form-control from-multi-select" ng-model="meeting_observer_of_user" ng-options="user.id as user.name for user in users | filter:observer_search" multiple>
+                    </select>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="updateObserver()"><%= t("views.proceedings.edit.button.update") %></button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()"><%= t("views.proceedings.edit.button.cancel") %></button>
+      </div>
+    </script>
+
+  </section>
+<% end %>
+
+

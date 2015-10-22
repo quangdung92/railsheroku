@@ -1,0 +1,91 @@
+# controller is parent to all controller.
+# @author Kudo Syuji
+# @version 1.0
+class ApplicationController < ActionController::Base
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception
+  # bofore_action
+  before_action :set_locale,:check_login, :check_kind_is_exists
+  # @see LoginHelper
+  include LoginHelper
+
+  ADMIN_PAGE = 'admin'
+
+  private
+    # This action performs the login check,
+    # If you are not logged in, you can redirect to the login page.
+    def check_login
+      user = current_user
+      if user.nil?
+        if params[:controller] != "login"
+          session[:previous_url] = request.fullpath
+          redirect_to "/login"
+          return
+        end
+      else
+        if params[:controller] != "firstlogin" &&
+           params[:controller] != "login"
+          if user.is_deleted? || !user.is_firstlogged?
+            redirect_to "/login"
+            return
+          end
+        end
+      end
+    end
+
+    # check a kind is exists
+    def check_kind_is_exists
+
+      if params[:controller] != "login" && params[:controller] != "firstlogin" &&
+        !@_prefixes.include?(ADMIN_PAGE)
+        if Kind.all.empty?
+          render template: '/shared/kind_no_exists', layout: 'shared'
+        end
+      end
+
+    end
+
+    # create a responxe of ajax
+    #
+    # @params [Integer] error_no 0 is success. over 0 is error
+    # @params [String] message
+    # @params [Hash] data
+    def create_ajax_response(error_no = 0, message = '', data = {})
+
+      @ajax_response = {
+        error_no: error_no,
+        message: message,
+        data: data
+      }
+
+    end
+
+    # ============================================================================
+    # author:: Toan
+    # date:: 09:01 - 7/10/15
+    # brief:: Set locale for web
+    # @params::  locale
+    # @return::
+    # ============================================================================
+    def set_locale
+      # force by params
+      if params[:locale] && WEB_LOCALES_SUPPORT.include?(params[:locale])
+        I18n.locale = params[:locale]
+        session[:locale] = params[:locale]
+        cookies[:locale] = params[:locale]
+      elsif session[:locale] && WEB_LOCALES_SUPPORT.include?(session[:locale])
+        # get from session
+        I18n.locale = session[:locale]
+      elsif cookies[:locale] && WEB_LOCALES_SUPPORT.include?(cookies[:locale])
+        # get from session
+        I18n.locale = cookies[:locale]
+      else
+        I18n.locale = DEFAULT_WEB_LOCALE
+      end
+
+      @current_locale = I18n.locale
+      @current_locale_string = t('locale.' + I18n.locale.to_s, default: 'Not define language')
+    end
+
+end

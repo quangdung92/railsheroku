@@ -1,0 +1,2 @@
+json.array! create_list_of_comments_of_proceeding
+

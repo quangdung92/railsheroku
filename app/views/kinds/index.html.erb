@@ -1,0 +1,39 @@
+<div id="kind-list" class="kind-div" ng-app="adminModule" ng-controller="KindListController as kindList">
+  <div class="main-header">
+    <h3><%= t('admin.page.kind.index') %></h3>
+    <div class="info">
+      <%= t('common.label.row_description') %> 
+      <div class="delete"><%= t('admin.table-info.disable') %></div>
+    </div>
+    <div class="operation">
+      <%= link_to t('admin.button.new'), new_kind_path, class: "btn btn-default" %>
+    </div>
+  </div>
+
+  <table class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th class="kind_id"><%= t_m('kind.id') %></th>
+        <th class="kind_name"><%= t_m('kind.name') %></th>
+        <th class="kind_is_deletd text-center"><%= t_m('kind.is_deleted') %></th>
+        <th class="kind_operation"></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr ng-repeat="data in kindList.datas" ng-class="{danger : data.is_deleted }">
+        <td class="kind_id" ng-bind="data.id"></td>
+        <td class="kind_name" ng-bind="data.name"></td>
+        <td class="kind_is_deleted text-center" ng-bind="data.is_deleted ? '<%= t('admin.page.kind.deleted') %>' : ''"></td>
+        <td class="kind_operation">
+          <a ng-href="kinds/{{data.id}}" class="btn btn-default btn-xs"><%= t("admin.button.detail") %></a>
+          <a ng-href="kinds/{{data.id}}/edit" class="btn btn-default btn-xs"><%= t("admin.button.edit") %></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    <pagination total-items="kindList.totalItems" ng-model="kindList.currentPage" max-size="kindList.maxSize" previous-text="<%= t('admin.pagination.previous') %>" next-text="<%= t('admin.pagination.next') %>" first-text="<%= t('admin.pagination.first') %>" last-text="<%= t('admin.pagination.last') %>" items-per-page="kindList.itemsPerPage" class="pagination-sm" boundary-links="true"></pagination> 
+  </div>
+
+</div>

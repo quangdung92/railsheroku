@@ -1,0 +1,282 @@
+// Place all the styles related to the kinds controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+div.main {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex: 1;
+  flex: 1;
+  padding: 0 15px 15px;
+  overflow-y: scroll;
+}
+
+.kind-div {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+div.main-header {
+  position: relative;
+  border-bottom: 1px solid #9aae9a;
+  margin-bottom: 10px;
+  min-height: 57px;
+
+  .info {
+    position: absolute;
+    right: 75px;
+    bottom: 5px;
+    border: 1px solid rgba(gray, 0.5);
+    border-radius: 5px;
+    padding: 5px 10px;
+
+    div {
+      display: inline-block;
+      width: 100px;
+      text-align: center;
+      padding: 5px 10px;
+      border: 1px solid rgba(gray, 0.2);
+      border-radius: 2px;
+
+      &.delete {
+        background-color: #f2dede;
+      }
+
+      &.not_login {
+        background-color: #fcf8e3;
+      }
+    }
+  }
+
+  .operation {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+
+    a {
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+  }
+}
+
+div.pagination {
+  position: absolute;
+  right: 0;
+  //bottom: 0;
+}
+
+.kind_id {
+  width: 50px;
+}
+
+.kind_name {
+  width: 355px;
+}
+
+td.kind_is_deleted {
+  width: 45px;
+}
+
+.kind_operation {
+  width: 180px;
+  text-align: center;
+
+  a.btn {
+    padding: 0 10px;
+    width: 120px;
+  }
+}
+
+// kinds(list)
+.pagination {
+  margin: 0;
+}
+
+// kinds(show edit)
+.kind-details {
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex: 1;
+  flex: 1;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  overflow: auto;
+
+  strong,
+  label {
+    display: inline-block;
+    width: 100px;
+  }
+}
+
+// kind _form
+form.kind-form {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex: 1;
+  flex: 1;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
+  div.inputs {
+    overflow: auto;
+    -webkit-flex: 1;
+    flex: 1;
+  }
+  
+  #agenda-div {
+    -webkit-flex: 1 0 400px;
+    flex: 1 0 400px;
+    overflow: auto;
+  
+    > #agenda-header {
+      position: relative;
+      padding: 5px;
+      background-color: #000;
+      color: #fff;
+    }
+  
+    .content-body {
+      padding: 5px;
+    }
+
+    table {
+      text-align: center;
+
+      td {
+        vertical-align: middle;
+      } 
+
+      .button_field {
+        width: 80px;
+      }
+
+      textarea {
+        border: none;
+        width: 100%;
+//        height: 100%;
+      }
+
+    }
+  }
+
+  div.field {
+    margin-right: 20px;
+    margin-bottom: 15px;
+    height: auto;
+    line-height: normal;
+  
+    input[type=text], select {
+      display: inline-block;
+      width: 170px;
+    }
+  }
+
+  select.from-multi-select {
+    height: 190px;
+  }
+  
+  select.to-multi-select {
+    height: 222px;
+  }
+
+  .button-field {
+  
+    button {
+      margin: 10px;
+  
+      &:first-child {
+        display: block;
+      }
+    }
+  }
+
+  .user-info {
+    width: 440px;
+    float: left;
+    padding: 5px 0;
+  }
+
+  div.actions {
+    width: 100%;
+    text-align: right;
+    padding: 10px 0 10px 10px;
+    border-top: 1px solid gray;
+    position: relative;
+    min-height: 55px;
+  }
+}
+//kind show
+#kind-show {
+
+  div.field {
+    margin-right: 20px;
+    margin-bottom: 15px;
+    height: auto;
+    line-height: normal;
+  
+    input, select {
+      display: inline-block;
+      width: 170px;
+    }
+  }
+
+  #agenda-div {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+    height: 100%;
+  
+    > #agenda-header {
+      position: relative;
+      padding: 5px;
+      background-color: #000;
+      color: #fff;
+    }
+  
+    .content-body {
+      height: 480px;
+      overflow: auto;
+    }
+
+    table {
+      td {
+        vertical-align: middle;
+      } 
+
+      .number {
+        width: 50px;
+      }
+
+      div {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+    }
+
+  }
+
+  .user-info {
+    width: 300px;
+    float: left;
+  
+    .field {
+  
+      > label {
+        display: block;
+      }
+
+      select.multi-select {
+        height: 222px;
+      }
+    }
+  }
+}

@@ -1,0 +1,186 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+ja:
+  hello: "Hello world"
+  home:
+    unresolved:
+      ai:
+        me:
+          title: あなたの未解決A/I
+          nothing: 現在、あなたの未解決A/Iはありません。
+        meeting:
+          title: 参加会議の未解決A/I
+          nothing: 現在、参加会議の未解決A/Iはありません。
+    meeting:
+      ended:
+        title: 終了会議議事録
+        nothing: 現在、関連する終了会議議事録はありません。
+      scheduled:
+        title: 開催予定会議
+        nothing: 現在、関連する開催予定会議はありません。
+    new:
+      information: "What's New"
+      list:
+        create_meeting: "%{user_name}さんが%{meeting_name}会議を作成しました。"
+        ended_meeting: "%{meeting_name}会議が終了しました。"
+        edit_meeting: "%{user_name}さんが%{meeting_name}会議を編集しました。"
+        meeting_today: "%{meeting_name}会議の開催予定日です。"
+        canceled_meeting: "%{meeting_name}会議は中止になりました。"
+        comment: "%{user_name}さんが%{meeting_name}議事録にコメントしました。"
+        beforer_action_item_scheduled_date: "もうすぐ%{meeting_name}議事録の%{ai_name}A/I対応予定日です。"
+        action_item_scheduled_date: "%{meeting_name}議事録の%{ai_name}A/I対応予定日です。"
+        action_item_ended: "%{user_name}さんが%{ai_name}A/Iを完了しました。"
+    ai:
+      achievement-rate: あなたのA/I達成率は%{rate}です。(%{ai}/%{all})
+      nothing: 現在あなたのA/Iはありません
+    button:
+      meeting:
+        new: 新規会議の登録
+    search:
+      meeting-name: 会議名
+      freeword: フリーワード
+      date: 開催日
+      kind: 会議種別
+      select:
+        default: 全て
+      button:
+        clear: クリア
+    list:
+      view: もっと見る
+  default:
+    message:
+      loading: Loading
+    button:
+      logout: ログアウト
+      admin-setting: 管理設定    
+  admin:
+    menu:
+      user: ユーザ
+      kind: 会議種別
+      cybozu: サイボウズ
+      home: ホーム画面へ
+      setting: Setting
+    button:
+      list: 一覧
+      new: 作成
+      detail: 詳細
+      show: 表示
+      edit: 編集
+      delete: 削除
+      disable: 無効
+    dialog:
+      message:
+        disable: を無効にします。宜しいですか？
+    pagination:
+      previous: 前へ
+      next: 次へ
+      first: 最初
+      last: 最後
+    table-info:
+      disable: 無効  
+      not-login: 未ログイン
+    page:
+      kind:
+        new: 会議種別作成 
+        index: 会議種別一覧
+        edit: 会議種別編集
+        show: 会議種別表示
+        delete: 会議種別削除
+        deleted: ○
+        participant: 参加者
+        observer: オブザーバ
+        agenda_template: アジェンダ
+        agenda_add: アジェンダ追加
+        agenda_id: ID
+        agenda_content: 設備/指摘
+        agenda_operation: 操作 
+  login:
+    title: ログイン
+    placeholder:
+      user_id: ユーザIDを入力
+      password: パスワードを入力
+    label:
+      user_id: ユーザID
+      password: パスワード
+    btn:
+      login: ログイン
+    message:
+      login_error: ログインできません。
+    select:
+      option:
+        english: "英語"
+        japanese: "日本語"
+        vietnamese: "ベトナム語" 
+  firstlogin:
+    placeholder:
+      new_password: 新しいパスワードを入力
+      confirm_password: 確認用パスワードを入力
+    label:
+      user_id: ユーザID
+    title: パスワード設定
+    explain:
+      password: パスワードは4～16文字 半角英数で入力下さい
+    btn:
+      regist: 登録
+      cancel: キャンセル
+    message:
+      not_match: 新しいパスワードと確認用パスワードが一致しません。
+      not_input: 新しいパスワードを入力して下さい。
+    update:
+      notice: 'User was successfully updated.'
+  validate:
+    date: (?:19|20)[0-9]{2}/(?:(?:0[1-9]|1[0-2])/(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])/(?:30))|(?:(?:0[13578]|1[02])/31))
+    user:
+      email: メールアドレスの型式が不正です。
+      kana: 全角ひらがなで入力して下さい。
+      password: パスワードは半角英数字で入力して下さい。
+      cybozu_id: 半角英数字で入力して下さい。
+  time:
+    formats:
+      time: '%H時%M分' 
+      scheduled_time: '%-H時間%M分'
+      scheduled_time_short: '%M分'
+    scheduled_time:
+      and_under: "%{time}以下"
+      and_over: "%{time}以上"
+  date:
+    formats:
+      date: '%Y年%m月%d日' 
+  button:
+    disable_with: '送信中...'
+  error:
+    cybozu: '[サイボウズ連携エラー]'
+    stale: 競合が発生しました、一度キャンセルしてから編集して下さい。
+    error: Error
+    warning: Warning
+    success: Success
+  common:
+    label:
+      row_description: "行の説明:"
+      browse: "Browse..."
+    datepicker:
+      datepicker-popup: "yyyy/MM/dd"
+      format-day-title: "yyyy年 MM月"
+      close-text: "閉じる"
+      current-text: "当日"
+      clear-text: "削除"
+      placeholder: "yyyy/mm/dd"

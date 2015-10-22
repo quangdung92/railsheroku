@@ -1,0 +1,36 @@
+  <div class="login-div" ng-app="firstloginModule">
+    <%= form_for(@user, {:url => {:controller => :firstlogin, :action => :update}, :html => {:class => "form-firstlogin", :id => "form_firstlogin", :name => "form_firstlogin"}}) do |f| %>
+      <div class="form-header">
+        <i class="glyphicon glyphicon-wrench"><%= t('firstlogin.title') %></i>
+      </div>
+      <div class="form-div">
+        <% if @user.errors.any? %>  
+          <div id="error_explanation" class="alert alert-danger">
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="field">
+          <%= f.label :login_id %> 
+          <%= @user.login_id %>
+        </div>
+        <div class="field">
+          <font class="explain-font essential-font"><%= t('firstlogin.explain.password') %></font>
+          <%= f.password_field :password, 'ng-model' => 'newPassword', class: 'form-control', maxLength: 16, pattern: "^([a-zA-Z0-9]{4,16})$", required: true, placeholder: t('firstlogin.placeholder.new_password'), "tooltip" => t('views.firstlogins.index.balloon_help.new_password'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+        </div>
+        <div class="field">
+          <%= f.password_field :password_confirmation, 'ng-model' => 'confirmPassword', class: 'form-control', maxLength: 16, pattern: "^([a-zA-Z0-9]{4,16})$", required: true, placeholder: t('firstlogin.placeholder.confirm_password'), "tooltip" => t('views.firstlogins.index.balloon_help.confirm_password'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+        </div>
+        <div ng-if="newPassword != confirmPassword" class="field">
+          <div class="alert alert-danger"><%= t("firstlogin.message.not_match") %></div>
+        </div>
+        <div class="field text-center">
+          <%= link_to t("firstlogin.btn.cancel"), login_logout_path, class: "btn btn-default btn-sm", "tooltip" => t('views.firstlogins.index.balloon_help.cancel'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+          <%= f.submit t("firstlogin.btn.regist"), {class: "btn btn-default btn-sm submit", 'ng-disabled' => "(newPassword != confirmPassword) || (newPassword == nil)", "tooltip" => t('views.firstlogins.index.balloon_help.registration'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY} %>
+        </div>
+      </div>
+    <% end %>
+  </div>

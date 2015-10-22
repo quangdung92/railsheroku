@@ -1,0 +1,15 @@
+vi:
+  views:
+    accounts:
+      form:
+        label:
+          account_setting: Thiết lập tài khoản
+      index:
+        title: Thiết lập tài khoản
+        button:
+          edit: Thay đổi thiết lập
+      edit:
+        title: Thay đổi thiết lập tài khoản
+        button:
+          cancel: Hủy  
+          update: Cập nhật  

@@ -1,0 +1,10 @@
+ja:
+  views:
+    shared:
+      message:
+        admin_html: "Rock'n議事ロッカーを使用するには会議種別の登録が必須になります。<br/>右上の管理設定ボタンより会議種別を登録して下さい。"
+        normal_html: "Rock'n議事ロッカーを使用するには会議種別の登録が必須になります。<br/>管理者に連絡して作成して下さい。"
+      angularjs:
+        datetime_format: "yyyy年MM月dd日 HH時mm分ss秒"
+        date_format: "yyyy年MM月dd日"
+        comment_datetime_format: "yyyy年MM月dd日 HH時mm分"

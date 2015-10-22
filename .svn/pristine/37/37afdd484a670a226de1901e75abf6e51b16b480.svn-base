@@ -1,0 +1,10 @@
+vi:
+  views:
+    shared:
+      message:
+        admin_html: Để sử dụng hệ thống Biên bản cuộc họp "Rock'n bạn cần đăng ký loại cuộc họp. <br/> Hãy ần nút thiết lập quản lý ở phía trên bên phải màn hình để thực hiện đăng ký."
+        normal_html: Để sử dụng hệ thống Biên bản cuộc họp "Rock'n bạn cần đăng ký loại cuộc họp.<br/> Hãy liên hệ với người quản lý để thực hiện đăng ký"
+      angularjs:
+        datetime_format: dd 'tháng' MM 'năm' yyyy HH 'giờ' mm 'phút' ss 'giây'
+        date_format: dd 'tháng' MM 'năm' yyyy
+        comment_datetime_format: dd 'tháng' MM 'năm' yyyy HH 'giờ' mm 'phút'

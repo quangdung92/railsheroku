@@ -1,0 +1,25 @@
+vi:
+  views:
+    kinds:
+      form:
+        label:
+          info: &info Thông tin cuộc họp
+          observer: &observer Người giám sát
+          participant: &participant Người tham gia
+          agenda: &agenda Chương trình cuộc họp
+          seq: &seq Số TT
+          content: &content Nội dung/Chỉ thị
+        button:
+          add: Thêm
+          delete: Xóa
+      show:
+        label:
+          info: *info
+          observer: *observer
+          participant: *participant
+          agenda: *agenda
+          seq: *seq
+          content: *content
+      destroy:
+        notice: 'Kind was successfully destroyed.'    
+         

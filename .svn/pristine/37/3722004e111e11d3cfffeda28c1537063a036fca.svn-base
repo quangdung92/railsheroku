@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= page_title %></title>
+    <%= render :partial => "layouts/meta_tags" %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= stylesheet_link_tag    'admin_share', media: 'all' %>
+    <%= stylesheet_link_tag    controller.controller_name, media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'angularjs-validation-compare-to' %>
+    <%= javascript_include_tag 'angularjs-confirm-click' %>
+    <%= javascript_include_tag 'angularjs-katakana-to-hiragana' %>
+    <% if controller.controller_name == 'cybozus' && controller.action_name == 'show' %>
+    <%= javascript_include_tag 'wcAngularOverlay' %>
+    <% end %>
+    <%= javascript_include_tag %(#{controller.controller_name}_#{controller.action_name}) %>
+    <%= csrf_meta_tags %>
+    <!-- i18n-js -->
+    <%= javascript_include_tag  "i18n/#{I18n.locale}" %>
+    <script type="text/javascript">
+      I18n.defaultLocale = "<%= I18n.default_locale %>";
+      I18n.locale = "<%= I18n.locale %>";
+    </script>
+  </head>
+  <% if controller.controller_name == 'cybozus' && controller.action_name == 'show' %>
+  <body ng-app="adminModule">
+    <div wc-overlay wc-overlay-delay="300">
+      <br /><%= image_tag 'spinner.gif' %><%= t('default.message.loading') %>
+    </div>
+  <% else %>
+  <body>
+  <% end %>
+    <div class="content">
+      <%= render :partial => "layouts/admin_header" %>
+      <section class="main-content">
+        <div class="side-menu">
+          <ul id="menu">
+            <li><a id="user_link" href="/admin/users"><%= t('admin.menu.user') %></a></li>
+            <li><a id="kind_link" href="/admin/kinds"><%= t('admin.menu.kind') %></a></li>
+            <li><a id="cybozu_link" href="/admin/cybozus"><%= t('admin.menu.cybozu') %></a></li>
+            <li><a id="email_link" href="/admin/admin_settings"><%= t('admin.menu.setting') %></a></li>
+            <li><a id="home_link" href="/home"><%= t('admin.menu.home') %></a></li>
+          </ul>
+        </div>
+        <div class="main">
+          <%= yield %>
+          <%= render :partial => "layouts/dialog" %>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

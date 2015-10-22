@@ -1,0 +1,165 @@
+ <section class="main-content" ng-app="proceedingModule" ng-controller="ProceedingConfirmController">
+   <%= image_tag 'logo.png', height: '120', width: '320', class: "logo-print"%>
+    <div class="meeting-div content-div" ng-init="opened=true" ng-style="{'min-height':(opened?'115px':'30px')}">
+      <div class="content-header">
+        <a ng-click="opened=!opened" tooltip="<%= t('views.proceedings.common.balloon_help.meeting_information') %>" tooltip-placement="right" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <label><i class="glyphicon glyphicon-info-sign"></i> <%= t('views.proceedings.confirm.label.meeting-info') %></label>
+            <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': opened, 'glyphicon-chevron-right': !opened}"></i>
+        </a>
+      </div>
+      <div class="content-body" ng-show="opened">
+        <div>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.name') %></label>
+            <%= @proceeding.meeting.name %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.kind_id') %></label>
+            <%= @proceeding.meeting.kind.name %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-pencil"></i> <%= t_m('meeting.related_meeting_id') %></label>
+            <%= @proceeding.meeting.related_meeting.name unless @proceeding.meeting.related_meeting.nil? %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-home"></i> <%= t_m('meeting.venue') %></label>
+            <%= @proceeding.meeting.venue %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-calendar"></i> <%= t_m('meeting.dates') %></label>
+            <%= l(@proceeding.meeting.dates, format: :date) %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-time"></i> <%= t_m('meeting.start_time') %></label>
+            <%= l(@proceeding.meeting.start_time, format: :time) %>
+          </span>
+          <span>
+            <label class="display-inline-block"><i class="glyphicon glyphicon-time"></i> <%= t_m('meeting.scheduled_time') %></label>
+            <%= format_scheduled_time(@proceeding.meeting.scheduled_time) unless @proceeding.meeting.scheduled_time_id.nil? %>
+          </span>
+        </div>
+        <div>
+          <label class="display-inline-block user-label"><i class="glyphicon glyphicon-user"></i> <%= t_m('participant') %></label>
+          <%= create_participants %>
+        </div>
+        <div>
+          <label class="display-inline-block user-label"><i class="glyphicon glyphicon-user"></i> <%= t_m('observer') %></label>
+          <%= create_observers %>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="info-div content-div">
+        <div class="content-header">
+          <span tooltip="<%= t('views.proceedings.confirm.balloon_help.meeting_content') %>" tooltip-placement="right" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <label><i class="glyphicon glyphicon-info-sign"></i> <%= t('views.proceedings.confirm.label.proceeding-content') %></label>
+          </span>
+        </div>
+        <div class="content-body">
+          <% unless @proceeding.action_items.blank? %>
+          <div id="ai-div" class="info">
+            <div class="info-header">
+              <i class="glyphicon glyphicon-th-list"></i> <%= t_m('action_item') %>
+            </div>
+            <div class="info-body">
+              <table id="agenda-table" class="table table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <th class="table-no">
+                      <%= t('views.proceedings.confirm.label.seq') %>
+                    </th>
+                    <th class="table-content">
+                      <%= t_m('action_item.content') %>
+                    </th>
+                    <th class="table-user">
+                      <%= t_m('action_item.user_id') %>
+                    </th>
+                    <th class="table-date">
+                      <%= t_m('action_item.scheduled_date') %>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @proceeding.action_items.each_with_index do |action_item, i| %>
+                  <tr>
+                    <td class="table-no">
+                      <%= (i + 1) %>
+                    </td>
+                    <td class="table-content">
+                      <div class="action-item-content"><%= action_item.content %></div>
+                    </td>
+                    <td class="table-user">
+                      <%= action_item.user.name %>
+                    </td>
+                    <td class="table-date">
+                      <%= l(action_item.scheduled_date, format: :date) %>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <% end %>
+          <% unless @proceeding.agendas.blank? %>
+          <div id="agenda-div" class="info">
+            <div id="agenda-header" class="info-header">
+              <i class="glyphicon glyphicon-th-list"></i> <%= t_m('agenda') %>
+            </div>
+            <div class="info-body">
+              <table id="agenda-table" class="table table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <th class="table-no">
+                      <%= t('views.proceedings.confirm.label.seq') %>
+                    </th>
+                    <th class="table-content">
+                      <%= t_m('agenda.content') %>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @proceeding.agendas.each_with_index do |agenda, i| %>
+                  <tr>
+                    <td class="table-no">
+                      <%= (i + 1) %>
+                    </td>
+                    <td class="table-content">
+                      <div><%= sanitize agenda.content, tag: %w(b div p span br) %></div>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="material-div content-div">
+        <div class="content-header">
+          <span tooltip="<%= t('views.proceedings.confirm.balloon_help.file') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+            <i class="glyphicon glyphicon-file"></i> <%= t_m('material') %>
+          </span>
+        </div>
+        <div class="content-body">
+          <div>
+            <% @proceeding.meeting.materials.each do |material| %>
+              <div class="upload-div">
+                <%= link_to material.file_name, download_material_path(material), target: '_blank' %>
+                <p>
+                <%= material.annotation %>
+                </p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-default" ng-click="exportPDF()" type="button" tooltip="<%= t('views.proceedings.common.balloon_help.export_pdf') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><%= t("views.proceedings.confirm.button.export") %></button>
+      <button class="btn btn-default" onclick="window.print()" type="button" tooltip="<%= t('views.proceedings.common.balloon_help.print') %>" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>"><%= t("views.proceedings.confirm.button.print") %></button>
+      <%= link_to t("views.proceedings.confirm.button.back"), edit_proceeding_path, class: "btn btn-default", "tooltip" => t('views.proceedings.common.balloon_help.back'), "tooltip-placement" => "top", "tooltip-popup-delay" => BALLOON_HELP_POPUP_DELAY %>
+      <%= link_to t("views.proceedings.confirm.button.ended"), ended_meeting_path(@proceeding.meeting), class: "btn btn-default", method: :put, data: { confirm: t("views.proceedings.confirm.dialog.confirm") }, "tooltip" => t('views.proceedings.confirm.balloon_help.meeting_end_confirm'), "tooltip-placement" => "top" %>
+    </div>
+  </section>

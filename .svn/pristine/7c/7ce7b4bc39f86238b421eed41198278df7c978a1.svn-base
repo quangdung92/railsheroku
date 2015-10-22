@@ -1,0 +1,45 @@
+(function() {
+
+    "use strict";
+
+    function ProceedingConfirmController($scope, $filter) {
+        $scope.exportPDF = function() {
+            //Before export pdf file
+            angular.element('.actions').hide();
+            angular.element('body, .main-content').addClass('export-multiple-screen');
+            angular.element('div.action-item-content').each(function() {
+                $(this).css({
+                    "font-weight": "bold"
+                });
+            });
+            angular.element('.logo-print').css({"display": "block"});
+            angular.element('body').css({"background-color": "white"});
+            //Export
+            html2canvas(angular.element(".main-content"), {
+                onrendered: function(canvas) {
+                    var nameDate = $filter('date')(new Date(), 'yyyy-MM-dd') || '';
+                    var imgData = canvas.toDataURL(
+                        'image/png');
+                    var doc = new jsPDF('lanscape','mm','a4');
+                    doc.addImage(imgData, 'PNG', 10, 10, 250, 180);
+                    doc.save('proceedings_confirm_'+nameDate +'.pdf');
+                }
+            });
+            //After export PDF
+            angular.element('.actions').show();
+            angular.element('body, .main-content').removeClass('export-multiple-screen');
+            angular.element('div.action-item-content').each(function() {
+                $(this).css({
+                    "font-weight": "normal"
+                });
+            });
+            angular.element('.logo-print').css({"display": "none"});
+            angular.element('body').css({"background-color": "#808080"});
+        }
+    }
+
+    ProceedingConfirmController.$inject = ['$scope', '$filter']
+    angular.module('proceedingModule',['ui.bootstrap'])
+        .controller('ProceedingConfirmController', ProceedingConfirmController);
+
+})();

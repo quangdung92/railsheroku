@@ -1,0 +1,87 @@
+<section class="main-content" ng-app="WhatsNewLists" ng-controller="WhatsNewListController as whatsNewListCtrl">
+  <div class="search-header">
+    <div class="search-area form-inline clearfix">
+      <p class="form-group search-title">
+        <i class="glyphicon glyphicon-search"></i> 
+      </p>
+      <p class="form-group">
+        <label><%= t_m("meeting.name") %></label>
+        <input ng-model="whatsNewListCtrl.likeName" class="form-control display-inline-block" type="text" name="free_word" ng-init="whatsNewListCtrl.likeName='<%= params[:free_word] %>'" tooltip="<%= t('views.homes.index.balloon_help.free_word') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+      </p>
+      <p class="form-group">
+        <label><%= t_m("meeting.dates") %></label>
+        <input ng-model="whatsNewListCtrl.fromDate" class="form-control display-inline-block" name="from_date" ng-init="whatsNewListCtrl.fromDate=whatsNewListCtrl.createDate('<%= params[:from_date] %>')" ng-click="dateOpen($event,'opened1')" datepicker-append-to-body="false" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="opened1" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" placeholder="<%= t('common.datepicker.placeholder') %>" pattern="<%= t('validate.date') %>" tooltip="<%= t('views.homes.index.balloon_help.meeting_start_date') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+        ～
+        <input ng-model="whatsNewListCtrl.toDate" class="form-control display-inline-block" name="to_date" ng-init="whatsNewListCtrl.toDate=whatsNewListCtrl.createDate('<%= params[:to_date] %>')" ng-click="dateOpen($event,'opened2')" datepicker-append-to-body="false" datepicker-popup="<%= t('common.datepicker.datepicker-popup') %>" format-day-title="<%= t('common.datepicker.format-day-title') %>" is-open="opened2" close-text="<%= t('common.datepicker.close-text') %>" current-text="<%= t('common.datepicker.current-text') %>" clear-text="<%= t('common.datepicker.clear-text') %>" placeholder="<%= t('common.datepicker.placeholder') %>" pattern="<%= t('validate.date') %>" tooltip="<%= t('views.homes.index.balloon_help.meeting_end_date') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+      </p>
+      <p class="form-group">
+        <label><%= t_m("meeting.kind_id") %></label>
+        <select ng-model="whatsNewListCtrl.kind" class="form-control display-inline-block" id="kind" name="kind" ng-init="whatsNewListCtrl.kind='<%= params[:kind] %>'" tooltip="<%= t('views.homes.index.balloon_help.meeting_kind') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+          <%= options_for_select(@kinds) %>
+        </select>
+      </p>
+      <p class="form-group">
+        <label><%= t("views.whats_new_lists.label.history_kind") %></label>
+        <select ng-model="whatsNewListCtrl.historyKind" class="form-control display-inline-block" id="history-kind" name="history_kind" ng-init="whatsNewListCtrl.historyKind='all'" tooltip="<%= t('views.whats_new_lists.balloon_help.history_kind') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+          <%= options_for_select(@history_kinds.invert) %>
+        </select>
+      </p>
+      <p class="form-group pull-right">
+        <button ng-click="whatsNewListCtrl.clear()" id="search-clear" class="btn btn-default" tooltip="<%= t('views.homes.index.balloon_help.clear') %>" tooltip-placement="bottom" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+          <%= t("views.meetings.index.button.clear") %>
+        </button>
+      </p>
+    </div>
+  </div>
+  <div class="main">
+    <div id="whats-new-list" class="whats-new-div">
+      <!--
+      <div class="main-header">
+        <div class="info">
+          行の説明:
+          <div class="meeting"><%= @history_kinds[:meeting] %></div>
+          <div class="action_item"><%= @history_kinds[:action_item] %></div>
+          <div class="comment"><%= @history_kinds[:comment] %></div>
+        </div>
+      </div>
+      -->
+      <div class="table-wrap">
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr>
+              <th class="seq"><%= t('views.whats_new_lists.label.seq') %></th>
+              <th class="whats_new_content"><%= t('views.whats_new_lists.label.content') %></th>
+              <th class="history_kind"><%= t('views.whats_new_lists.label.history_kind') %></th>
+              <th class="meeting_name"><%= t_m('meeting.name') %></th>
+              <th class="meeting_date"><%= t_m('meeting.dates') %></th>
+              <th class="kind_name"><%= t_m('meeting.kind_id') %></th>
+              <th class="datetime"><%= t('views.whats_new_lists.label.datetime') %></th>
+            </tr>
+          </thead>
+        
+          <tbody>
+            <!--
+            <tr ng-repeat="data in whatsNewListCtrl.datas" ng-click="whatsNewListCtrl.show($index)" ng-class="{success: data.history_kind == 'meeting', danger: data.history_kind == 'action_item', warning: data.history_kind == 'comment'}">
+            -->
+            <tr ng-repeat="data in whatsNewListCtrl.datas" ng-click="whatsNewListCtrl.show($index)" tooltip="{{data.balloon_help}}" tooltip-placement="top" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+              <td class="seq" ng-bind="data.no"></td>
+              <td class="whats_new_content" ng-bind="data.content"></td>
+              <td class="history_kind" ng-bind="data.history_kind == 'meeting' ?
+                    '<%= @history_kinds[:meeting] %>' : data.history_kind == 'comment' ?
+                    '<%= @history_kinds[:comment] %>' : data.history_kind == 'action_item' ?
+                    '<%= @history_kinds[:action_item] %>' : ''">
+              </td>
+              <td class="meeting_name" ng-bind="data.meeting_name"></td>
+              <td class="meeting_date" ng-bind='data.meeting_date | date:"<%= t('views.shared.angularjs.date_format') %>"'></td>
+              <td class="kind_name" ng-bind="data.kind_name"></td>
+              <td class="datetime" ng-bind='data.datetime | date:"<%= t('views.shared.angularjs.datetime_format') %>"'></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <pagination total-items="whatsNewListCtrl.totalItems" ng-model="whatsNewListCtrl.currentPage" max-size="whatsNewListCtrl.maxSize" previous-text="<%= t('admin.pagination.previous') %>" next-text="<%= t('admin.pagination.next') %>" first-text="<%= t('admin.pagination.first') %>" last-text="<%= t('admin.pagination.last') %>" items-per-page="whatsNewListCtrl.itemsPerPage" class="pagination-sm" boundary-links="true"></pagination> 
+      </div>
+    </div>
+  </div>
+</section>

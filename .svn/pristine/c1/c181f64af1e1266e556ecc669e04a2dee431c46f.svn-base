@@ -1,0 +1,37 @@
+<div class="cybozu-edit">
+  <%= form_for(@cybozu) do |f| %>
+    <% if @cybozu.errors.any? %>
+      <div id="error_explanation" class="alert alert-danger">
+        <ul>
+        <% @cybozu.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field required">
+      <%= f.label :url %>
+      <%= f.url_field :url, class: "cybozu-url form-control", required: true, "ng-model" => "cybozuCtrl.url", "ng-init" => "cybozuCtrl.url='#{@cybozu.url}'" %>
+    </div>
+    <div class="field required">
+      <%= f.label :login_id %>
+      <%= f.text_field :login_id, class: "form-control", required: true, autocomplete: "off", "ng-model" => "cybozuCtrl.loginId", "ng-init" => "cybozuCtrl.loginId='#{@cybozu.login_id}'" %>
+    </div>
+    <div class="field required">
+      <%= f.label :password_digest %>
+      <%= f.password_field :password, class: "form-control", required: true, autocomplete: "off",  "ng-model" => "cybozuCtrl.password", "ng-init" => "cybozuCtrl.password=''" %>
+    </div>
+  
+    <div class="notes">
+      <p><%= t("views.cybozus.note.require") %></p>
+      <p><%= t("views.cybozus.note.url") %></p>
+      <p><%= t("views.cybozus.note.login_id") %></p>
+      <p><%= t("views.cybozus.note.password") %></p>
+    </div>
+    <div class="actions">
+      <%= f.submit nil, class: "btn btn-default", "ng-show" => "cybozuCtrl.connectFlag" %>
+      <button type="button" confirm-message="<%= t('views.cybozus.form.confirm.test_connect') %>" class="btn btn-default" ng-click="cybozuCtrl.testConnect('<%= t('views.cybozus.form.validate.error') %>')" ng-hide="cybozuCtrl.connectFlag" confirm-click><%= t('views.cybozus.form.button.test_connect') %></button>
+    </div>
+  <% end %>
+</div>

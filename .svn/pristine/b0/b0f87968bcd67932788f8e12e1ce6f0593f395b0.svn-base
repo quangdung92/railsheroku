@@ -1,0 +1,11 @@
+@import "variable";
+header {
+  height: 60px;
+  min-height: 60px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  background-color: $header-background-color;
+  box-sizing: content-box;
+}

@@ -1,0 +1,61 @@
+#meeting-list {
+  background-color: #fafafa;
+  margin: 15px;
+  padding: 10px;
+  -webkit-flex: 1;
+  flex: 1;
+  border: 1px solid #999;
+  border-radius: 5px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+div.pagination {
+  height: 30px;
+  text-align: right;
+}
+
+.table-wrap {
+  -webkit-flex: 1;
+  flex: 1;
+  overflow: auto;
+}
+
+.meeting_id {
+  width: 50px;
+}
+
+.meeting_kind_id,
+.meeting_related_meeting_id {
+  width: 175px;
+  min-width: 175px;
+  max-width: 175px;
+}
+
+.meeting_dates {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.meeting_start_time,
+.meeting_scheduled_time {
+  text-align: center;
+  width: 105px;
+  min-width: 105px;
+  max-width: 105px;
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px){
+  .form-inline .form-control{
+    width: 148px
+  }
+  div.search-header{
+    min-height: 80px;
+  }
+  .input-group {
+    width: 148px;
+  }
+}

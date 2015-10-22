@@ -1,0 +1,9 @@
+en:
+  views:
+    logins:
+      index:
+        balloon_help:
+          select_language: ""
+          user_id: ""
+          password: ""
+          login: ""

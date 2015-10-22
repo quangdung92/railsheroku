@@ -1,0 +1,189 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+vi:
+  hello: "Hello world"
+  home:
+    unresolved:
+      ai:
+        me:
+          title:  A/I bạn chưa thực hiện
+          nothing:  Hiện tại bạn không có A/I nào chưa thực hiện.
+        meeting:
+          title: A/I chưa thực hiện của các cuộc họp bạn tham gia
+          nothing: Hiện tại cuộc họp bạn tham gia không có A/I chưa thực hiện.  
+    meeting:
+      ended:
+        title: Cuộc họp đã kết thúc
+        nothing: Hiện tại không có cuộc họp đã kết thúc. 
+      scheduled:
+        title: Cuộc họp dự kiến 
+        nothing: Hiện tại không có cuộc họp dự kiến. 
+    new:
+      information: "What's New"
+      list:
+        create_meeting:  "Ông (Bà) %{user_name} đã tạo cuộc họp %{meeting_name}."
+        ended_meeting: "Cuộc họp %{meeting_name} đã kết thúc."
+        edit_meeting: "Ông (Bà) %{user_name} đã chỉnh sửa cuộc họp %{meeting_name}."
+        meeting_today: "Ngày dự kiến tổ chức cuộc họp %{meeting_name}."
+        canceled_meeting: "Cuộc họp %{meeting_name} đã bị hủy."
+        comment: "Ông (Bà) %{user_name} đã ghi chú trong cuộc họp %{meeting_name}."
+        beforer_action_item_scheduled_date: "Ngày dự kiến thực hiện A/I %{ai_name} trong cuộc họp %{meeting_name} sắp tới."
+        action_item_scheduled_date: "Ngày dự kiến thực hiện A/I %{ai_name} trong cuộc họp %{meeting_name}"
+        action_item_ended: "Ông(Bà) %{user_name} đã hoàn thành A/I %{ai_name}."
+    ai:
+      achievement-rate: Tỷ lệ hoàn thành A/I của bạn là %{rate}. (%{ai}/%{all})
+      nothing: Hiện tại không có A/I. 
+    button:
+      meeting:
+        new: Đăng ký mới 
+    search:
+      meeting-name: Tên cuộc họp
+      freeword: Tìm kiếm
+      date: Ngày tổ chức
+      kind: Loại hình
+      select:
+        default: Toàn bộ
+      button:
+        clear: Xóa
+    list:
+      view: Xem chi tiết
+  default:
+    message:
+      loading: Đang tải
+    button:
+      logout: Thoát
+      admin-setting: Thiết lập quản lý
+  admin:
+    menu:
+      user: Người dùng 
+      kind: Loại hình 
+      cybozu: Cybozu
+      home: Đến trang chủ
+      setting: Cài đặt
+    button:
+      list: Danh sách
+      new: Tạo
+      detail: Chi tiết
+      show: Hiển thị
+      edit: Chỉnh sửa
+      delete: Xóa
+      disable: Vô hiệu hóa
+    dialog:
+      message:
+        disable: Hệ thống sẽ vô hiệu hóa.... Bạn có chắc không?
+    pagination:
+      previous: Trang trước
+      next: Trang tiếp theo 
+      first: Trang đầu
+      last: Trang cuối
+    table-info:
+      disable:    
+      not-login: Chưa đăng nhập
+    page:
+      kind:
+        new: Tạo loại cuộc họp  
+        index: Danh sách loại cuộc họp
+        edit: Chỉnh sửa loại cuộc họp
+        show: Hiển thị loại cuộc họp 
+        delete: Xóa các loại cuộc họp 
+        deleted: ○
+        participant: Người tham gia
+        observer: Người giám sát
+        agenda_template: Chương trình cuộc họp 
+        agenda_add: Thêm chương trình cuộc họp  
+        agenda_id: ID
+        agenda_content: Thiết bị/Chỉ thị 
+        agenda_operation: Thực hiện
+  login:
+    title: Đăng nhập 
+    placeholder:
+      user_id: Nhập ID người dùng
+      password: Nhập mật khẩu
+    label:
+      user_id: ID người dùng
+      password: Mật khẩu 
+    btn:
+      login: Đăng nhập 
+    message:
+      login_error: Bạn không thể đăng nhập.
+    select:
+      option:
+        english: "Tiếng Anh"
+        japanese: "Tiếng Nhật"
+        vietnamese: "Tiếng Việt"
+  firstlogin:
+    placeholder:
+      new_password: Nhập mật khẩu mới
+      confirm_password: Nhập mật khẩu xác nhận. 
+    label:
+      user_id: ID người dùng 
+    title: Thiết lập mật khẩu 
+    explain:
+      password: Nhập mật khẩu chứa 4～16 ký tự hankaku.  
+    btn:
+      regist: Đăng ký
+      cancel: Hủy
+    message:
+      not_match: Mật khẩu xác nhận không đúng với mật khẩu mới. 
+      not_input: Nhập mật khẩu mới.
+    update:
+      notice: 'Tài khoản đã cập nhật'
+  validate:
+    date: (?:(?:0[1-9]|1[0-9]|2[0-9])/(?:0[1-9]|1[0-2])|(?:(?:30)/(?!02)(?:0[1-9]|1[0-2]))|(?:31/(?:0[13578]|1[02])))/(?:19|20)[0-9]{2}
+    user:
+      email: Định dạng mail không đúng.  
+      kana: Nhập ký tự hiragana zenkaku. 
+      password: Nhập mật khẩu bằng ký tự hankaku. 
+      cybozu_id: Nhập bằng số hankaku. 
+  time:
+    formats:
+      time: '%H:%M'
+      scheduled_time: '%-H:%M'
+      scheduled_time_short: '%M phút'
+    scheduled_time:
+      and_under: "Không vượt quá %{time}"
+      and_over: "Không dưới %{time}"
+  date:
+    formats:
+      date: '%d/%m/%Y'
+  button:
+    disable_with: 'Đang gửi...'
+  error:
+    cybozu: '[Lỗi liên kết cybozu]'
+    stale:  Hệ thống xảy ra xung đột. Hãy tạm thời hủy để chỉnh sửa.
+    error: Lỗi
+    warning: Cảnh báo
+    success: Thành công
+  common:
+    label:
+      row_description: "Giải thích:"
+      browse: "Duyệt file..."
+    datepicker:
+      datepicker-popup: "dd/MM/yyyy"
+      format-day-title: "MM/yyyy"
+      close-text: "Đóng"
+      current-text: "Hiện tại"
+      clear-text: "Xóa"
+      placeholder: "dd/MM/yyyy"
+    dialog:
+      title:
+        confirm: Xác nhận

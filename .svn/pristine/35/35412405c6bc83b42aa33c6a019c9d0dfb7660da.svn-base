@@ -1,0 +1,52 @@
+<div id="user-list" class="user-div" ng-app="adminModule" ng-controller="UserListController as userList">
+  <div class="main-header">
+    <h3><%= t('views.users.index.title') %></h3>
+    <div class="info">
+      <%= t('common.label.row_description') %>
+      <div class="delete"><%= t('admin.table-info.disable') %></div>
+      <div class="not_login"><%= t('admin.table-info.not-login') %></div>
+    </div>
+    <div class="operation">
+      <%= link_to t('admin.button.new'), new_user_path, class: "btn btn-default" %>
+    </div>
+  </div>
+  
+  <table class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th class="user_id"><%= t_m('user.id') %></th>
+        <th class="user_login_id"><%= t_m('user.login_id') %></th>
+        <th class="user_name"><%= t_m('user.name') %></th>
+        <th class="user_kana"><%= t_m('user.kana') %></th>
+        <th class="user_mail"><%= t_m('user.mailaddress') %></th>
+        <th class="user_cybozu_id"><%= t_m('user.cybozu_id') %></th>
+        <th class="user_grant"><%= t_m('user.grant') %></th>
+        <th class="user_is_deletd text-center"><%= t_m('user.is_deleted') %></th>
+        <th class="user_is_firstlogged text-center"><%= t_m('user.is_firstlogged') %></th>
+        <th class="user_operation"></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr ng-repeat="data in userList.datas" ng-class="{danger : data.is_deleted, warning : (data.is_firstlogged == false) }">
+        <td class="user_id" ng-bind="data.id"></td>
+        <td class="user_login_id" ng-bind="data.login_id"></td>
+        <td class="user_name" ng-bind="data.name"></td>
+        <td class="user_kana" ng-bind="data.kana"></td>
+        <td class="user_mail" ng-bind="data.mailaddress"></td>
+        <td class="user_cybozu_id" ng-bind="data.cybozu_id"></td>
+        <td class="user_grant" ng-bind="data.grant ? '<%= t('views.users.shared.grant.normal') %>' : '<%= t('views.users.shared.grant.admin') %>'"></td>
+        <td class="user_is_deleted text-center" ng-bind="data.is_deleted ? '<%= t('views.users.shared.deleted') %>' : ''"></td>
+        <td class="user_is_firstlogged text-center" ng-bind="data.is_firstlogged ? '<%= t('views.users.shared.firstlogged') %>':''"></td>
+        <td class="user_operation">
+          <a ng-href="users/{{data.id}}" class="btn btn-default btn-xs"><%= t("admin.button.detail") %></a>
+          <a ng-href="users/{{data.id}}/edit" class="btn btn-default btn-xs"><%= t("admin.button.edit") %></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    <pagination total-items="userList.totalItems" ng-model="userList.currentPage" max-size="userList.maxSize" previous-text="<%= t('admin.pagination.previous') %>" next-text="<%= t('admin.pagination.next') %>" first-text="<%= t('admin.pagination.first') %>" last-text="<%= t('admin.pagination.last') %>" items-per-page="userList.itemsPerPage" class="pagination-sm" boundary-links="true"></pagination> 
+  </div>
+
+</div>

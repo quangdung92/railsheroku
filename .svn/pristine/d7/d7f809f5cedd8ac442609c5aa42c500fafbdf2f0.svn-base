@@ -1,0 +1,30 @@
+  <section class="main-content" ng-app="accountModule">
+    <div class="account-div">
+      <div class="content-header">
+        <span tooltip="<%= t('views.accounts.index.balloon_help.account_setting') %>" tooltip-placement="right" tooltip-popup-delay="<%= BALLOON_HELP_POPUP_DELAY %>">
+          <i class="glyphicon glyphicon-user"></i> <%= t('views.accounts.form.label.account_setting') %>
+        </span>
+      </div>
+      <div class="content-body">
+        <p>
+          <label><%= t_m('user.login_id') %></label>
+          <%= @user.login_id %>
+        </p>
+        <p>
+          <label><%= t_m('user.name') %></label>
+          <%= @user.name %>
+        </p>
+        <p>
+          <label><%= t_m('user.kana') %></label>
+          <%= @user.kana %>
+        </p>
+        <p>
+          <label><%= t_m('user.mailaddress') %></label>
+          <%= @user.mailaddress %>
+        </p>
+      </div>
+    </div>
+    <div class="actions">
+        <%= link_to t("views.accounts.index.button.edit"), "/accounts/#{@user.id}/edit" , class: "btn btn-default", "tooltip" => t('views.accounts.index.balloon_help.change_setting'), "tooltip-placement" => "top" %>
+    </div>
+  </section>

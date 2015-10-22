@@ -1,0 +1,314 @@
+div.meeting-info,
+div.actions,
+div.file, 
+div.errors {
+  background-color: rgb(250, 250, 250);
+  border-radius: 5px;
+}
+
+div.content-header {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 5px 5px 0px 10px;
+  height: 30px;
+  min-height: 30px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+  a{
+    color:#fff;
+    cursor: pointer;
+  }
+  .button-add-file{
+    float: right;
+  }
+}
+
+div.main {
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: row;
+  flex-direction: row;
+
+  margin: 5px 15px 0px 15px;
+  padding: 0px;
+}
+
+div.content-body {
+  overflow: auto;
+}
+
+div.meeting-info-main,
+div.agenda-main,
+div.action-item-main,
+div.upload-files-area {
+  overflow-y: auto;
+}
+
+div.content-body,
+div.meeting-info-main,
+div.material-main {
+  padding: 10px;
+}
+div.info-div {
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
+  margin: 0px 5px 0px 0px;
+  -webkit-flex: 1;
+  flex: 1;
+
+  .content-body {
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-direction: column;
+    flex-direction: column;
+
+    background-color: rgb(250, 250, 250);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -webkit-flex: 1;
+    flex: 1;
+
+    .agenda-div {
+      display: -webkit-flex;
+      display: flex;
+
+      -webkit-flex-direction: column;
+      flex-direction: column;
+
+      .agenda-header {
+        min-height: 25px;
+      }
+
+    }
+    .action-item-div {
+      max-height: 300px;
+      min-height: 160px;
+      display: -webkit-flex;
+      display: flex;
+
+      -webkit-flex-direction: column;
+      flex-direction: column;
+
+      .action-item-header {
+        min-height: 25px;
+      }
+    }
+
+  }
+}
+
+div.meeting-info {
+  margin: 5px 15px 0px 15px;
+  min-height: 87px;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
+  span {
+    display: inline-block;
+    min-width: 200px;
+  }
+
+}
+
+div.file {
+  padding: 0px;
+  min-width: 350px;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
+  input {
+    margin-bottom: 5px;
+  }
+
+  .material-header {
+    min-height: 78px;
+  }
+
+  .material-main {
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-direction: column;
+    flex-direction: column;
+
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+  }
+}
+
+div.actions {
+  margin: 5px 15px 5px 15px;
+  padding: 15px;
+  text-align: right;
+  min-height: 64px; 
+ 
+  //.btn-prev,
+ // .btn-submit,
+ //{
+ //   width: 90px;
+ // }
+
+  .btn-meeting-search {
+    left: 30px;
+    position: absolute;
+  }
+
+}
+
+div.upload-files-area {
+  border-top: 2px solid #000000;
+
+  .upload-file {
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-direction: row;
+    flex-direction: row;
+
+    align-items: center;
+    border-bottom: solid 1px;
+    
+    .left {
+      -webkit-flex: 1;
+      flex: 1;
+      p {
+        margin: 0;
+      } 
+    }
+  }
+}
+
+div.errors {
+  margin: 15px 15px 15px 15px;
+  padding: 10px;
+  height: 80px;
+  display: table;
+
+  .error-content {
+    vertical-align: middle;
+    display: table-cell;    
+    
+    h3 {
+      display: inline;
+      vertical-align: middle;
+    }
+  }
+}
+table {
+  tbody {
+    background-color: white;
+  }
+  th, td {
+    text-align: center;
+    vertical-align: middle !important; 
+    padding: 0;
+  }
+  textarea {
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+    vertical-align: middle;
+    padding: 0;
+  } 
+}
+table.agenda-table {
+  .seq {
+    width: 50px; 
+    min-width: 50px; 
+  }
+  .operation {
+    min-width: 160px;
+    width: 160px;
+  }
+}
+
+table.action-item-table {
+  .seq {
+    width: 50px; 
+  }
+  .agenda-index {
+    width: 110px; 
+  }
+  .person-in-charge {
+    min-width: 60px;
+  }
+  .scheduled-date {
+    min-width: 100px;
+  }
+  .operation{
+    min-width: 150px;
+    width: 150px;
+  }
+  .action-item-content {
+    word-break: break-all;
+    text-align: left;
+    white-space: pre-wrap;
+  }
+}
+
+.main-content {
+  i {
+    margin-right: 5px;
+  }
+}
+
+div.modal-header {
+  h3 {
+    margin: 0;
+  }
+}
+div.modal-form {
+  padding: 10px;
+}
+
+div.agenda_content {
+  overflow: auto;
+  resize:both;
+  text-align: left;
+  min-height: 1em;/* fix div height = 0 when content is empty in Firefox */
+  span {
+    word-break: break-all;
+    white-space: pre-wrap;
+  }
+}
+
+h1.agenda_title {
+  text-decoration:underline;
+}
+
+@media print {
+
+  header,
+  div.file,
+  .actions,
+  .btn,
+  .button-field,
+  .operation {
+    display: none !important;
+  }
+
+  .main-content {
+    display: block !important;
+  }
+  
+  * {
+    overflow: visible !important;
+  }
+
+  .meeting-info-main {
+    border: 1px solid black;
+  }
+}
