@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  scope '/api' do
+    scope '/v1' do
+      scope '/hanlder' do
+        get '/' => 'apicontroller#index'
+        post '/' => 'apicontroller#create'
+      end
+    end
+  end
 
   get 'admin' => 'admin#index'
   scope :admin do
